@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint --max-warnings=0",
+    "typecheck": "next typegen && tsc --noEmit",
+    "check": "npm run lint && npm run typecheck && npm run build"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.10",

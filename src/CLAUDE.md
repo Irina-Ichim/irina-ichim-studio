@@ -47,7 +47,7 @@ Phosphor en peso `duotone`, con el color del token de acento.
 
 ## Componentes
 
-- Server Components por defecto. `"use client"` solo cuando hace falta interacción o estado
-- Un componente que solo se usa en una página vive junto a esa página. Pasa a una carpeta
-  compartida cuando lo usan tres sitios
+- Server Components por defecto. `"use client"` solo cuando hace falta interacción o estado,
+  y lo más abajo posible en el árbol
 - HTML semántico antes que ARIA: `<button>` para acciones, `<a>` para navegar
+- Dónde vive cada componente y cómo se nombra está en el `CLAUDE.md` de la raíz
