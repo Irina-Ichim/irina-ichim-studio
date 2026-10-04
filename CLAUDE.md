@@ -62,8 +62,8 @@ sea `dev`, o sin la aprobación del agente para el commit actual. La CI
 solo la escribe el agente: quien hace el cambio no valida su propio trabajo.
 
 El hook solo actúa dentro de Claude Code. La garantía real frente a pushes directos y PRs sin
-CI en verde es la protección de ramas de GitHub. El hook también puede leer un `--base` que
-aparezca dentro del texto de `--body`: en ese caso bloquea de más, nunca de menos.
+CI en verde es la protección de ramas de GitHub. Si el comando contiene más de un `--base`
+(por ejemplo, uno dentro del texto de `--body`), el hook bloquea.
 
 ## Estructura de carpetas
 
@@ -145,8 +145,6 @@ Decisiones tomadas:
 - **Sin librerías de neumorfismo ni de componentes visuales.** Los estilos son propios
 - **Sin `lucide-react`**
 - **Iconos**: `@phosphor-icons/react` (MIT), peso duotone. Cómo se usan, en `src/CLAUDE.md`
-- **`typescript-eslint`** (MIT): ya llegaba con `eslint-config-next`. Se declara de forma
-  directa porque `eslint.config.mjs` lo importa para las reglas que necesitan tipos
 - **Animaciones**: se empieza con transiciones CSS. Motion entra cuando aparezca una animación
   de scroll o de layout que CSS no resuelva bien
 

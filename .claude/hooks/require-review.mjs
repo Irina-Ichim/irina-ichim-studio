@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 
 const PR_CREATE = /\bgh\s+pr\s+create\b/;
-const BASE_FLAG = /(?:--base|-B)[\s=]+["']?([\w./-]+)/;
+const BASE_FLAG = /(?:--base|-B)[\s=]+["']?([\w./-]+)/g;
 
 function git(...args) {
   return execFileSync("git", args, { encoding: "utf8" }).trim();
@@ -30,7 +30,9 @@ try {
 }
 if (!PR_CREATE.test(command)) process.exit(0);
 
-const base = BASE_FLAG.exec(command)?.[1];
+const bases = [...command.matchAll(BASE_FLAG)].map((match) => match[1]);
+if (bases.length > 1) block("hay más de un --base en el comando; deja solo el de la rama destino.");
+const base = bases[0];
 let branch;
 try {
   branch = git("branch", "--show-current");
@@ -39,7 +41,7 @@ try {
 }
 
 if (!base) block("indica la rama destino con --base dev (o --base main solo desde dev).");
-if (base === "main" && branch !== "dev") block(`a main solo se llega desde dev, y esta rama es ${branch}.`);
+if (base === "main" && branch !== "dev") block(`a main solo se llega desde dev, y esta rama es ${branch || "un commit suelto (detached HEAD)"}.`);
 if (base !== "main" && base !== "dev") block(`la rama destino tiene que ser dev o main, no ${base}.`);
 
 let head;
