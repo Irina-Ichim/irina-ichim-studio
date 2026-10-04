@@ -38,7 +38,7 @@ Cualquier falta de ortografía o de gramática, y cualquier mezcla de tú y uste
 
 ## Informe
 
-Escribe `auditorias/ortografia/<AAAA-MM-DD>-<rama>.md` con:
+Escribe `auditorias/ortografia/<AAAA-MM-DD>-<rama>.md` (en el nombre de la rama, cada `/` se cambia por `-`) con:
 
 - La primera línea: `Commit auditado: <git rev-parse HEAD>`.
 - Una tabla: archivo y línea, texto actual, texto propuesto, norma aplicada.

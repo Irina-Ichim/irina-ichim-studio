@@ -33,7 +33,7 @@ El resto (proporciones, aire, jerarquía) son sugerencias.
 
 ## Informe
 
-Escribe `auditorias/responsive/<AAAA-MM-DD>-<rama>.md` con:
+Escribe `auditorias/responsive/<AAAA-MM-DD>-<rama>.md` (en el nombre de la rama, cada `/` se cambia por `-`) con:
 
 - La primera línea: `Commit auditado: <git rev-parse HEAD>`.
 - Una tabla por página: perfil × tema, con el resultado.

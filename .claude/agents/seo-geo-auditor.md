@@ -38,7 +38,7 @@ Nunca datos que no aparezcan en la página ni reseñas inventadas.
 Que un buscador con IA pueda entender, resumir y citar la web:
 
 - Cada página responde en sus primeras líneas a quién es Irina, qué hace, para quién y dónde.
-- Afirmaciones concretas y verificables en vez de adjetivos («Webs accesibles nivel AAA», no «webs increíbles»).
+- Afirmaciones concretas y verificables en vez de adjetivos («Webs accesibles de nivel AAA», no «webs increíbles»).
 - Preguntas frecuentes reales con respuesta directa en la primera frase.
 - Nombre, servicios y datos de contacto idénticos en todas las páginas y en los datos estructurados.
 - `llms.txt` en la raíz con un resumen de la web y enlaces a las páginas clave.
@@ -53,7 +53,7 @@ Que un buscador con IA pueda entender, resumir y citar la web:
 
 ## Informe
 
-Escribe `auditorias/seo-geo/<AAAA-MM-DD>-<rama>.md` con:
+Escribe `auditorias/seo-geo/<AAAA-MM-DD>-<rama>.md` (en el nombre de la rama, cada `/` se cambia por `-`) con:
 
 - La primera línea: `Commit auditado: <git rev-parse HEAD>`.
 - Los hallazgos por página, ordenados por impacto, cada uno con qué pasa, por qué importa para captar clientes y qué propones.

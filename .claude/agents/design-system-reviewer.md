@@ -32,7 +32,7 @@ Los puntos 1, 3 y 7, y cualquier duplicación (punto 2) que ya aparezca en tres 
 
 ## Informe
 
-Escribe `auditorias/sistema-diseno/<AAAA-MM-DD>-<rama>.md` con:
+Escribe `auditorias/sistema-diseno/<AAAA-MM-DD>-<rama>.md` (en el nombre de la rama, cada `/` se cambia por `-`) con:
 
 - La primera línea: `Commit auditado: <git rev-parse HEAD>`.
 - Cada hallazgo con archivo, línea, qué pasa y qué componente o token propones.

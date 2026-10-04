@@ -50,19 +50,19 @@ Cada página nueva se añade a `pruebas/routes.ts`; si no, ninguna prueba la cub
 
 | Rama | Para qué |
 | --- | --- |
-| `main` | Producción. Solo recibe PRs desde `dev`, y solo cuando Irina lo decide |
-| `dev` | Verificación. Recibe las PRs de las ramas de trabajo |
+| `main` | Producción. Solo recibe PR desde `dev`, y solo cuando Irina lo decide |
+| `dev` | Verificación. Recibe las PR de las ramas de trabajo |
 | `feat/…`, `fix/…`, `chore/…`, `docs/…` | Trabajo. Se crean siempre desde `dev` actualizada |
 
 1. `git switch dev && git pull`, y la rama nueva desde ahí
 2. Commits con Conventional Commits, en inglés: `feat: add services section`
 3. `npm run check` y `npm run test:e2e` en verde
-4. Lanzar los agentes especialistas que correspondan (tabla de «Agentes») y commitear sus
-   informes en `auditorias/`
+4. Lanzar los agentes especialistas que correspondan (tabla de «Agentes») y subir sus
+   informes a `auditorias/` en un commit
 5. Lanzar el agente **`pr-reviewer`**. Si bloquea, se corrige y se vuelve a lanzar
 6. `gh pr create --base dev`, con la plantilla de `.github/pull_request_template.md`
 
-Las PRs van **siempre** a `dev`. Se fusionan cuando Irina da el OK, nunca antes. Nunca se hace
+Las PR van **siempre** a `dev`. Se fusionan cuando Irina da el OK, nunca antes. Nunca se hace
 push directo a `main` ni a `dev`. La subida de `dev` a `main` es decisión de Irina: se prepara
 la PR solo cuando ella lo pide.
 
@@ -72,7 +72,7 @@ sea `dev`, o sin la aprobación del agente para el commit actual. La CI
 (`.github/workflows/ci.yml`) ejecuta lint, tipos y build en cada PR. La aprobación del agente
 solo la escribe el agente: quien hace el cambio no valida su propio trabajo.
 
-El hook solo actúa dentro de Claude Code. La garantía real frente a pushes directos y PRs sin
+El hook solo actúa dentro de Claude Code. La garantía real frente a pushes directos y PR sin
 CI en verde es la protección de ramas de GitHub. Si el comando contiene más de un `--base`
 (por ejemplo, uno dentro del texto de `--body`), el hook bloquea.
 
@@ -85,7 +85,7 @@ escribe el cambio no valida su propio trabajo.
 | --- | --- | --- |
 | `responsive-auditor` | El diff toca `src/**/*.{tsx,css}` | `auditorias/responsive/` |
 | `design-system-reviewer` | El diff toca `src/**/*.{tsx,css}` | `auditorias/sistema-diseno/` |
-| `spelling-reviewer` | El diff toca texto visible, `alt`, `aria-label` o metadatos | `auditorias/ortografia/` |
+| `spelling-reviewer` | El diff toca `src/**/*.{tsx,css}`, texto visible, `alt`, `aria-label` o metadatos | `auditorias/ortografia/` |
 | `seo-geo-auditor` | El diff toca `src/app/**` o `src/contenido/**` | `auditorias/seo-geo/` |
 | `pr-reviewer` | Siempre, el último | Aprobación para el hook |
 
