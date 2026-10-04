@@ -2,16 +2,19 @@
 
 # Irina Ichim Studio
 
-Web del estudio de Irina Ichim: el escaparate donde empresas, profesionales y freelancers
-conocen el trabajo del estudio y lo contactan para encargar una web. La propia web es parte
-del portfolio, así que el acabado visual, la calidad del código y la accesibilidad cuentan
-tanto como el contenido.
+Web de **Irina Ichim Studio** (`irina-ichim.com`), de tipo agencia: existe para que empresas,
+profesionales y freelancers encuentren a Irina, vean su trabajo y la contacten o reserven una
+cita. La propia web es parte del portfolio, así que el acabado visual, la calidad del código,
+la accesibilidad y el posicionamiento cuentan tanto como el contenido.
+
+La marca no se presenta como «agencia de IA»: ni «IA» ni «AI» en el nombre ni en el lema. La
+IA aparece donde aporta (formulario inteligente, agenda) como herramienta, no como identidad.
 
 ## Fases
 
 | Fase | Alcance | Estado |
 | --- | --- | --- |
-| 1 | Frontend: páginas públicas, sistema visual, animaciones. Sin backend ni base de datos | En curso |
+| 1 | Frontend: páginas públicas, sistema visual, animaciones, interfaz del formulario de contacto y de la agenda | En curso |
 | 2 | Backend: contacto, PostgreSQL (probablemente con Prisma), integración con un LLM | Sin empezar |
 
 En la fase 1 no se añaden API routes, Server Actions con efectos, base de datos ni variables
@@ -36,7 +39,12 @@ npm run dev        # servidor de desarrollo
 npm run lint       # ESLint, sin tolerar avisos
 npm run typecheck  # TypeScript
 npm run check      # lint + typecheck + build: lo mismo que ejecuta la CI
+npm run test:e2e   # Playwright: responsive y accesibilidad en todos los perfiles
+npm run test:responsive
+npm run test:a11y  # axe con las reglas WCAG hasta AAA, en tema claro y oscuro
 ```
+
+Cada página nueva se añade a `pruebas/routes.ts`; si no, ninguna prueba la cubre.
 
 ## Flujo de trabajo con Git
 
@@ -48,12 +56,15 @@ npm run check      # lint + typecheck + build: lo mismo que ejecuta la CI
 
 1. `git switch dev && git pull`, y la rama nueva desde ahí
 2. Commits con Conventional Commits, en inglés: `feat: add services section`
-3. `npm run check` en verde
-4. Lanzar el agente **`pr-reviewer`**. Si bloquea, se corrige y se vuelve a lanzar
-5. `gh pr create --base dev`, con la plantilla de `.github/pull_request_template.md`
+3. `npm run check` y `npm run test:e2e` en verde
+4. Lanzar los agentes especialistas que correspondan (tabla de «Agentes») y commitear sus
+   informes en `auditorias/`
+5. Lanzar el agente **`pr-reviewer`**. Si bloquea, se corrige y se vuelve a lanzar
+6. `gh pr create --base dev`, con la plantilla de `.github/pull_request_template.md`
 
-Nunca se hace push directo a `main` ni a `dev`. La subida de `dev` a `main` es decisión de
-Irina: se prepara la PR, pero no se abre por iniciativa propia.
+Las PRs van **siempre** a `dev`. Se fusionan cuando Irina da el OK, nunca antes. Nunca se hace
+push directo a `main` ni a `dev`. La subida de `dev` a `main` es decisión de Irina: se prepara
+la PR solo cuando ella lo pide.
 
 **Qué lo hace cumplir.** El hook `.claude/hooks/require-review.mjs` bloquea `gh pr create`
 sin `--base`, hacia una rama que no sea `dev` o `main`, hacia `main` desde otra rama que no
@@ -65,7 +76,32 @@ El hook solo actúa dentro de Claude Code. La garantía real frente a pushes dir
 CI en verde es la protección de ramas de GitHub. Si el comando contiene más de un `--base`
 (por ejemplo, uno dentro del texto de `--body`), el hook bloquea.
 
+## Agentes
+
+Viven en `.claude/agents/`. Ninguno corrige código: auditan, dejan un informe y deciden. Quien
+escribe el cambio no valida su propio trabajo.
+
+| Agente | Cuándo | Informe |
+| --- | --- | --- |
+| `responsive-auditor` | El diff toca `src/**/*.{tsx,css}` | `auditorias/responsive/` |
+| `design-system-reviewer` | El diff toca `src/**/*.{tsx,css}` | `auditorias/sistema-diseno/` |
+| `spelling-reviewer` | El diff toca texto visible, `alt`, `aria-label` o metadatos | `auditorias/ortografia/` |
+| `seo-geo-auditor` | El diff toca `src/app/**` o `src/contenido/**` | `auditorias/seo-geo/` |
+| `pr-reviewer` | Siempre, el último | Aprobación para el hook |
+
 ## Estructura de carpetas
+
+En la raíz, además de la configuración:
+
+```text
+auditorias/   Informes de los agentes especialistas
+pruebas/      Pruebas de Playwright (responsive y accesibilidad) y la lista de rutas
+src/          La aplicación
+```
+
+Un `CLAUDE.md` por carpeta solo cuando esa carpeta tiene reglas propias que no caben en el de
+la raíz (hoy, `src/CLAUDE.md` para el sistema visual). Nunca se repite en uno lo que ya dice
+otro.
 
 Las carpetas propias van en **español**. Las que fijan las herramientas conservan su nombre:
 `app`, `public`, `node_modules`, `.github`, `.claude`, y archivos como `page.tsx` o
@@ -145,6 +181,8 @@ Decisiones tomadas:
 - **Sin librerías de neumorfismo ni de componentes visuales.** Los estilos son propios
 - **Sin `lucide-react`**
 - **Iconos**: `@phosphor-icons/react` (MIT), peso duotone. Cómo se usan, en `src/CLAUDE.md`
+- **Pruebas**: `@playwright/test` (Apache-2.0) con Chromium y WebKit, y `@axe-core/playwright`
+  (MPL-2.0, solo en desarrollo; no se distribuye con la web)
 - **Animaciones**: se empieza con transiciones CSS. Motion entra cuando aparezca una animación
   de scroll o de layout que CSS no resuelva bien
 
@@ -169,6 +207,8 @@ Las reglas de estilo y del neumorfismo están en [`src/CLAUDE.md`](src/CLAUDE.md
 
 ## Seguridad y privacidad
 
+- Ninguna contraseña, clave de API, token ni dato sensible en el código ni en el repositorio,
+  tampoco en pruebas o ejemplos. Siempre en variables de entorno
 - `.env*` está en `.gitignore`. Las variables nuevas se documentan en `.env.example`, sin valores
 - Nada de analítica, cookies de terceros ni formularios que recojan datos personales sin
   revisar antes el impacto en RGPD

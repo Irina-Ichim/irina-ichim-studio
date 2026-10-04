@@ -41,6 +41,18 @@ Cualquiera de estas cosas impide abrir la PR:
    sombras escritos a mano en vez de con tokens
 9. Abstracciones sin al menos tres usos reales, o código que no usa nadie
 10. Dependencias nuevas sin justificar en la descripción de la PR
+11. Falta un informe de especialista, o el que hay está bloqueado. Según lo que toque el diff:
+
+    | Si el diff toca… | Hace falta el informe de |
+    | --- | --- |
+    | `src/**/*.{tsx,css}` | `auditorias/responsive/`, `auditorias/sistema-diseno/` y `auditorias/ortografia/` |
+    | `src/contenido/**` o textos, `alt`, `aria-label` o metadatos | `auditorias/ortografia/` |
+    | `src/app/**` (páginas, metadatos, `robots`, `sitemap`) o `src/contenido/**` | `auditorias/seo-geo/` |
+
+    Cada informe tiene que ser de esta rama, terminar en `VEREDICTO: APROBADA` y declarar en
+    su primera línea el commit auditado. Entre ese commit y `HEAD` solo puede haber cambios
+    dentro de `auditorias/` (compruébalo con `git diff --name-only <commit>..HEAD`). Si el
+    código cambió después de la auditoría, el informe ya no vale
 
 ## Sugerencia
 
