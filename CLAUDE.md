@@ -61,6 +61,10 @@ sea `dev`, o sin la aprobación del agente para el commit actual. La CI
 (`.github/workflows/ci.yml`) ejecuta lint, tipos y build en cada PR. La aprobación del agente
 solo la escribe el agente: quien hace el cambio no valida su propio trabajo.
 
+El hook solo actúa dentro de Claude Code. La garantía real frente a pushes directos y PRs sin
+CI en verde es la protección de ramas de GitHub. El hook también puede leer un `--base` que
+aparezca dentro del texto de `--body`: en ese caso bloquea de más, nunca de menos.
+
 ## Estructura de carpetas
 
 Las carpetas propias van en **español**. Las que fijan las herramientas conservan su nombre:
@@ -102,6 +106,9 @@ src/
 
 Los textos visibles viven en `src/contenido/`, no repartidos por los componentes.
 
+La tabla rige dentro de `src/`. Fuera de ahí (`.claude/`, `.github/`, archivos de
+configuración) se sigue la convención de cada herramienta, que suele ser kebab-case.
+
 ## Reglas de código
 
 **Principios.** SOLID, DRY (sobre conocimiento duplicado, no sobre texto parecido), KISS y
@@ -138,6 +145,8 @@ Decisiones tomadas:
 - **Sin librerías de neumorfismo ni de componentes visuales.** Los estilos son propios
 - **Sin `lucide-react`**
 - **Iconos**: `@phosphor-icons/react` (MIT), peso duotone. Cómo se usan, en `src/CLAUDE.md`
+- **`typescript-eslint`** (MIT): ya llegaba con `eslint-config-next`. Se declara de forma
+  directa porque `eslint.config.mjs` lo importa para las reglas que necesitan tipos
 - **Animaciones**: se empieza con transiciones CSS. Motion entra cuando aparezca una animación
   de scroll o de layout que CSS no resuelva bien
 

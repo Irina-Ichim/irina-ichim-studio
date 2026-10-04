@@ -20,18 +20,34 @@ async function readStdin() {
   return Buffer.concat(chunks).toString("utf8");
 }
 
-const input = JSON.parse(await readStdin());
-const command = input.tool_input?.command ?? "";
+const raw = await readStdin();
+let command;
+try {
+  command = JSON.parse(raw).tool_input?.command ?? "";
+} catch {
+  if (PR_CREATE.test(raw)) block("no se ha podido leer el comando, así que no se puede verificar.");
+  process.exit(0);
+}
 if (!PR_CREATE.test(command)) process.exit(0);
 
 const base = BASE_FLAG.exec(command)?.[1];
-const branch = git("branch", "--show-current");
+let branch;
+try {
+  branch = git("branch", "--show-current");
+} catch {
+  block("no se ha podido leer la rama actual con git.");
+}
 
 if (!base) block("indica la rama destino con --base dev (o --base main solo desde dev).");
 if (base === "main" && branch !== "dev") block(`a main solo se llega desde dev, y esta rama es ${branch}.`);
 if (base !== "main" && base !== "dev") block(`la rama destino tiene que ser dev o main, no ${base}.`);
 
-const head = git("rev-parse", "HEAD");
+let head;
+try {
+  head = git("rev-parse", "HEAD");
+} catch {
+  block("no se ha podido leer el commit actual con git.");
+}
 const projectDir = process.env.CLAUDE_PROJECT_DIR ?? process.cwd();
 const approval = join(projectDir, ".claude", "revisiones", `${head}.ok`);
 
