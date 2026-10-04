@@ -26,6 +26,25 @@ un estilo que tiende a perder contraste. Por eso se aplica con esta regla:
 - En los componentes no se escriben colores ni sombras sueltos: se usa el token. Si falta uno,
   se añade al sistema antes que resolverlo en el componente
 
+## Componente antes que estilo
+
+Antes de escribir estilos, se busca un componente en `src/componentes/ui/` que ya lo resuelva.
+Si existe, se usa o se le añade una variante. Si no existe y el patrón va a repetirse, se crea
+el componente. Lo que nunca se hace es copiar clases o estilos de un sitio a otro. Lo vigila el
+agente `design-system-reviewer`.
+
+La referencia visual del sistema está publicada en
+<https://claude.ai/artifact/7HqGq57WbW6yHsQWU53wp1>. En el código, la fuente de verdad son
+`src/app/globals.css` y `src/componentes/ui/`.
+
+## Temas
+
+- Dos temas diseñados: claro (perla y onyx) y oscuro (negro brillante y marfil). Por defecto
+  se sigue el del sistema operativo.
+- La web declara que soporta los dos (`color-scheme: light dark`), para que Chrome en Android
+  y Samsung Internet no apliquen su modo oscuro forzado e inviertan los colores.
+- Ninguna regla de color existe en un solo tema: todo token tiene valor claro y oscuro.
+
 ## Iconos
 
 Phosphor en peso `duotone`, con el color del token de acento.
