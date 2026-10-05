@@ -1,0 +1,95 @@
+.rail {
+  position: fixed;
+  z-index: 10;
+  inset-block: 0;
+  left: 0;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: var(--spacing-rail);
+  padding: 1.75rem 1.5rem 1.25rem;
+  background: var(--surface-sheen), var(--surface);
+  transition:
+    width var(--duration-base),
+    padding var(--duration-base);
+}
+
+.rail::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  width: 2px;
+  background-image: var(--gradient-metal-gold);
+}
+
+.railTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+}
+
+.railTop .fullLogo {
+  width: 11.5rem;
+}
+
+.railTop .seal {
+  display: none;
+  width: 3.5rem;
+}
+
+.vertical {
+  margin-left: 1.15rem;
+  letter-spacing: 0.32em;
+}
+
+.railBottom {
+  display: flex;
+  margin-top: auto;
+}
+
+/* Sits on the gold line, half over the rail and half over the page. */
+.collapse {
+  position: fixed;
+  z-index: 11;
+  top: 6.25rem;
+  left: calc(var(--spacing-rail) - 1.375rem);
+  transition: left var(--duration-base);
+}
+
+:global([data-rail="collapsed"]) .rail {
+  width: var(--spacing-rail-collapsed);
+  padding-inline: 1rem;
+}
+
+:global([data-rail="collapsed"]) .railTop {
+  align-items: center;
+  padding-bottom: 3.25rem;
+}
+
+:global([data-rail="collapsed"]) .railTop .fullLogo {
+  display: none;
+}
+
+:global([data-rail="collapsed"]) .railTop .seal {
+  display: block;
+}
+
+:global([data-rail="collapsed"]) .vertical {
+  margin-left: 0;
+}
+
+:global([data-rail="collapsed"]) .railBottom {
+  justify-content: center;
+}
+
+:global([data-rail="collapsed"]) .collapse {
+  left: calc(var(--spacing-rail-collapsed) - 1.375rem);
+}
+
+@media (forced-colors: active) {
+  .rail::after {
+    background: CanvasText;
+  }
+}

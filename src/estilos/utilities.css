@@ -6,6 +6,15 @@
   background-image: var(--gradient-metal-gold);
 }
 
+@utility opacity-disabled {
+  opacity: var(--opacity-disabled);
+}
+
+@utility text-vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
 @utility text-highlight {
   color: transparent;
   background-image: var(--gradient-highlight);

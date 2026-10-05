@@ -1,5 +1,12 @@
 @custom-variant theme-dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* In rem so that 200 % zoom on a laptop falls back to the top bar; the height keeps the
+   ten entries from being cut off on short screens and phones in landscape. */
+@custom-variant rail (@media (min-width: 64rem) and (min-height: 45rem));
+@custom-variant rail-tall (@media (min-width: 64rem) and (min-height: 56rem));
+@custom-variant narrow (@media (max-width: 30rem));
+@custom-variant rail-collapsed (&:where([data-rail="collapsed"], [data-rail="collapsed"] *));
+
 @theme {
   --color-*: initial;
   --font-sans: initial;
@@ -11,6 +18,9 @@
   --drop-shadow-*: initial;
   --text-shadow-*: initial;
   --text-*: initial;
+
+  --spacing-rail: 16.5rem;
+  --spacing-rail-collapsed: 5.5rem;
 
   --radius-sm: 8px;
   --radius-md: 16px;
