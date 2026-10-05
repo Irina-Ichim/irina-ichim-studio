@@ -70,7 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <header className="mx-auto max-w-5xl px-4 py-6">
           <Link href="/" aria-label={SITE.homeLinkLabel} className="inline-block rounded-md">
-            <Logo decorative className="w-56 sm:w-72" />
+            <Logo className="w-56 sm:w-72" />
           </Link>
         </header>
         {children}

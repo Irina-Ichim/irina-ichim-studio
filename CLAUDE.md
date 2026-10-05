@@ -233,7 +233,7 @@ La marca vive en `src/componentes/estructura/Logo.tsx` (el logo, con los colores
 Los iconos y la imagen para redes se ven fuera de la web (pestañas, pantalla de inicio del
 móvil, vistas previas en redes), donde no hay variables CSS. Por eso llevan fijos los colores
 del tema oscuro: `--surface`, `--highlight-*` y `--metal-gold-*` de `temas/dark.css`.
-`pruebas/brand.spec.ts` falla si `icon.svg` deja de coincidir con esos tokens; si cambian, se
+`pruebas/brand.spec.ts` falla si `icon.svg` deja de coincidir con esos tokens; si los tokens cambian, se
 regeneran todos los iconos.
 
 ## Seguridad y privacidad

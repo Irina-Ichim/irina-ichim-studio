@@ -1,5 +1,19 @@
 import { expect, test } from "@playwright/test";
 
+const HEX_COLOR = /^#[0-9a-f]{6}$/;
+
+function manifestIconSources(manifest: unknown): string[] {
+  if (typeof manifest !== "object" || manifest === null || !("icons" in manifest) || !Array.isArray(manifest.icons)) {
+    throw new Error("manifest has no icons array");
+  }
+  return manifest.icons.map((icon: unknown) => {
+    if (typeof icon !== "object" || icon === null || !("src" in icon) || typeof icon.src !== "string") {
+      throw new Error("manifest icon without src");
+    }
+    return icon.src;
+  });
+}
+
 test("declares favicon, app icons and manifest that resolve", async ({ page, request }) => {
   await page.goto("/");
   const hrefs = await page.locator('link[rel="icon"], link[rel="apple-touch-icon"], link[rel="manifest"]').evaluateAll((links) =>
@@ -12,9 +26,11 @@ test("declares favicon, app icons and manifest that resolve", async ({ page, req
     expect((await request.get(href)).status(), href).toBe(200);
   }
 
-  const manifest = (await (await request.get("/manifest.webmanifest")).json()) as { icons: { src: string }[] };
-  for (const icon of manifest.icons) {
-    expect((await request.get(icon.src)).status(), icon.src).toBe(200);
+  const manifest: unknown = await (await request.get("/manifest.webmanifest")).json();
+  const sources = manifestIconSources(manifest);
+  expect(sources.length).toBeGreaterThan(0);
+  for (const src of sources) {
+    expect((await request.get(src)).status(), src).toBe(200);
   }
 });
 
@@ -28,6 +44,7 @@ test("the SVG favicon uses the current dark theme tokens", async ({ page, reques
   });
   const icon = (await (await request.get("/icon.svg")).text()).toLowerCase();
   for (const { name, value } of tokens) {
+    expect(value, `${name} must be a six-digit hex colour`).toMatch(HEX_COLOR);
     expect(icon, `${name} (${value}) is missing from icon.svg`).toContain(value);
   }
 });
@@ -41,9 +58,10 @@ test("shares an absolute social image with alternative text", async ({ page, req
   expect((await request.get(new URL(image ?? "").pathname)).status()).toBe(200);
 });
 
-test("the header logo links home with an accessible name", async ({ page }) => {
+test("the header logo links home with an accessible name and hides the decorative SVG", async ({ page }) => {
   await page.goto("/");
   const home = page.getByRole("link", { name: "Irina Ichim Studio, ir al inicio" });
   await expect(home).toBeVisible();
   await expect(home).toHaveAttribute("href", "/");
+  await expect(home.locator("svg")).toHaveAttribute("aria-hidden", "true");
 });

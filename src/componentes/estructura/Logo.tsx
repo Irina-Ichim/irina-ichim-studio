@@ -1,11 +1,9 @@
+import { useId } from "react";
 import { LOGO_PATHS, LOGO_SEAL, LOGO_VIEW_BOX } from "./logoPaths";
-import { SITE } from "@/contenido/site";
 import styles from "./Logo.module.css";
 
 type LogoProps = {
   className?: string;
-  decorative?: boolean;
-  idPrefix?: string;
 };
 
 const HIGHLIGHT_STOPS = [
@@ -24,13 +22,13 @@ const METAL_GOLD_STOPS = [
   { offset: 1, token: "--metal-gold-5" },
 ] as const;
 
-export function Logo({ className, decorative = false, idPrefix = "logo" }: LogoProps) {
-  const highlightId = `${idPrefix}-highlight`;
-  const goldId = `${idPrefix}-gold`;
-  const accessibility = decorative ? { "aria-hidden": true } : { role: "img", "aria-label": SITE.name };
+export function Logo({ className }: LogoProps) {
+  const id = useId();
+  const highlightId = `${id}-highlight`;
+  const goldId = `${id}-gold`;
 
   return (
-    <svg viewBox={LOGO_VIEW_BOX} className={`${styles.logo} ${className ?? ""}`} {...accessibility}>
+    <svg viewBox={LOGO_VIEW_BOX} className={[styles.logo, className].filter(Boolean).join(" ")} aria-hidden>
       <defs>
         <linearGradient id={highlightId} x1="0" y1="0" x2="1" y2="0">
           {HIGHLIGHT_STOPS.map(({ offset, token }) => (
