@@ -26,7 +26,8 @@ Los estilos globales viven en `src/estilos/`, un archivo por responsabilidad.
 | Archivo | Qué contiene |
 | --- | --- |
 | `temas/light.css` | Valores de color del tema claro (y `color-scheme`) |
-| `temas/dark.css` | Los mismos nombres con los valores del tema oscuro |
+| `temas/dark.css` | Los mismos nombres con los valores del tema oscuro, bajo `[data-theme="dark"]` |
+| `temas/themeScript.ts` | El script en línea que fija `data-theme` antes del primer pintado, y las constantes que comparte con `ThemeToggle` |
 | `tokens.css` | Tokens derivados que no cambian con el tema: degradados, duraciones, opacidad |
 | `tailwindTheme.css` | La escala de Tailwind (`@theme`): radios, tipografía, sombras neumórficas (el brillo `gloss` es igual en los dos temas a propósito) y los colores y fuentes que se exponen. Elimina los colores, sombras y tamaños por defecto de Tailwind, así que no se pueden usar valores fuera del sistema |
 | `temas/browserThemeColor.ts` | El color de la barra del navegador en móvil. Repite `--surface` porque esa etiqueta no lee variables CSS; `pruebas/theme.spec.ts` falla si dejan de coincidir |
@@ -53,7 +54,11 @@ La referencia visual del sistema está publicada en
 ## Temas
 
 - Dos temas diseñados: claro (perla y onyx) y oscuro (negro brillante y marfil). Por defecto
-  se sigue el del sistema operativo.
+  se sigue el del sistema operativo; quien visita puede elegir otro con `ThemeToggle`, y la
+  elección se guarda en `localStorage`.
+- El tema activo lo marca siempre `data-theme` en `<html>`, que pone el script en línea de
+  `temas/themeScript.ts`. Los estilos que cambian con el tema usan la variante `theme-dark:`,
+  nunca `@media (prefers-color-scheme)`. Sin JavaScript se ve el tema claro (deuda aceptada).
 - La web declara que soporta los dos (`color-scheme: light dark`), para que Chrome en Android
   y Samsung Internet no apliquen su modo oscuro forzado e inviertan los colores.
 - Ninguna regla de color existe en un solo tema: todo token tiene valor claro y oscuro.
