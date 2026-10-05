@@ -1,6 +1,6 @@
 ---
 name: responsive-auditor
-description: Audita cómo se ve la web en pantalla grande, escritorio, zoom al 200 %, tablet y móvil, en vertical y en horizontal, y en tema claro y oscuro. Úsalo antes de cada PR que toque la interfaz y cuando se quiera revisar el responsive de una página.
+description: Audita cómo se ve la web en pantalla grande, escritorio, zoom al 200 %, tablet y móvil, en vertical y en horizontal, y en tema claro y oscuro. Úsalo cuando la issue lo sugiera o cuando se quiera revisar el responsive de una página.
 tools: Read, Grep, Glob, Bash, Write
 ---
 

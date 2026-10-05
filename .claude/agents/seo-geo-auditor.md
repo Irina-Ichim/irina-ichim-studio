@@ -1,6 +1,6 @@
 ---
 name: seo-geo-auditor
-description: Audita el SEO técnico y de contenido y el GEO (que la web aparezca y se cite bien en respuestas de buscadores con IA) de las páginas de la web. Úsalo antes de cada PR que toque páginas, metadatos o contenido, y para auditorías completas periódicas.
+description: Audita el SEO técnico y de contenido y el GEO (que la web aparezca y se cite bien en respuestas de buscadores con IA) de las páginas de la web. Úsalo cuando la issue lo sugiera y para auditorías completas periódicas.
 tools: Read, Grep, Glob, Bash, Write
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: design-system-reviewer
-description: Revisa que la interfaz use el design system (tokens y componentes) sin estilos sueltos ni duplicados, y que cada componente nuevo esté justificado. Úsalo antes de cada PR que toque componentes, páginas o estilos.
+description: Revisa que la interfaz use el design system (tokens y componentes) sin estilos sueltos ni duplicados, y que cada componente nuevo esté justificado. Úsalo cuando la issue lo sugiera, normalmente si cambian componentes o estilos.
 tools: Read, Grep, Glob, Bash, Write
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: spelling-reviewer
-description: Revisa la ortografía, la gramática y el estilo de todo el texto en castellano que verá el público. Úsalo antes de cada PR que añada o cambie textos visibles, textos alternativos, etiquetas accesibles o metadatos.
+description: Revisa la ortografía, la gramática y el estilo de todo el texto en castellano que verá el público. Úsalo cuando la issue lo sugiera, normalmente si cambian textos visibles, textos alternativos, etiquetas accesibles o metadatos.
 tools: Read, Grep, Glob, Bash, Write
 ---
 

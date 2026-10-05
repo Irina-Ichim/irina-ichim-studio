@@ -1,0 +1,4 @@
+Fecha: 2026-10-05
+Rama: chore/quality-agents
+Destino: dev
+Resumen: recupera la casilla de recorrido con teclado en la plantilla de PR y parte una línea larga de auditorias/README.md; lint limpio, sin hallazgos.

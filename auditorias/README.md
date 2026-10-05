@@ -1,7 +1,7 @@
 # Auditorías
 
-Informes de los agentes especialistas. Cada uno deja aquí su veredicto antes de que se abra
-una PR, y el agente `pr-reviewer` comprueba que estén y que aprueben.
+Informes de los agentes especialistas. No son obligatorios: cada issue sugiere qué auditorías
+pasar, y quien las ejecuta deja aquí su veredicto antes de fusionar la rama en `dev`.
 
 | Carpeta | Agente | Qué revisa |
 | --- | --- | --- |
