@@ -1,4 +1,4 @@
-Commit auditado: 0223828fe079d99442d0a3c5431608b6080e0bf3
+Commit auditado: df16d16367c46ac7f8842c78ee4043c3901666e9
 
 # Auditoría SEO y GEO: feat/design-foundations → dev
 
@@ -14,15 +14,18 @@ sobre lo que la PR introduce (título, descripción, `<h1>`). La web no está pu
 falta de forma esperable (robots, sitemap, JSON-LD, Open Graph, `llms.txt`, contenido) queda
 como pendiente para las próximas PRs.
 
-## Cambios desde la ronda anterior (743f345 → 0223828)
+## Cambios desde la ronda anterior (0223828 → df16d16)
 
-`layout.tsx` ahora toma los colores de la barra del navegador de
-`src/estilos/temas/browser-theme-color.ts` en vez de escribirlos a mano. No cambian textos,
-metadatos visibles ni rutas. Comprobado en el HTML servido: `<title>`, `meta description`,
-`<h1>`, `lang`, las dos `meta theme-color` (`#ecebe7` claro, `#121214` oscuro) y
-`color-scheme` salen idénticos a la ronda anterior, y `/robots.txt`, `/sitemap.xml` y
-`/llms.txt` siguen dando 404, como se esperaba. Los hallazgos y pendientes de abajo siguen
-vigentes sin cambios.
+Solo renombrados de archivos de estilos a camelCase, sin cambios de contenido:
+`src/estilos/tailwind-theme.css` pasa a `tailwindTheme.css` y
+`src/estilos/temas/browser-theme-color.ts` pasa a `browserThemeColor.ts`, con sus referencias
+actualizadas en `globals.css`, `layout.tsx` y `src/CLAUDE.md`. `layout.tsx` sigue tomando los
+colores de la barra del navegador de `src/estilos/temas/browserThemeColor.ts`. No cambian
+textos, metadatos ni rutas. Comprobado en el HTML servido tras compilar de nuevo: `<title>`,
+`meta description`, un único `<h1>`, `lang`, las dos `meta theme-color` (`#ecebe7` claro,
+`#121214` oscuro) y `color-scheme` salen idénticos a la ronda anterior; la 404 sigue igual
+(dos `<title>`, `noindex`), y `/robots.txt`, `/sitemap.xml` y `/llms.txt` siguen dando 404,
+como se esperaba. Los hallazgos y pendientes de abajo siguen vigentes sin cambios.
 
 ## Comparación con dev
 

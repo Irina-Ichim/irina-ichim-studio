@@ -1,15 +1,18 @@
-Commit auditado: 0223828fe079d99442d0a3c5431608b6080e0bf3
+Commit auditado: df16d16367c46ac7f8842c78ee4043c3901666e9
 
 # Ortografía · feat/design-foundations → dev
 
 Fecha: 2026-10-05. Alcance: texto en castellano que añade o cambia el diff `dev...HEAD`.
-Segunda ronda: desde `743f345` (aprobado) solo cambia `0223828`.
+Tercera ronda: desde `0223828` (aprobado) solo cambia `df16d16`, que renombra
+`tailwind-theme.css` → `tailwindTheme.css` y `browser-theme-color.ts` → `browserThemeColor.ts`
+y actualiza sus referencias (`git diff 0223828..HEAD -- src`).
 
 ## Texto visible (bloqueante)
 
-`0223828` no cambia ningún texto visible. En `src/app/layout.tsx` solo cambia el origen de
-`themeColor` (ahora sale de `BROWSER_THEME_COLOR`); título, plantilla y descripción siguen
-igual. `src/app/page.tsx` no cambia. Lo revisado en la ronda anterior sigue vigente:
+`df16d16` no cambia ningún texto visible. En `src/app/layout.tsx` solo cambia la ruta de un
+`import`; `src/app/globals.css`, la de un `@import`. Los dos archivos renombrados son idénticos
+(similitud 100 %). `src/app/page.tsx` y `src/contenido/` no cambian. Lo revisado en las rondas
+anteriores sigue vigente:
 
 | Archivo y línea | Texto actual | Texto propuesto | Norma aplicada |
 | --- | --- | --- | --- |
@@ -22,13 +25,16 @@ Sin hallazgos bloqueantes.
 
 ## Documentación (sugerencias, no bloquean)
 
-`CLAUDE.md:92-94` y `src/CLAUDE.md:31-32`: sin faltas de ortografía ni de gramática. Tildes
-(«detrás», «compilación», «neumórficas», «propósito», «móvil»), concordancias, puntuación y
-uso de los dos puntos correctos.
+`src/CLAUDE.md:31-32`: solo cambian los dos nombres de archivo. Comparado con la versión de
+`0223828` tras sustituir los nombres, el archivo es idéntico. Está en UTF-8 válido, sin BOM y
+sin restos de mala codificación («Ã», «Â», U+FFFD); conserva «tipografía», «neumórficas»,
+«propósito», «tamaños», «así» y «móvil».
+
+Quedan abiertas las dos sugerencias de la ronda anterior:
 
 | Archivo y línea | Texto actual | Texto propuesto | Norma aplicada |
 | --- | --- | --- | --- |
 | `CLAUDE.md:93-94` | «Los otros dos pueden ir en paralelo con cualquiera.» | «`spelling-reviewer` y `design-system-reviewer` pueden ir en paralelo con cualquiera de los dos.» | Claridad (opcional): la tabla tiene cinco agentes y `pr-reviewer` va el último, así que «los otros dos» y «cualquiera» obligan a contar |
-| `.claude/agents/responsive-auditor.md:27` | «pinta Playfair Display en regular aunque el CSS pida 700» | «pinta Playfair Display con peso 400 aunque el CSS pida 700» | Claridad (opcional, pendiente de la ronda anterior): el mismo sistema de medida en los dos términos |
+| `.claude/agents/responsive-auditor.md:27` | «pinta Playfair Display en regular aunque el CSS pida 700» | «pinta Playfair Display con peso 400 aunque el CSS pida 700» | Claridad (opcional): el mismo sistema de medida en los dos términos |
 
 VEREDICTO: APROBADA
