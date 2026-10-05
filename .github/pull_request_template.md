@@ -1,19 +1,15 @@
-## Qué cambia
+## Qué sube a producción
 
-## Por qué
+Issues incluidas desde la última publicación:
 
-## Qué queda fuera a propósito
+-
 
-## Cómo probarlo
+## Cómo se ha verificado en `dev`
 
-## Dependencias nuevas
-
-Ninguna, o cada una con qué resuelve, licencia y estado de mantenimiento.
+## Riesgos y cómo deshacerlo
 
 ## Comprobaciones
 
-- [ ] `npm run check` pasa en local
-- [ ] `npm run test:e2e` pasa en local
-- [ ] Informes de los especialistas que tocan (ver «Agentes» en `CLAUDE.md`) aprobados en `auditorias/`
-- [ ] Recorrido con teclado (tabulador, Intro, Escape) si toca la interfaz: todo se alcanza y el foco se ve
-- [ ] El agente `pr-reviewer` ha aprobado este commit
+- [ ] La CI está en verde en `dev`
+- [ ] Revisado en el entorno de `dev` en móvil y escritorio, en tema claro y oscuro
+- [ ] Recorrido con teclado: todo se alcanza y el foco se ve

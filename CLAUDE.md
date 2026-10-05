@@ -46,48 +46,51 @@ npm run test:a11y  # axe con las reglas WCAG hasta AAA, en tema claro y oscuro
 
 Cada página nueva se añade a `pruebas/routes.ts`; si no, ninguna prueba la cubre.
 
-## Flujo de trabajo con Git
+## Flujo de trabajo
+
+El trabajo se organiza en issues dentro del Project de GitHub. Cada issue tiene:
+
+- **Título con área y número correlativo por área:** `[Frontend 0.1] Logo y favicon`,
+  `[Backend 0.1] Envío del formulario`, `[DevOps 0.1] Despliegue en Railway`
+- **Etiquetas:** área (`frontend`, `backend`, `devops`), tipo (`feature`, `bug`, `mejora`,
+  `documentación`), prioridad (`prioridad: alta`, `media`, `baja`) y fase (`fase 1`, `fase 2`).
+  Se crean etiquetas nuevas cuando hagan falta
+- **Agentes y auditorías sugeridas** para esa tarea, según la plantilla de issue
 
 | Rama | Para qué |
 | --- | --- |
-| `main` | Producción. Solo recibe PR desde `dev`, y solo cuando Irina lo decide |
-| `dev` | Verificación. Recibe las PR de las ramas de trabajo |
-| `feat/…`, `fix/…`, `chore/…`, `docs/…` | Trabajo. Se crean siempre desde `dev` actualizada |
+| `main` | Producción. Solo recibe una PR desde `dev`, cuando Irina lo decide |
+| `dev` | Verificación. Recibe por fusión directa las ramas de trabajo |
+| `feat/…`, `fix/…`, `chore/…`, `docs/…` | Trabajo. Una por issue, siempre desde `dev` actualizada |
 
 1. `git switch dev && git pull`, y la rama nueva desde ahí
-2. Commits con Conventional Commits, en inglés: `feat: add services section`
-3. `npm run check` y `npm run test:e2e` en verde
-4. Lanzar los agentes especialistas que correspondan (tabla de «Agentes») y subir sus
-   informes a `auditorias/` en un commit
-5. Lanzar el agente **`pr-reviewer`**. Si bloquea, se corrige y se vuelve a lanzar
-6. `gh pr create --base dev`, con la plantilla de `.github/pull_request_template.md`
+2. Commits con Conventional Commits, en inglés, que citan la issue: `feat: add services section (#12)`
+3. Al subir la rama, la CI ejecuta lint, tipos, build y las pruebas de Playwright
+4. Con la CI en verde, se pasan los agentes que sugiere la issue, una sola vez y al final
+5. Con el OK de Irina, la rama se fusiona en `dev` (`git merge --no-ff`) y la issue se cierra
 
-Las PR van **siempre** a `dev`. Se fusionan cuando Irina da el OK, nunca antes. Nunca se hace
-push directo a `main` ni a `dev`. La subida de `dev` a `main` es decisión de Irina: se prepara
-la PR solo cuando ella lo pide.
+Sin PR entre las ramas de trabajo y `dev`. La PR se reserva para `dev` → `main`, porque es el
+paso a producción y deja constancia de qué se publicó; se prepara solo cuando Irina lo pide.
+Nunca se hace push directo a `main`.
 
-**Qué lo hace cumplir.** El hook `.claude/hooks/require-review.mjs` bloquea `gh pr create`
-sin `--base`, hacia una rama que no sea `dev` o `main`, hacia `main` desde otra rama que no
-sea `dev`, o sin la aprobación del agente para el commit actual. La CI
-(`.github/workflows/ci.yml`) ejecuta lint, tipos y build en cada PR. La aprobación del agente
-solo la escribe el agente: quien hace el cambio no valida su propio trabajo.
-
-El hook solo actúa dentro de Claude Code. La garantía real frente a pushes directos y PR sin
-CI en verde es la protección de ramas de GitHub. Si el comando contiene más de un `--base`
-(por ejemplo, uno dentro del texto de `--body`), el hook bloquea.
+El hook `.claude/hooks/require-review.mjs` impide abrir una PR sin rama destino, hacia una rama
+que no sea `main` o `dev`, o hacia `main` desde otra rama que no sea `dev`.
 
 ## Agentes
 
-Viven en `.claude/agents/`. Ninguno corrige código: auditan, dejan un informe y deciden. Quien
-escribe el cambio no valida su propio trabajo.
+Viven en `.claude/agents/`. Ninguno corrige código: auditan, dejan un informe en `auditorias/`
+y deciden. **No son obligatorios:** cada issue sugiere cuáles pasar. Sirve de guía:
 
-| Agente | Cuándo | Informe |
-| --- | --- | --- |
-| `responsive-auditor` | El diff toca `src/**/*.{tsx,css}` | `auditorias/responsive/` |
-| `design-system-reviewer` | El diff toca `src/**/*.{tsx,css}` | `auditorias/sistema-diseno/` |
-| `spelling-reviewer` | El diff toca `src/**/*.{tsx,css}`, texto visible, `alt`, `aria-label` o metadatos | `auditorias/ortografia/` |
-| `seo-geo-auditor` | El diff toca `src/app/**` o `src/contenido/**` | `auditorias/seo-geo/` |
-| `pr-reviewer` | Siempre, el último | Aprobación para el hook |
+| Agente | Útil cuando la tarea… |
+| --- | --- |
+| `responsive-auditor` | cambia lo que se ve: maquetación, componentes, páginas |
+| `design-system-reviewer` | crea o cambia componentes o estilos |
+| `spelling-reviewer` | añade o cambia textos visibles, `alt`, `aria-label` o metadatos |
+| `seo-geo-auditor` | crea páginas o cambia metadatos o contenido |
+| `pr-reviewer` | es grande o delicada y merece una revisión final completa |
+
+Una corrección hecha después de una auditoría no obliga a repetirla: basta con que la revise
+quien hace la revisión final, si la hay. Quien escribe el cambio no valida su propio trabajo.
 
 `responsive-auditor` y `seo-geo-auditor` compilan la web, así que se lanzan uno detrás de otro
 y nunca a la vez: comparten la carpeta `.next` y una compilación pisaría a la otra.

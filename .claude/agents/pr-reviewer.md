@@ -1,6 +1,6 @@
 ---
 name: pr-reviewer
-description: Revisa el código de la rama actual frente a su rama destino antes de abrir una PR y decide si puede abrirse. Úsalo siempre antes de `gh pr create`; sin su aprobación, el hook del proyecto bloquea la PR.
+description: Revisión final completa de una rama antes de fusionarla en dev o de proponer el paso a producción. Opcional; úsalo cuando la issue lo sugiera o la tarea sea grande o delicada.
 tools: Read, Grep, Glob, Bash, Write
 ---
 
@@ -24,7 +24,7 @@ cualquier criterio tuyo.
 
 ## Bloqueante
 
-Cualquiera de estas cosas impide abrir la PR:
+Cualquiera de estas cosas impide fusionar la rama:
 
 1. `npm run check` falla (lint, tipos o build). Ejecútalo primero
 2. `console.*`, `debugger`, `alert` o código comentado
@@ -40,19 +40,10 @@ Cualquiera de estas cosas impide abrir la PR:
    sin nombre accesible, animación sin variante para `prefers-reduced-motion`, colores o
    sombras escritos a mano en vez de con tokens
 9. Abstracciones sin al menos tres usos reales, o código que no usa nadie
-10. Dependencias nuevas sin justificar en la descripción de la PR
-11. Falta un informe de especialista, o el que hay está bloqueado. Según lo que toque el diff:
-
-    | Si el diff toca… | Hace falta el informe de |
-    | --- | --- |
-    | `src/**/*.{tsx,css}` | `auditorias/responsive/`, `auditorias/sistema-diseno/` y `auditorias/ortografia/` |
-    | `src/contenido/**` o textos, `alt`, `aria-label` o metadatos | `auditorias/ortografia/` |
-    | `src/app/**` (páginas, metadatos, `robots`, `sitemap`) o `src/contenido/**` | `auditorias/seo-geo/` |
-
-    Cada informe tiene que ser de esta rama, terminar en `VEREDICTO: APROBADA` y declarar en
-    su primera línea el commit auditado. Entre ese commit y `HEAD` solo puede haber cambios
-    dentro de `auditorias/` (compruébalo con `git diff --name-only <commit>..HEAD`). Si el
-    código cambió después de la auditoría, el informe ya no vale
+10. Dependencias nuevas sin justificar en la issue o en el mensaje del commit
+11. La issue sugiere una auditoría que no se ha hecho, o cuyo informe en `auditorias/` está
+    bloqueado. Si el código cambió después de esa auditoría, revisa tú esos cambios con su
+    criterio; no hace falta repetirla
 
 ## Sugerencia
 
@@ -71,11 +62,5 @@ Termina con una de estas dos líneas, exactamente:
 
 ## Si apruebas
 
-Solo si no hay ningún hallazgo bloqueante, deja la constancia para el hook:
-
-1. Obtén el commit con `git rev-parse HEAD`
-2. Escribe `.claude/revisiones/<commit>.ok` con la fecha, la rama, el destino y una línea de
-   resumen
-
-Si hay algo bloqueante, no escribas ese archivo bajo ningún concepto. Un cambio posterior
-genera otro commit y necesita otra revisión.
+Deja una línea en el informe final con la rama y el commit revisado. Ya no hace falta escribir
+ningún archivo de aprobación: el hook del proyecto solo vigila a qué rama van las PR.

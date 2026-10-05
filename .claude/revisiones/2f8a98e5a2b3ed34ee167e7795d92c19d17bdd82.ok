@@ -1,0 +1,4 @@
+Fecha: 2026-10-05
+Rama: chore/quality-agents
+Destino: dev
+Resumen: aplica sugerencias de revisión (nombres de informes, fila de spelling-reviewer, plantilla de PR, castellano); npm run check en verde.

@@ -1,0 +1,5 @@
+fecha: 2026-10-05
+rama: chore/quality-agents
+destino: dev
+commit: 297efbeba0fa2abd3dccba644e0b1d30c1c4c591
+resumen: Playwright y axe, job e2e en CI, cuatro agentes especialistas y regla 11; npm run check y proyecto desktop en verde, sin hallazgos bloqueantes.

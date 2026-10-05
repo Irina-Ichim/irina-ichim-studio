@@ -1,0 +1,5 @@
+fecha: 2026-10-04
+rama: chore/project-standards
+destino: dev
+commit: 330418218dc0e4776de131ef0a0fca0c943f410e
+resumen: reglas del proyecto, ESLint/tsconfig estrictos, CI, plantilla de PR y hook de revisión; npm run check en verde, sin hallazgos bloqueantes.

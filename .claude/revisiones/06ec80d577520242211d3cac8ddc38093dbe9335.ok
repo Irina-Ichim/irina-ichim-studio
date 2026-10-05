@@ -1,0 +1,5 @@
+fecha: 2026-10-04
+rama: chore/project-standards
+destino: dev
+commit: 06ec80d577520242211d3cac8ddc38093dbe9335
+resumen: estándares del proyecto, CI y puerta de revisión pre-PR; npm run check en verde, sin hallazgos bloqueantes.

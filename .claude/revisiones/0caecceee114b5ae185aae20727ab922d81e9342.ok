@@ -1,0 +1,4 @@
+fecha: 2026-10-04
+rama: chore/project-standards
+destino: dev
+resumen: hook bloquea --base duplicado y mensaje para detached HEAD; typescript-eslint deja de ser dependencia directa y las reglas con tipos siguen activas.

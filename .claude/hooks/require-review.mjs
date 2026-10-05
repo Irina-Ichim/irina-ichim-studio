@@ -1,13 +1,7 @@
 import { execFileSync } from "node:child_process";
-import { existsSync } from "node:fs";
-import { join } from "node:path";
 
 const PR_CREATE = /\bgh\s+pr\s+create\b/;
 const BASE_FLAG = /(?:--base|-B)[\s=]+["']?([\w./-]+)/g;
-
-function git(...args) {
-  return execFileSync("git", args, { encoding: "utf8" }).trim();
-}
 
 function block(reason) {
   process.stderr.write(`PR bloqueada: ${reason}\n`);
@@ -35,24 +29,11 @@ if (bases.length > 1) block("hay más de un --base en el comando; deja solo el d
 const base = bases[0];
 let branch;
 try {
-  branch = git("branch", "--show-current");
+  branch = execFileSync("git", ["branch", "--show-current"], { encoding: "utf8" }).trim();
 } catch {
   block("no se ha podido leer la rama actual con git.");
 }
 
-if (!base) block("indica la rama destino con --base dev (o --base main solo desde dev).");
+if (!base) block("indica la rama destino con --base main (las ramas de trabajo se fusionan en dev sin PR).");
+if (base !== "main" && base !== "dev") block(`la rama destino tiene que ser main o dev, no ${base}.`);
 if (base === "main" && branch !== "dev") block(`a main solo se llega desde dev, y esta rama es ${branch || "un commit suelto (detached HEAD)"}.`);
-if (base !== "main" && base !== "dev") block(`la rama destino tiene que ser dev o main, no ${base}.`);
-
-let head;
-try {
-  head = git("rev-parse", "HEAD");
-} catch {
-  block("no se ha podido leer el commit actual con git.");
-}
-const projectDir = process.env.CLAUDE_PROJECT_DIR ?? process.cwd();
-const approval = join(projectDir, ".claude", "revisiones", `${head}.ok`);
-
-if (!existsSync(approval)) {
-  block(`el commit ${head.slice(0, 7)} no tiene la aprobación del agente pr-reviewer. Lánzalo, resuelve lo bloqueante y vuelve a intentarlo.`);
-}

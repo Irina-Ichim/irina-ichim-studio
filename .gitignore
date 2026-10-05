@@ -39,7 +39,6 @@ yarn-error.log*
 !.env.example
 
 # claude code
-.claude/revisiones/
 .claude/settings.local.json
 
 # typescript
