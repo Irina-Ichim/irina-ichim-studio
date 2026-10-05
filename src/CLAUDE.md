@@ -28,8 +28,8 @@ Los estilos globales viven en `src/estilos/`, un archivo por responsabilidad.
 | `temas/light.css` | Valores de color del tema claro (y `color-scheme`) |
 | `temas/dark.css` | Los mismos nombres con los valores del tema oscuro |
 | `tokens.css` | Tokens derivados que no cambian con el tema: degradados, duraciones, opacidad |
-| `tailwind-theme.css` | La escala de Tailwind (`@theme`): radios, tipografía, sombras neumórficas (el brillo `gloss` es igual en los dos temas a propósito) y los colores y fuentes que se exponen. Elimina los colores, sombras y tamaños por defecto de Tailwind, así que no se pueden usar valores fuera del sistema |
-| `temas/browser-theme-color.ts` | El color de la barra del navegador en móvil. Repite `--surface` porque esa etiqueta no lee variables CSS; `pruebas/theme.spec.ts` falla si dejan de coincidir |
+| `tailwindTheme.css` | La escala de Tailwind (`@theme`): radios, tipografía, sombras neumórficas (el brillo `gloss` es igual en los dos temas a propósito) y los colores y fuentes que se exponen. Elimina los colores, sombras y tamaños por defecto de Tailwind, así que no se pueden usar valores fuera del sistema |
+| `temas/browserThemeColor.ts` | El color de la barra del navegador en móvil. Repite `--surface` porque esa etiqueta no lee variables CSS; `pruebas/theme.spec.ts` falla si dejan de coincidir |
 | `utilities.css` | Utilidades propias (`bg-action`, `text-highlight`…) |
 | `base.css` | Estilos de elementos: `body`, foco, movimiento reducido |
 

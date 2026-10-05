@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, Great_Vibes, Playfair_Display } from "next/font/google";
-import { BROWSER_THEME_COLOR } from "@/estilos/temas/browser-theme-color";
+import { BROWSER_THEME_COLOR } from "@/estilos/temas/browserThemeColor";
 import "./globals.css";
 
 const playfair = Playfair_Display({

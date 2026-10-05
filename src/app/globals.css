@@ -3,6 +3,6 @@
 @import "../estilos/temas/light.css";
 @import "../estilos/temas/dark.css";
 @import "../estilos/tokens.css";
-@import "../estilos/tailwind-theme.css";
+@import "../estilos/tailwindTheme.css";
 @import "../estilos/utilities.css";
 @import "../estilos/base.css";
