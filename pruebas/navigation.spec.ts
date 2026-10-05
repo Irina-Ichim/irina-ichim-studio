@@ -37,7 +37,7 @@ test("the services panel opens on hover, closes when the pointer leaves and with
   await page.goto("/");
   const nav = mainNavigation(page);
   const panel = servicesPanel(nav);
-  const toggle = nav.getByRole("button", { name: `Páginas de ${SERVICES?.label ?? ""}` });
+  const toggle = nav.getByRole("button", { name: `Páginas de ${SERVICES?.label ?? ""}`, exact: true });
 
   await sections(nav).nth(SERVICES_INDEX).hover();
   await expect(panel).toHaveCSS("opacity", "1");
@@ -51,7 +51,7 @@ test("the services panel opens on hover, closes when the pointer leaves and with
   await toggle.click();
   await expect(toggle).toHaveAttribute("aria-expanded", "true");
   await expect(panel).toHaveCSS("opacity", "1");
-  await panel.getByRole("button", { name: `Cerrar ${SERVICES?.label ?? ""}` }).click();
+  await panel.getByRole("button", { name: `Cerrar páginas de ${SERVICES?.label ?? ""}` }).click();
   await expect(panel).toHaveCSS("opacity", "0");
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await expect(toggle).toBeFocused();
@@ -73,6 +73,18 @@ test("the side rail collapses to numbers and remembers it after reloading", asyn
   await page.getByRole("button", { name: "Menú lateral" }).click();
   await expect(page.locator("html")).not.toHaveAttribute("data-rail");
 });
+
+for (const viewport of [RAIL_VIEWPORT, { width: 1440, height: 900 }, { width: 1440, height: 960 }, { width: 1024, height: 720 }]) {
+  test(`every control of the rail stays on screen, open and collapsed (${viewport.width}×${viewport.height})`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    const theme = page.getByRole("button", { name: "Tema oscuro" });
+    await expect(theme).toBeInViewport({ ratio: 1 });
+    await page.getByRole("button", { name: "Menú lateral" }).click();
+    await expect(page.locator("html")).toHaveAttribute("data-rail", "collapsed");
+    await expect(theme).toBeInViewport({ ratio: 1 });
+  });
+}
 
 test("the skip link is the first stop and leads to the main content", async ({ page, browserName }) => {
   test.skip(browserName === "webkit", "Safari only tabs to links when the visitor turns it on in its settings");
@@ -99,7 +111,7 @@ test("when the rail does not fit, the menu button opens a modal navigation that 
   await expect(sections(nav)).toHaveCount(NAVIGATION.length);
   await expect(menu.getByRole("button", { name: "Tema oscuro" })).toBeVisible();
 
-  const toggle = nav.getByRole("button", { name: `Páginas de ${SERVICES?.label ?? ""}` });
+  const toggle = nav.getByRole("button", { name: `Páginas de ${SERVICES?.label ?? ""}`, exact: true });
   await toggle.click();
   await expect(servicesPanel(nav)).toBeVisible();
 

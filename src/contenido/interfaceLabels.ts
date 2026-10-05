@@ -9,5 +9,5 @@ export const UI_LABELS = {
   talk: "Hablemos",
   comingSoon: "próximamente",
   pagesOf: (section: string) => `Páginas de ${section}`,
-  close: (section: string) => `Cerrar ${section}`,
+  closePagesOf: (section: string) => `Cerrar páginas de ${section}`,
 } as const;

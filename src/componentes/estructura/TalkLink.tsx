@@ -8,18 +8,18 @@ type TalkLinkProps = {
   compact?: boolean;
 };
 
-const PILL_CLASSES =
-  "inline-flex min-h-11 items-center gap-2.5 rounded-pill border-2 border-accent-line bg-surface px-5 text-eyebrow uppercase shadow-raised-sm";
+const PILL_CLASSES = "control-raised inline-flex min-h-11 items-center gap-2.5 rounded-pill px-5 text-eyebrow uppercase";
 
+// In the top bar of the narrowest phones there is no room next to the logo and the menu
+// button; the full-screen menu still leads to Contacto.
 export function TalkLink({ compact = false }: TalkLinkProps) {
-  const label = <span className={classNames(compact && "narrow:sr-only")}>{UI_LABELS.talk}</span>;
+  const shape = classNames(PILL_CLASSES, compact && "narrow:hidden");
   const arrow = <ArrowDownRightIcon weight="duotone" aria-hidden className="size-5 text-link" />;
-  const shape = classNames(PILL_CLASSES, compact && "narrow:size-11 narrow:justify-center narrow:px-0");
 
   if (!isContactAvailable) {
     return (
       <a role="link" aria-disabled="true" className={classNames(shape, "text-ink-muted opacity-disabled")}>
-        {label}
+        {UI_LABELS.talk}
         <span className="sr-only">, {UI_LABELS.comingSoon}</span>
         {arrow}
       </a>
@@ -27,8 +27,8 @@ export function TalkLink({ compact = false }: TalkLinkProps) {
   }
 
   return (
-    <Link href={CONTACT_HREF} className={classNames(shape, "text-ink hover:border-ink")}>
-      {label}
+    <Link href={CONTACT_HREF} className={classNames(shape, "text-ink")}>
+      {UI_LABELS.talk}
       {arrow}
     </Link>
   );

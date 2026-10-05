@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { LOGO_PATHS, LOGO_SEAL, LOGO_VIEW_BOX } from "./logoPaths";
+import { classNames } from "@/utilidades/classNames";
 import styles from "./Logo.module.css";
 
 type LogoProps = {
@@ -32,7 +33,7 @@ export function Logo({ variant = "full", className }: LogoProps) {
   const goldId = `${id}-gold`;
 
   return (
-    <svg viewBox={variant === "seal" ? SEAL_VIEW_BOX : LOGO_VIEW_BOX} className={[styles.logo, className].filter(Boolean).join(" ")} aria-hidden>
+    <svg viewBox={variant === "seal" ? SEAL_VIEW_BOX : LOGO_VIEW_BOX} className={classNames(styles.logo, className)} aria-hidden>
       <defs>
         <linearGradient id={highlightId} x1="0" y1="0" x2="1" y2="0">
           {HIGHLIGHT_STOPS.map(({ offset, token }) => (

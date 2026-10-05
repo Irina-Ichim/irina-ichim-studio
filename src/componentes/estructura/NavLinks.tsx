@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FocusEvent, type KeyboardEvent, type Ref } from "react";
 import { CaretDownIcon, CaretRightIcon, XIcon } from "@phosphor-icons/react";
+import { IconButton } from "@/componentes/ui/IconButton";
 import { UI_LABELS } from "@/contenido/interfaceLabels";
 import { NAVIGATION, type NavigationItem, type NavigationLink } from "@/contenido/navigation";
 import { classNames } from "@/utilidades/classNames";
@@ -77,12 +78,17 @@ function SectionWithPages({ item, pages, number, variant, pathname, onNavigate }
     return () => document.removeEventListener("click", closeOnOutsideClick);
   }, [isRail, isOpen]);
 
+  // Focus goes back to whatever opened the panel and is still visible: the caret in the open
+  // rail, the section link in the collapsed one or, while that section has no page yet, the
+  // list item itself, so it never stays on the hidden X.
   const dismiss = () => {
     setIsOpen(false);
     setIsDismissed(true);
     const toggle = toggleRef.current;
+    const link = linkRef.current;
     if (toggle && getComputedStyle(toggle).display !== "none") toggle.focus();
-    else linkRef.current?.focus();
+    else if (link?.hasAttribute("href")) link.focus();
+    else itemRef.current?.focus();
   };
 
   const railHandlers = isRail
@@ -108,23 +114,23 @@ function SectionWithPages({ item, pages, number, variant, pathname, onNavigate }
     : {};
 
   return (
-    <li ref={itemRef} className={classNames(styles.item, isDismissed && styles.dismissed)} {...railHandlers}>
+    <li ref={itemRef} tabIndex={isRail ? -1 : undefined} className={classNames(styles.item, isDismissed && styles.dismissed)} {...railHandlers}>
       <div className={styles.row}>
         <NavEntry ref={linkRef} link={item} number={number} isCurrent={item.href === pathname} onNavigate={onNavigate} className={styles.parentEntry} />
-        <button
+        <IconButton
           ref={toggleRef}
-          type="button"
-          className={styles.toggle}
+          variant="quiet"
+          label={UI_LABELS.pagesOf(item.label)}
+          className={classNames("aria-expanded:text-link", styles.toggle)}
           aria-expanded={isOpen}
           aria-controls={panelId}
-          aria-label={UI_LABELS.pagesOf(item.label)}
           onClick={() => {
             setIsOpen((open) => !open);
             setIsDismissed(false);
           }}
         >
           {isRail ? <CaretRightIcon weight="duotone" aria-hidden className="size-5" /> : <CaretDownIcon weight="duotone" aria-hidden className={classNames("size-5", isOpen && "rotate-180")} />}
-        </button>
+        </IconButton>
       </div>
       <div id={panelId} className={classNames(styles.panel, isOpen && styles.open)}>
         {isRail && (
@@ -132,9 +138,9 @@ function SectionWithPages({ item, pages, number, variant, pathname, onNavigate }
             <p aria-hidden className={styles.panelTitle}>
               {item.label}
             </p>
-            <button ref={closeRef} type="button" className={styles.close} aria-label={UI_LABELS.close(item.label)} onClick={dismiss}>
+            <IconButton ref={closeRef} variant="quiet" label={UI_LABELS.closePagesOf(item.label)} onClick={dismiss}>
               <XIcon weight="duotone" aria-hidden className="size-5" />
-            </button>
+            </IconButton>
           </div>
         )}
         <ul className={styles.pages}>
@@ -168,12 +174,7 @@ function NavEntry({ link, number, isCurrent, onNavigate, className, ref }: NavEn
       )}
       <span className={styles.label}>
         {link.label}
-        {!link.available && (
-          <span className={styles.soon}>
-            <span className="sr-only">, </span>
-            {UI_LABELS.comingSoon}
-          </span>
-        )}
+        {!link.available && <span className="sr-only">, {UI_LABELS.comingSoon}</span>}
       </span>
     </>
   );

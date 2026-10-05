@@ -26,3 +26,54 @@
     background-image: none;
   }
 }
+
+@utility bg-surface-sheen {
+  background: var(--surface-sheen), var(--surface);
+}
+
+/* Interactive controls in relief: a 3:1 accent border on top of the shadow (criterion
+   1.4.11), and hover and press told apart by more than the shadow. */
+@utility control-raised {
+  @apply shadow-raised-sm;
+  border: 2px solid var(--accent-line);
+  background-color: var(--surface);
+
+  &:hover {
+    border-color: var(--ink);
+  }
+
+  &:active {
+    @apply shadow-inset-sm;
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  @media (forced-colors: active) {
+    &:hover,
+    &:active {
+      border-color: Highlight;
+    }
+  }
+}
+
+/* Icon-only controls inside a surface that already frames them: the icon carries the
+   contrast, so they go without border or relief until pressed. */
+@utility control-quiet {
+  color: var(--ink-muted);
+
+  &:hover {
+    color: var(--link);
+  }
+
+  &:active {
+    @apply shadow-inset-sm;
+    color: var(--ink);
+  }
+
+  @media (forced-colors: active) {
+    &:hover,
+    &:active {
+      outline: 2px solid Highlight;
+    }
+  }
+}
