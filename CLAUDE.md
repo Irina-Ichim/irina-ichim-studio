@@ -217,18 +217,24 @@ Cada imagen llega comprimida y en el formato que da el menor peso sin perder cal
 | Qué | Formato | Cómo |
 | --- | --- | --- |
 | Fotos y capturas | AVIF o WebP | Siempre con `next/image`, que las sirve en AVIF o WebP según el navegador (`next.config.ts`) y al tamaño de cada pantalla. El original entra ya comprimido, a 2560 px como máximo en el lado largo |
-| Logo, iconos e ilustraciones | SVG | Vectorial: más ligero y nítido que cualquier formato de píxeles, y adapta sus colores al tema |
-| Animaciones | Vídeo MP4 o WebM (o WebP animado si es muy corta) | Nunca GIF: pesa hasta diez veces más y `next/image` no lo optimiza. El vídeo va con `autoplay muted loop playsinline` y se pausa con `prefers-reduced-motion` |
+| Logo, iconos e ilustraciones | SVG | Vectorial: más ligero y nítido que cualquier formato de mapa de bits. Dentro de la web, el logo adapta sus colores al tema |
+| Animaciones | Vídeo MP4 o WebM (o WebP animado si la animación es muy corta) | Nunca GIF: pesa hasta diez veces más y `next/image` no lo optimiza. El vídeo va con `autoplay muted loop playsinline` y se pausa con `prefers-reduced-motion` |
 | Favicon e iconos de móvil | ICO, SVG y PNG | Son los formatos que exigen los navegadores y los sistemas; WebP no sirve como icono de iPhone |
 | Imagen para redes (Open Graph) | PNG o JPG | Algunas redes no muestran WebP en la vista previa |
 
 - Toda imagen lleva `width` y `height` (o `fill` con un contenedor de proporción fija) para que no haya saltos al cargar.
-- La imagen principal de cada página lleva `priority`; las demás se cargan de forma diferida.
+- La imagen principal de cada página lleva `fetchPriority="high"` (o `preload` si hace falta precargarla); las demás se cargan de forma diferida. `priority` está obsoleto desde Next 16.
 - `alt` según la regla de accesibilidad: lo que comunica la imagen, o `alt=""` si es decorativa.
 
 La marca vive en `src/componentes/estructura/Logo.tsx` (el logo, con los colores del tema), `src/app/icon.svg`,
 `favicon.ico` y `apple-icon.png` (Next los enlaza solos), `public/iconos/` (manifiesto) y
-`public/marca/opengraph.png`. Se generan desde las fuentes originales con las letras en trazos.
+`public/marca/opengraph.png`. Se generan a partir de los archivos originales de las fuentes, con las letras convertidas en trazos.
+
+Los iconos y la imagen para redes se ven fuera de la web (pestañas, pantalla de inicio del
+móvil, vistas previas en redes), donde no hay variables CSS. Por eso llevan fijos los colores
+del tema oscuro: `--surface`, `--highlight-*` y `--metal-gold-*` de `temas/dark.css`.
+`pruebas/brand.spec.ts` falla si `icon.svg` deja de coincidir con esos tokens; si cambian, se
+regeneran todos los iconos.
 
 ## Seguridad y privacidad
 
