@@ -23,6 +23,11 @@ Eres la auditora de responsive del proyecto Irina Ichim Studio. No corriges cód
    - diferencias rotas entre tema claro y oscuro (texto ilegible, sombras que desaparecen);
    - líneas de texto de más de unos 75 caracteres en pantalla grande.
 
+Límite conocido: el WebKit de Playwright en Windows no aplica el peso de las fuentes variables y
+pinta Playfair Display en regular aunque el CSS pida 700. No es un fallo de la web. Si el peso
+importa para un hallazgo, compruébalo con `getComputedStyle` o en las capturas de Chromium, y
+déjalo anotado para verificarlo en un dispositivo Apple real.
+
 ## Bloqueante
 
 - Cualquier prueba de `npm run test:responsive` en rojo.

@@ -20,9 +20,21 @@ un estilo que tiende a perder contraste. Por eso se aplica con esta regla:
 
 ## Tokens
 
-- Colores, sombras, radios y duraciones se definen como custom properties en
-  `src/app/globals.css` y se exponen a Tailwind con `@theme`
-- Cada token tiene valor para tema claro y oscuro
+Los estilos globales viven en `src/estilos/`, un archivo por responsabilidad.
+`src/app/globals.css` solo los importa, en este orden:
+
+| Archivo | Qué contiene |
+| --- | --- |
+| `temas/light.css` | Valores de color del tema claro (y `color-scheme`) |
+| `temas/dark.css` | Los mismos nombres con los valores del tema oscuro |
+| `tokens.css` | Tokens derivados que no cambian con el tema: degradados, duraciones, opacidad |
+| `tailwind-theme.css` | Qué tokens se exponen a Tailwind (`@theme`). Elimina los colores, sombras y tamaños por defecto de Tailwind, así que no se pueden usar valores fuera de la paleta |
+| `utilities.css` | Utilidades propias (`bg-action`, `text-highlight`…) |
+| `base.css` | Estilos de elementos: `body`, foco, movimiento reducido |
+
+- Cada token de color tiene valor en los dos temas, con el mismo nombre
+- Un archivo que crece mucho se divide; nunca se mezclan responsabilidades en uno
+- Los estilos de un componente van con el componente, no aquí
 - En los componentes no se escriben colores ni sombras sueltos: se usa el token. Si falta uno,
   se añade al sistema antes que resolverlo en el componente
 
@@ -35,7 +47,7 @@ agente `design-system-reviewer`.
 
 La referencia visual del sistema está publicada en
 <https://claude.ai/artifact/7HqGq57WbW6yHsQWU53wp1>. En el código, la fuente de verdad son
-`src/app/globals.css` y `src/componentes/ui/`.
+`src/estilos/` y `src/componentes/ui/`.
 
 ## Temas
 

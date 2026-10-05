@@ -1,0 +1,19 @@
+@utility bg-action {
+  background-image: var(--gradient-action);
+}
+
+@utility bg-metal-gold {
+  background-image: var(--gradient-metal-gold);
+}
+
+@utility text-highlight {
+  color: transparent;
+  background-image: var(--gradient-highlight);
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  @media (forced-colors: active) {
+    color: CanvasText;
+    background-image: none;
+  }
+}

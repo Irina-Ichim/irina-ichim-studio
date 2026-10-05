@@ -1,0 +1,41 @@
+:root {
+  color-scheme: light dark;
+
+  --surface: #ecebe7;
+  --ink: #353839;
+  --ink-muted: #404344;
+  --link: #980054;
+  --focus: #980054;
+  --action: #980054;
+  --on-action: #ffffff;
+  --accent-line: #e0007b;
+  --line-strong: #727475;
+  --danger: #8f1d0e;
+  --on-danger: #ffffff;
+  --success: #164f2c;
+
+  --shadow-dark: #c4c3bf;
+  --shadow-light: #ffffff;
+  --surface-sheen: linear-gradient(transparent, transparent);
+
+  --action-fill-1: #6e0039;
+  --action-fill-2: #a8005d;
+  --action-fill-3: #8e0050;
+  --action-fill-4: #6e0039;
+  --highlight-1: #7a0040;
+  --highlight-2: #c4006f;
+  --highlight-3: #a8005d;
+  --highlight-4: #c4006f;
+  --highlight-5: #7a0040;
+  --metal-gold-1: #6e5219;
+  --metal-gold-2: #b8913a;
+  --metal-gold-3: #ecd58f;
+  --metal-gold-4: #b08a33;
+  --metal-gold-5: #7a5c1e;
+  --icon-gold-1: #6e5219;
+  --icon-gold-2: #a07a2c;
+  --icon-gold-3: #8f6a26;
+  --icon-magenta-1: #a8005d;
+  --icon-magenta-2: #e0007b;
+  --icon-magenta-3: #d4007a;
+}
