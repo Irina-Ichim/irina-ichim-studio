@@ -60,26 +60,43 @@ El trabajo se organiza en issues dentro del Project de GitHub. Cada issue tiene:
 | Rama | Para qué |
 | --- | --- |
 | `main` | Producción. Solo recibe una PR desde `dev`, cuando Irina lo decide |
-| `dev` | Verificación. Recibe por fusión directa las ramas de trabajo |
+| `dev` | Verificación. Recibe por PR las ramas de trabajo |
 | `feat/…`, `fix/…`, `chore/…`, `docs/…` | Trabajo. Una por issue, siempre desde `dev` actualizada |
 
 1. `git switch dev && git pull`, y la rama nueva desde ahí
 2. Commits con Conventional Commits, en inglés, que citan la issue: `feat: add services section (#12)`
 3. Al subir la rama, la CI ejecuta lint, tipos, build y las pruebas de Playwright
-4. Con la CI en verde, se pasan los agentes que sugiere la issue, una sola vez y al final
-5. Con el OK de Irina, la rama se fusiona en `dev` (`git merge --no-ff`) y la issue se cierra
+4. Con la CI en verde, Claude **sugiere** qué agentes encajan con lo que ha cambiado y por qué
+   (ver [Agentes](#agentes)). **Irina decide** cuáles se pasan; si dice que no, no se pasa
+   ninguno. Nunca se lanzan sin su OK
+5. **Antes de abrir la PR se actualiza la documentación:** la de cualquier `CLAUDE.md` o guía
+   afectada por el cambio, una entrada en `CHANGELOG.md` y `NOW.md`
+6. PR hacia `dev`, que cita la issue (`Closes #12`). Aunque el proyecto sea de una persona, la
+   PR deja constancia de qué cambió y por qué
+7. Con el OK de Irina, la PR se fusiona (merge commit, no squash) y la issue se cierra
 
-Sin PR entre las ramas de trabajo y `dev`. La PR se reserva para `dev` → `main`, porque es el
-paso a producción y deja constancia de qué se publicó; se prepara solo cuando Irina lo pide.
-Nunca se hace push directo a `main`.
+La PR de `dev` → `main` es el paso a producción: se prepara solo cuando Irina lo pide, con la
+plantilla `.github/pull_request_template.md`, y al publicarse la sección «Sin publicar» del
+changelog pasa a llevar versión y fecha. Nunca se hace push directo a `main`.
 
 El hook `.claude/hooks/require-review.mjs` impide abrir una PR sin rama destino, hacia una rama
 que no sea `main` o `dev`, o hacia `main` desde otra rama que no sea `dev`.
 
+### `CHANGELOG.md` y `NOW.md`
+
+- **`CHANGELOG.md`** cuenta lo que cambia para quien visita la web o trabaja en ella, en el
+  formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/): secciones Añadido,
+  Cambiado, Corregido y Eliminado, con la issue de cada entrada. Lo que está en `dev` y aún no
+  en `main` vive en «Sin publicar»
+- **`NOW.md`** dice dónde está el proyecto ahora: qué está en curso, qué espera una decisión de
+  Irina y qué es lo siguiente. Se reescribe, no se acumula: el historial ya está en el
+  changelog y en git
+
 ## Agentes
 
 Viven en `.claude/agents/`. Ninguno corrige código: auditan, dejan un informe en `auditorias/`
-y deciden. **No son obligatorios:** cada issue sugiere cuáles pasar. Sirve de guía:
+y deciden. **No son obligatorios:** antes de cada PR, Claude sugiere cuáles encajan con lo que
+ha cambiado y el motivo, e Irina decide si se pasan. Sirve de guía:
 
 | Agente | Útil cuando la tarea… |
 | --- | --- |
@@ -104,6 +121,8 @@ En la raíz, además de la configuración:
 auditorias/   Informes de los agentes especialistas
 pruebas/      Pruebas de Playwright (responsive y accesibilidad) y la lista de rutas
 src/          La aplicación
+CHANGELOG.md  Qué ha cambiado, por issue
+NOW.md        Dónde está el proyecto ahora
 ```
 
 Un `CLAUDE.md` por carpeta solo cuando esa carpeta tiene reglas propias que no caben en el de
