@@ -39,3 +39,7 @@
   --icon-magenta-2: #e0007b;
   --icon-magenta-3: #d4007a;
 }
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}

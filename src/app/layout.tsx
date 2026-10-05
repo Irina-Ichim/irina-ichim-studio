@@ -2,8 +2,10 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Figtree, Great_Vibes, Playfair_Display } from "next/font/google";
 import { Logo } from "@/componentes/estructura/Logo";
+import { ThemeToggle } from "@/componentes/estructura/ThemeToggle";
 import { SITE } from "@/contenido/site";
 import { BROWSER_THEME_COLOR } from "@/estilos/temas/browserThemeColor";
+import { THEME_SCRIPT } from "@/estilos/temas/themeScript";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -66,12 +68,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${playfair.variable} ${figtree.variable} ${greatVibes.variable}`}>
+    <html lang="es" className={`${playfair.variable} ${figtree.variable} ${greatVibes.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
-        <header className="mx-auto max-w-5xl px-4 py-6">
+        <header className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-6">
           <Link href="/" aria-label={SITE.homeLinkLabel} className="inline-block rounded-md">
             <Logo className="w-56 sm:w-72" />
           </Link>
+          <ThemeToggle />
         </header>
         {children}
       </body>

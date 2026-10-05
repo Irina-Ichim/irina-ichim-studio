@@ -39,7 +39,7 @@ const eslintConfig = defineConfig([
       "@typescript-eslint/no-unnecessary-condition": "error",
     },
   },
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", "test-results/**", "playwright-report/**", "blob-report/**", "auditorias/**/capturas/**"]),
 ]);
 
 export default eslintConfig;

@@ -4,7 +4,7 @@ const PORT = 3100;
 const BASE_URL = `http://localhost:${PORT}`;
 const RESPONSIVE = /responsive\.spec\.ts$/;
 const ACCESSIBILITY = /accessibility\.spec\.ts$/;
-const THEME = /theme\.spec\.ts$/;
+const THEME = /theme(Switch)?\.spec\.ts$/;
 const BRAND = /brand\.spec\.ts$/;
 
 export default defineConfig({
@@ -31,7 +31,7 @@ export default defineConfig({
     { name: "desktop-zoom-200", testMatch: RESPONSIVE, use: { ...devices["Desktop Chrome"], viewport: { width: 683, height: 384 }, deviceScaleFactor: 2 } },
     { name: "tablet-portrait", testMatch: RESPONSIVE, use: { ...devices["iPad Mini"] } },
     { name: "tablet-landscape", testMatch: RESPONSIVE, use: { ...devices["iPad Pro 11 landscape"] } },
-    { name: "mobile-portrait-ios", testMatch: [RESPONSIVE, ACCESSIBILITY], use: { ...devices["iPhone 15"] } },
+    { name: "mobile-portrait-ios", testMatch: [RESPONSIVE, ACCESSIBILITY, THEME], use: { ...devices["iPhone 15"] } },
     { name: "mobile-landscape-ios", testMatch: RESPONSIVE, use: { ...devices["iPhone 15 landscape"] } },
     { name: "mobile-portrait-android", testMatch: RESPONSIVE, use: { ...devices["Pixel 7"] } },
     { name: "mobile-landscape-android", testMatch: RESPONSIVE, use: { ...devices["Pixel 7 landscape"] } },
