@@ -6,6 +6,8 @@
   --radius-*: initial;
   --shadow-*: initial;
   --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
   --text-*: initial;
 
   --radius-sm: 8px;

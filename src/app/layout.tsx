@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, Great_Vibes, Playfair_Display } from "next/font/google";
+import { BROWSER_THEME_COLOR } from "@/estilos/temas/browser-theme-color";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -33,8 +34,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: "light dark",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ecebe7" },
-    { media: "(prefers-color-scheme: dark)", color: "#121214" },
+    { media: "(prefers-color-scheme: light)", color: BROWSER_THEME_COLOR.light },
+    { media: "(prefers-color-scheme: dark)", color: BROWSER_THEME_COLOR.dark },
   ],
 };
 
