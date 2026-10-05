@@ -234,10 +234,16 @@ La marca vive en `src/componentes/estructura/Logo.tsx` (el logo, con los colores
 `public/marca/opengraph.png`. Se generan a partir de los archivos originales de las fuentes, con las letras convertidas en trazos.
 
 Los iconos y la imagen para redes se ven fuera de la web (pestañas, pantalla de inicio del
-móvil, vistas previas en redes), donde no hay variables CSS. Por eso llevan fijos los colores
-del tema oscuro: `--surface`, `--highlight-*` y `--metal-gold-*` de `temas/dark.css`.
-`pruebas/brand.spec.ts` falla si `icon.svg` deja de coincidir con esos tokens; si los tokens cambian, se
-regeneran todos los iconos.
+móvil, vistas previas en redes), donde no hay variables CSS, así que llevan los colores escritos:
+
+- `icon.svg` trae los dos temas y cambia con `prefers-color-scheme` (Chrome, Edge y Firefox).
+- `favicon.ico` (lo usa Safari), `apple-icon.png`, los iconos del manifiesto y la imagen para
+  redes no pueden adaptarse y van en el tema oscuro.
+- `public/marca/logo-light.*` (para fondos claros) y `logo-dark.*` (para fondos oscuros), en
+  SVG y PNG transparente, son para usar fuera de la web: documentos, presentaciones, correo.
+
+`pruebas/brand.spec.ts` falla si `icon.svg` deja de coincidir con los tokens de cualquiera de
+los dos temas; si los tokens cambian, se regeneran todos los recursos de marca.
 
 ## Seguridad y privacidad
 

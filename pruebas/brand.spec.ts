@@ -34,20 +34,34 @@ test("declares favicon, app icons and manifest that resolve", async ({ page, req
   }
 });
 
-test("the SVG favicon uses the current dark theme tokens", async ({ page, request }) => {
-  await page.emulateMedia({ colorScheme: "dark" });
-  await page.goto("/");
-  const tokens = await page.evaluate(() => {
-    const style = getComputedStyle(document.documentElement);
-    const names = ["--surface", "--highlight-1", "--highlight-2", "--highlight-3", "--highlight-5", "--metal-gold-1", "--metal-gold-2", "--metal-gold-3", "--metal-gold-4"];
-    return names.map((name) => ({ name, value: style.getPropertyValue(name).trim().toLowerCase() }));
-  });
-  const icon = (await (await request.get("/icon.svg")).text()).toLowerCase();
-  for (const { name, value } of tokens) {
-    expect(value, `${name} must be a six-digit hex colour`).toMatch(HEX_COLOR);
-    expect(icon, `${name} (${value}) is missing from icon.svg`).toContain(value);
+const GRADIENT_TOKENS = [
+  "--highlight-1", "--highlight-2", "--highlight-3", "--highlight-4", "--highlight-5",
+  "--metal-gold-1", "--metal-gold-2", "--metal-gold-3", "--metal-gold-4", "--metal-gold-5",
+];
+
+const BRAND_FILES = [
+  { path: "/icon.svg", schemes: ["light", "dark"], tokens: ["--surface", ...GRADIENT_TOKENS] },
+  { path: "/marca/logo-light.svg", schemes: ["light"], tokens: ["--ink", "--ink-muted", ...GRADIENT_TOKENS] },
+  { path: "/marca/logo-dark.svg", schemes: ["dark"], tokens: ["--ink", "--ink-muted", ...GRADIENT_TOKENS] },
+] as const;
+
+for (const file of BRAND_FILES) {
+  for (const colorScheme of file.schemes) {
+    test(`${file.path} uses the current ${colorScheme} theme tokens`, async ({ page, request }) => {
+      await page.emulateMedia({ colorScheme });
+      await page.goto("/");
+      const tokens = await page.evaluate((names) => {
+        const style = getComputedStyle(document.documentElement);
+        return names.map((name) => ({ name, value: style.getPropertyValue(name).trim().toLowerCase() }));
+      }, [...file.tokens]);
+      const svg = (await (await request.get(file.path)).text()).toLowerCase();
+      for (const { name, value } of tokens) {
+        expect(value, `${name} must be a six-digit hex colour`).toMatch(HEX_COLOR);
+        expect(svg, `${name} (${value}) is missing from ${file.path}`).toContain(value);
+      }
+    });
   }
-});
+}
 
 test("shares an absolute social image with alternative text", async ({ page, request }) => {
   await page.goto("/");
