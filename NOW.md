@@ -14,11 +14,9 @@ Fase 1, frontend. Nada publicado todavía en producción.
 
 ## En curso
 
-- **Navegación** (#10, rama `feat/header-navigation`): barra lateral plegable con el logo, las
-  10 secciones del mapa del sitio y las 6 páginas de Servicios en un panel lateral; barra
-  superior y menú a pantalla completa en pantallas pequeñas. Auditada y corregida; pendiente de
-  su PR
-- **Flujo con PR, changelog y este archivo** (#27, rama `docs/pr-workflow`)
+- **Navegación** (#10, PR desde `feat/header-navigation`): auditada (responsive, design system y
+  ortografía) y corregida; espera el OK de Irina para fusionarse. Incluye los cambios de #27
+- **Flujo con PR, changelog y este archivo** (#27, PR #28): espera el OK de Irina
 
 ## Esperando una decisión de Irina
 

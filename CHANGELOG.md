@@ -8,6 +8,11 @@ Lo que ya está en `dev` y todavía no ha pasado a producción (`main`) va en «
 
 ### Añadido
 
+- Navegación: menú lateral con el logo, las 10 secciones del mapa del sitio y las 6 páginas de
+  Servicios en un panel lateral, que se pliega a números y recuerda el estado; barra superior
+  con «Hablemos» y menú a pantalla completa en pantallas pequeñas, y enlace para saltar al
+  contenido. Las secciones sin página aún se muestran atenuadas y se anuncian como
+  «próximamente» (#10)
 - Selector de tema claro y oscuro: por defecto sigue al sistema, recuerda la elección y la
   aplica antes de pintar la página, sin parpadeo (#24)
 - Favicon en tema claro y archivos del logo sueltos para usar fuera de la web (#23)
