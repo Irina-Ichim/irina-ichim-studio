@@ -1,0 +1,15 @@
+.logo {
+  display: block;
+  height: auto;
+}
+
+@media (forced-colors: active) {
+  .ink {
+    fill: CanvasText;
+  }
+
+  .seal {
+    fill: Canvas;
+    stroke: CanvasText;
+  }
+}
