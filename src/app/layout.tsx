@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
+import Link from "next/link";
 import { Figtree, Great_Vibes, Playfair_Display } from "next/font/google";
+import { Logo } from "@/componentes/estructura/Logo";
+import { SITE } from "@/contenido/site";
 import { BROWSER_THEME_COLOR } from "@/estilos/temas/browserThemeColor";
 import "./globals.css";
 
@@ -23,12 +26,34 @@ const greatVibes = Great_Vibes({
   display: "swap",
 });
 
+const SOCIAL_IMAGE = {
+  url: "/marca/opengraph.png",
+  width: 1200,
+  height: 630,
+  alt: SITE.socialImageAlt,
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "Irina Ichim Studio",
-    template: "%s · Irina Ichim Studio",
+    default: SITE.name,
+    template: `%s · ${SITE.name}`,
   },
-  description: "Irina Ichim Studio: diseño y desarrollo web a medida.",
+  description: SITE.description,
+  openGraph: {
+    type: "website",
+    locale: SITE.locale,
+    siteName: SITE.name,
+    title: SITE.name,
+    description: SITE.description,
+    images: [SOCIAL_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE.name,
+    description: SITE.description,
+    images: [SOCIAL_IMAGE],
+  },
 };
 
 export const viewport: Viewport = {
@@ -42,7 +67,14 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${playfair.variable} ${figtree.variable} ${greatVibes.variable}`}>
-      <body>{children}</body>
+      <body>
+        <header className="mx-auto max-w-5xl px-4 py-6">
+          <Link href="/" aria-label={SITE.homeLinkLabel} className="inline-block rounded-md">
+            <Logo decorative className="w-56 sm:w-64" />
+          </Link>
+        </header>
+        {children}
+      </body>
     </html>
   );
 }
