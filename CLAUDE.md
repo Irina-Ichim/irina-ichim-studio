@@ -24,7 +24,7 @@ trabajo de la fase 2.
 ## Stack
 
 - **Next.js 16.3.8** (App Router, `src/`), React 19, TypeScript en modo estricto
-- **Tailwind CSS 4**, con los tokens de diseño definidos en `src/app/globals.css`
+- **Tailwind CSS 4**, con los tokens de diseño en `src/estilos/` (ver `src/CLAUDE.md`)
 - npm como gestor de paquetes. Node 22 (`.nvmrc`)
 - Despliegue previsto en **Railway**: `main` es producción y `dev`, el entorno de verificación
 
@@ -89,6 +89,10 @@ escribe el cambio no valida su propio trabajo.
 | `seo-geo-auditor` | El diff toca `src/app/**` o `src/contenido/**` | `auditorias/seo-geo/` |
 | `pr-reviewer` | Siempre, el último | Aprobación para el hook |
 
+`responsive-auditor` y `seo-geo-auditor` compilan la web, así que se lanzan uno detrás de otro
+y nunca a la vez: comparten la carpeta `.next` y una compilación pisaría a la otra. Los otros
+dos pueden ir en paralelo con cualquiera.
+
 ## Estructura de carpetas
 
 En la raíz, además de la configuración:
@@ -118,6 +122,7 @@ src/
 │   ├── estructura/      Cabecera, pie y navegación comunes a todas las páginas
 │   └── secciones/       Bloques de una página: Hero, ServicesGrid
 ├── contenido/           Textos y datos reales del estudio, tipados
+├── estilos/             Temas, tokens, mapeo a Tailwind, utilidades y base (ver src/CLAUDE.md)
 ├── hooks/               Hooks de React propios (se mantiene el término de React)
 ├── utilidades/          Funciones puras, sin React
 ├── tipos/               Tipos compartidos entre carpetas

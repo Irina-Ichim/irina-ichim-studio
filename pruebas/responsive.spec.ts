@@ -31,9 +31,16 @@ for (const route of ROUTES) {
         expect(undersized, "targets below the WCAG 2.5.5 AAA size").toEqual([]);
       });
 
-      test("renders a main landmark and captures a full-page screenshot", async ({ page }, testInfo) => {
+      test("renders styled content and captures a full-page screenshot", async ({ page }, testInfo) => {
         await page.goto(route);
         await expect(page.locator("main")).toBeVisible();
+        await page.evaluate(() => document.fonts.ready);
+        const styles = await page.evaluate(() => ({
+          surface: getComputedStyle(document.documentElement).getPropertyValue("--surface").trim(),
+          bodyFont: getComputedStyle(document.body).fontFamily,
+        }));
+        expect(styles.surface, "design tokens are not loaded").not.toBe("");
+        expect(styles.bodyFont, "brand font is not applied").toContain("Figtree");
         const slug = routeSlug(route);
         const screenshot = await page.screenshot({
           fullPage: true,

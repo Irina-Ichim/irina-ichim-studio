@@ -4,6 +4,7 @@ const PORT = 3100;
 const BASE_URL = `http://localhost:${PORT}`;
 const RESPONSIVE = /responsive\.spec\.ts$/;
 const ACCESSIBILITY = /accessibility\.spec\.ts$/;
+const THEME = /theme\.spec\.ts$/;
 
 export default defineConfig({
   testDir: "./pruebas",
@@ -24,7 +25,7 @@ export default defineConfig({
   },
   projects: [
     { name: "large-desktop", testMatch: RESPONSIVE, use: { ...devices["Desktop Chrome"], viewport: { width: 2560, height: 1440 } } },
-    { name: "desktop", testMatch: [RESPONSIVE, ACCESSIBILITY], use: { ...devices["Desktop Chrome"], viewport: { width: 1366, height: 768 } } },
+    { name: "desktop", testMatch: [RESPONSIVE, ACCESSIBILITY, THEME], use: { ...devices["Desktop Chrome"], viewport: { width: 1366, height: 768 } } },
     { name: "desktop-safari", testMatch: RESPONSIVE, use: { ...devices["Desktop Safari"], viewport: { width: 1440, height: 900 } } },
     { name: "desktop-zoom-200", testMatch: RESPONSIVE, use: { ...devices["Desktop Chrome"], viewport: { width: 683, height: 384 }, deviceScaleFactor: 2 } },
     { name: "tablet-portrait", testMatch: RESPONSIVE, use: { ...devices["iPad Mini"] } },
