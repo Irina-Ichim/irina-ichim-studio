@@ -63,7 +63,9 @@ function isDarkActive() {
 }
 
 export function ThemeToggle() {
-  const isDark = useSyncExternalStore(subscribe, isDarkActive, () => false);
+  // The server cannot know the theme, so the pressed state is left out until hydration
+  // rather than announcing a wrong one.
+  const isDark = useSyncExternalStore<boolean | undefined>(subscribe, isDarkActive, () => undefined);
 
   // React Strict Mode remounts <html> in development and drops the attribute set by the
   // inline script; this puts it back. In production the attribute is already there.
