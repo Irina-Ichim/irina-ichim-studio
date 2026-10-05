@@ -1,43 +1,53 @@
-Commit auditado: d3068ef641d030d5843a9999e7e9dab4a6f584b1
+Commit auditado: cd11ef2fa69d16372b98a3671f99ceb6d5605cb2
 
-# Auditoría responsive: `feat/brand-assets` → `dev` (segunda ronda)
+# Auditoría responsive: `feat/brand-assets` → `dev` (tercera ronda)
 
-Fecha: 2026-10-05. Sustituye al informe que aprobó `dd898b9`. Único cambio visual desde
-entonces: el logo de la cabecera pasa de `sm:w-64` (256 px) a `sm:w-72` (288 px) en
-`src/app/layout.tsx`. Por debajo de `sm` sigue en `w-56` (224 px).
+Fecha: 2026-10-05. Sustituye al informe que aprobó `d3068ef`. Cambios en `src/` desde entonces:
+
+- `src/componentes/estructura/Logo.tsx`: los ids de los degradados salen de `useId()` en lugar
+  de un `idPrefix` fijo. Desaparecen las props `decorative` e `idPrefix`, y el SVG pasa a ser
+  siempre `aria-hidden` (el nombre accesible lo pone el enlace que lo rodea).
+- `src/app/layout.tsx`: deja de pasar `decorative` al logo. Tamaños sin cambios (`w-56 sm:w-72`).
+
+No hay cambios de tamaño ni de maquetación, así que las medidas del informe anterior siguen
+valiendo (enlace del logo de 288 × 91 px desde `sm` y de 224 × 71 px en móvil vertical).
 
 ## Cobertura de rutas
 
 `src/app/` tiene una sola página (`src/app/page.tsx` → `/`) y `pruebas/routes.ts` la incluye.
-Sin rutas sin cubrir.
+No queda ninguna ruta sin cubrir.
 
 ## Pruebas automáticas
 
-Capturas antiguas borradas antes de ejecutar. `npm run test:responsive`: **60 de 60 en verde**
-(10 perfiles × 2 temas × 3 pruebas: sin desplazamiento horizontal, objetivos de 44 × 44 px,
-`<main>` visible con tokens y fuente de marca cargados).
+Borré las capturas antiguas antes de ejecutar.
 
-## Medidas del logo (Playwright, `getBoundingClientRect`, servidor de producción)
+- **Primera ejecución**: 59 de 60. Falló `[mobile-portrait-android] / · light › renders styled
+  content…` con `Protocol error (Page.captureScreenshot): Unable to capture screenshot` en
+  `page.screenshot`. Las comprobaciones previas a la captura (tokens, fuentes, `<main>`) pasaron.
+  Es un fallo de Chromium al hacer la captura con muchos trabajadores en paralelo, no de la web.
+  El mismo perfil pasó en tema oscuro.
+- **Segunda ejecución**, tras volver a borrar las capturas: **60 de 60 en verde** (10 perfiles ×
+  2 temas × 3 pruebas: sin desplazamiento horizontal, objetivos de 44 × 44 px y `<main>` visible
+  con los tokens y la fuente de marca cargados). Las capturas revisadas son las de esta ejecución.
 
-| Perfil | Viewport (CSS px) | Enlace del logo | Altura de «STUDIO» | Altura de «Irina» | Fin del titular |
-| --- | --- | --- | --- | --- | --- |
-| large-desktop | 2560 × 1440 | 288 × 91 | 7,8 px | 28,6 px | 303 |
-| desktop | 1366 × 768 | 288 × 91 | 7,8 px | 28,6 px | 303 |
-| desktop-safari | 1440 × 900 | 288 × 91 | 7,8 px | 28,6 px | 303 |
-| desktop-zoom-200 | 683 × 384 | 288 × 91 | 7,8 px | 28,6 px | 293 |
-| tablet-portrait | 768 × 1024 | 288 × 91 | 7,8 px | 28,6 px | 296 |
-| tablet-landscape | 1194 × 834 | 288 × 91 | 7,8 px | 28,6 px | 303 |
-| mobile-portrait-ios | 393 × 659 | 224 × 71 | 6,1 px | 22,2 px | 234 |
-| mobile-landscape-ios | 734 × 343 | 288 × 91 | 7,8 px | 28,6 px | 295 |
-| mobile-portrait-android | 412 × 839 | 224 × 71 | 6,1 px | 22,2 px | 234 |
-| mobile-landscape-android | 863 × 360 | 288 × 91 | 7,8 px | 28,6 px | 298 |
+La instantánea de accesibilidad del fallo muestra el enlace con el nombre «Irina Ichim Studio,
+ir al inicio» y el SVG fuera del árbol. Es lo esperado con `aria-hidden`.
 
-- «STUDIO» pasa de 7,0 a 7,8 px desde `sm` (+12,5 %, proporcional al ancho). En móvil vertical
-  no cambia (6,1 px), como era de esperar.
-- Enlace: supera 44 × 44 px en todos los perfiles; nombre accesible sin cambios.
-- Coste en altura: la cabecera crece 10 px. En móvil horizontal el titular acaba a 295 de 343 px
-  (iPhone) y 298 de 360 px (Pixel); con zoom al 200 %, a 293 de 384 px. Logo y titular siguen en
-  el primer pantallazo, con 48 px de margen en el caso más justo.
+## Degradados del logo (`useId`)
+
+Lo comprobé en las 20 capturas, con Chromium y con WebKit:
+
+- **Tema claro**: sello con aro de oro metálico (de claro a oscuro en diagonal). «Ii» e «Ichim»
+  con el degradado magenta. «Irina» en tinta e «STUDIO» en `--ink-muted`.
+- **Tema oscuro**: aro de oro y «Ii» e «Ichim» con el degradado dorado. «Irina» en marfil e
+  «STUDIO» legible.
+- En ninguna captura hay relleno negro ni transparente, que es lo que se vería si un
+  `url(#…)` no encontrara su degradado. Los ids generados por `useId` funcionan en los dos
+  motores.
+
+Para que no haga falta revisarlo a mano: hoy hay un solo logo por página. Si alguna vez se
+pintan dos (por ejemplo, en la cabecera y en el pie), `useId` evita que los ids se repitan,
+que era el riesgo del `idPrefix` fijo. Ese caso todavía no se puede probar.
 
 ## Página `/`
 
@@ -54,48 +64,52 @@ Capturas antiguas borradas antes de ejecutar. `npm run test:responsive`: **60 de
 | mobile-portrait-android (Pixel 7) | Correcta · sugerencia S2 | Correcta · sugerencia S2 |
 | mobile-landscape-android (Pixel 7) | Correcta | Correcta |
 
-Revisadas las 20 capturas. Ninguna tiene texto cortado, solapado ni fuera de su contenedor. El
-logo más grande no choca con nada ni empuja el titular fuera de la pantalla. La cabecera no es
-fija. Los dos temas conservan el degradado magenta/oro, el sello y la legibilidad de «STUDIO»
-(`--ink-muted`).
+Revisé las 20 capturas y todas se ven igual que en la ronda anterior. No hay texto cortado,
+solapado ni fuera de su contenedor. Logo y titular caben en el primer pantallazo en móvil
+horizontal y con zoom al 200 %. La cabecera no es fija.
 
 ## Hallazgos
 
-Ninguno bloqueante.
+Ninguno bloqueante. Las sugerencias S1 a S3 vienen de las rondas anteriores y no cambian.
 
-### S1 · «STUDIO» en pantallas de densidad 1 (sugerencia, mejorada en esta ronda)
+### S1 · «STUDIO» en pantallas de densidad 1 (sugerencia)
 
-- **Perfiles**: desktop y large-desktop (DPR 1).
-- **Temas**: los dos.
+- **Perfiles**: desktop y large-desktop. **Temas**: los dos.
 - **Capturas**: `capturas/desktop/inicio-{light,dark}.png`, `capturas/large-desktop/inicio-{light,dark}.png`.
-- **Qué pasa**: con 288 px, «STUDIO» mide 7,8 px. En la captura de 1366 px se lee mejor que en
-  la ronda anterior, pero sigue algo por debajo de los 8–9 px que proponía. En 2560 px el logo
-  sigue viéndose pequeño respecto a la pantalla.
-- **Propuesta**: si se quiere cerrar del todo, un paso más desde `lg` (`lg:w-80`, 320 px, que
-  daría unos 8,7 px) o la variante del SVG con «STUDIO» de trazo más grueso para tamaños pequeños.
-  No hace falta para esta PR.
+- **Qué pasa**: con 288 px de ancho, «STUDIO» mide 7,8 px de alto. En 2560 px el logo queda
+  pequeño respecto a la pantalla.
+- **Propuesta**: un escalón más desde `lg` (`lg:w-80`) o una variante de «STUDIO» con trazo más
+  grueso para tamaños pequeños. No hace falta para esta PR.
 
-### S2 · El titular va justo de ancho en móvil vertical (sugerencia, sin cambios)
+### S2 · El titular va justo de ancho en móvil vertical (sugerencia)
 
-- **Perfiles**: mobile-portrait-ios, mobile-portrait-android. **Temas**: los dos.
+- **Perfiles**: mobile-portrait-ios y mobile-portrait-android. **Temas**: los dos.
 - **Capturas**: `capturas/mobile-portrait-*/inicio-{light,dark}.png`.
-- **Qué pasa**: «Irina Ichim Studio» ocupa 361 de 393 px (iPhone 15) en una línea. En móviles de
-  320–360 px, que ningún perfil prueba, partirá línea. No viene de este cambio.
-- **Propuesta**: añadir un perfil de 320–360 px en `playwright.config.ts` antes de que la portada
-  tenga contenido real.
+- **Qué pasa**: en 393 px, «Irina Ichim Studio» cabe en una línea con poco margen. En pantallas
+  de 320 a 360 px, que ningún perfil prueba, partirá línea.
+- **Propuesta**: añadir un perfil de 320 a 360 px en `playwright.config.ts`.
 
-### S3 · Hueco lateral en pantalla grande (sugerencia, sin cambios)
+### S3 · Hueco lateral en pantalla grande (sugerencia)
 
 - **Perfil**: large-desktop. **Temas**: los dos.
 - **Captura**: `capturas/large-desktop/inicio-{light,dark}.png`.
-- **Qué pasa**: cabecera y `<main>` limitados a `max-w-5xl`; en 2560 px quedan unos 780 px vacíos
-  a cada lado. Esperable con la portada provisional.
+- **Qué pasa**: el contenido está limitado a `max-w-5xl` y en 2560 px quedan unos 780 px vacíos
+  a cada lado. Es lo esperable con la portada provisional.
 - **Propuesta**: revisarlo cuando llegue el contenido real.
+
+### S4 · Fallo intermitente de captura en Chromium (sugerencia, nueva)
+
+- **Perfil**: mobile-portrait-android. **Tema**: claro. Solo en la primera ejecución.
+- **Qué pasa**: `Page.captureScreenshot` falló una vez sin que fallara nada de la página. En
+  local `retries` vale 0, así que un fallo así pone la prueba en rojo. En la CI hay un
+  reintento.
+- **Propuesta**: si vuelve a pasar, limitar `workers` en local o dar un reintento solo a la
+  prueba de captura. No toca a esta PR.
 
 ### Nota W · Peso de Playfair en WebKit
 
-En los perfiles WebKit el titular se pinta en peso regular; en Chromium, en 700. Es el límite
-conocido del WebKit de Playwright en Windows, no un fallo de la web. Pendiente de verificar en un
-dispositivo Apple real. El logo no se ve afectado: sus letras son trazos.
+En los perfiles con WebKit el titular sale en peso regular, y en Chromium en 700. Es un límite
+conocido del WebKit de Playwright en Windows y no un fallo de la web. Queda pendiente
+comprobarlo en un dispositivo Apple real. Al logo no le afecta, porque sus letras son trazos.
 
 VEREDICTO: APROBADA
