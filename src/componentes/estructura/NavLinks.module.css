@@ -32,7 +32,7 @@
   min-height: 2.75rem;
   border-radius: var(--radius-sm);
   color: var(--ink);
-  font-size: var(--text-eyebrow);
+  font-size: var(--text-small);
   font-weight: var(--text-eyebrow--font-weight);
   line-height: var(--text-eyebrow--line-height);
   letter-spacing: var(--text-eyebrow--letter-spacing);
@@ -177,8 +177,11 @@
 /* The numbers stay left-aligned and the list shifts right, so they slide to the middle of the
    collapsed rail in one movement with its width instead of jumping to the centre. */
 .rail {
+  /* Grows with the screen height: tight at the 45rem where the rail starts, roomy on tall
+     screens, so the list fills the rail instead of leaving the bottom empty. */
+  gap: clamp(0.125rem, calc((100dvh - 45rem) / 12), 0.875rem);
+
   @variant rail-collapsed {
-    gap: 0.25rem;
     padding-left: 1.25rem;
   }
 
@@ -256,10 +259,6 @@
 }
 
 /* Full-screen menu on small screens: the pages unfold under their section. */
-.sheet .entry {
-  font-size: var(--text-small);
-}
-
 .sheet .entry[aria-current="page"]::before {
   left: -1rem;
 }

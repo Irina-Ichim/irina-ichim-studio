@@ -3,7 +3,7 @@
 /* In rem so that 200 % zoom on a laptop falls back to the top bar; the height keeps the
    ten entries from being cut off on short screens and phones in landscape. */
 @custom-variant rail (@media (min-width: 64rem) and (min-height: 45rem));
-@custom-variant rail-tall (@media (min-width: 64rem) and (min-height: 60rem));
+@custom-variant rail-tall (@media (min-width: 64rem) and (min-height: 72rem));
 @custom-variant narrow (@media (max-width: 30rem));
 @custom-variant rail-collapsed (&:where([data-rail="collapsed"], [data-rail="collapsed"] *));
 /* Set by the collapse button on its first press, so folding animates but loading never does. */

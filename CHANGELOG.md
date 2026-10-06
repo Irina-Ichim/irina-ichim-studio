@@ -27,6 +27,8 @@ Lo que ya está en `dev` y todavía no ha pasado a producción (`main`) va en «
 
 ### Cambiado
 
+- El menú lateral aprovecha mejor el alto: nombres más grandes, separación que crece con la
+  pantalla y más aire alrededor del botón de plegar
 - Plegar y desplegar el menú lateral es ahora una transición suave: la barra, su botón y el
   contenido se mueven a la vez, los nombres se desvanecen y el logo y el sello se funden (#30)
 - Las ramas de trabajo vuelven a llegar a `dev` por PR. Antes de cada PR se actualizan la

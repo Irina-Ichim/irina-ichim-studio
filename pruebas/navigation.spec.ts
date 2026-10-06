@@ -76,7 +76,7 @@ test("the side rail collapses to numbers and remembers it after reloading", asyn
   await expect(page.locator("html")).not.toHaveAttribute("data-rail");
 });
 
-for (const viewport of [RAIL_VIEWPORT, { width: 1440, height: 900 }, { width: 1440, height: 960 }, { width: 1024, height: 720 }]) {
+for (const viewport of [RAIL_VIEWPORT, { width: 1440, height: 900 }, { width: 1440, height: 960 }, { width: 1920, height: 1200 }, { width: 1024, height: 720 }]) {
   test(`every control of the rail stays on screen, open and collapsed (${viewport.width}×${viewport.height})`, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.goto("/");
