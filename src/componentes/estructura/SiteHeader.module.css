@@ -1,0 +1,93 @@
+@reference "../../app/globals.css";
+
+.rail {
+  @apply bg-surface-sheen;
+  position: fixed;
+  z-index: 10;
+  inset-block: 0;
+  left: 0;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: var(--spacing-rail);
+  padding: 1.75rem 1.5rem 1.25rem;
+
+  @variant rail-collapsed {
+    width: var(--spacing-rail-collapsed);
+    padding-inline: 1rem;
+  }
+}
+
+/* The gold edge of the rail. */
+.rail::after {
+  @apply bg-metal-gold;
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  width: 2px;
+
+  @media (forced-colors: active) {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+}
+
+.railTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+
+  @variant rail-collapsed {
+    align-items: center;
+    padding-bottom: 2.5rem;
+  }
+}
+
+.railTop .fullLogo {
+  width: 11.5rem;
+
+  @variant rail-collapsed {
+    display: none;
+  }
+}
+
+.railTop .seal {
+  display: none;
+  width: 3.5rem;
+
+  @variant rail-collapsed {
+    display: block;
+  }
+}
+
+.vertical {
+  margin-left: 1.15rem;
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+
+  @variant rail-collapsed {
+    display: none;
+  }
+}
+
+.railBottom {
+  display: flex;
+  margin-top: auto;
+
+  @variant rail-collapsed {
+    justify-content: center;
+  }
+}
+
+/* Sits on the gold line, half over the rail and half over the page: half its 2.75rem. */
+.collapse {
+  position: fixed;
+  z-index: 11;
+  top: 6.25rem;
+  left: calc(var(--spacing-rail) - 1.375rem);
+
+  @variant rail-collapsed {
+    left: calc(var(--spacing-rail-collapsed) - 1.375rem);
+  }
+}

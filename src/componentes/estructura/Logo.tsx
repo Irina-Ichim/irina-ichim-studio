@@ -1,10 +1,15 @@
 import { useId } from "react";
 import { LOGO_PATHS, LOGO_SEAL, LOGO_VIEW_BOX } from "./logoPaths";
+import { classNames } from "@/utilidades/classNames";
 import styles from "./Logo.module.css";
 
 type LogoProps = {
+  variant?: "full" | "seal";
   className?: string;
 };
+
+const SEAL_EDGE = LOGO_SEAL.r + LOGO_SEAL.strokeWidth / 2;
+const SEAL_VIEW_BOX = `${LOGO_SEAL.cx - SEAL_EDGE} ${LOGO_SEAL.cy - SEAL_EDGE} ${SEAL_EDGE * 2} ${SEAL_EDGE * 2}`;
 
 const HIGHLIGHT_STOPS = [
   { offset: 0, token: "--highlight-1" },
@@ -22,13 +27,13 @@ const METAL_GOLD_STOPS = [
   { offset: 1, token: "--metal-gold-5" },
 ] as const;
 
-export function Logo({ className }: LogoProps) {
+export function Logo({ variant = "full", className }: LogoProps) {
   const id = useId();
   const highlightId = `${id}-highlight`;
   const goldId = `${id}-gold`;
 
   return (
-    <svg viewBox={LOGO_VIEW_BOX} className={[styles.logo, className].filter(Boolean).join(" ")} aria-hidden>
+    <svg viewBox={variant === "seal" ? SEAL_VIEW_BOX : LOGO_VIEW_BOX} className={classNames(styles.logo, className)} aria-hidden>
       <defs>
         <linearGradient id={highlightId} x1="0" y1="0" x2="1" y2="0">
           {HIGHLIGHT_STOPS.map(({ offset, token }) => (
@@ -50,9 +55,13 @@ export function Logo({ className }: LogoProps) {
         strokeWidth={LOGO_SEAL.strokeWidth}
       />
       <path className={styles.ink} d={LOGO_PATHS.initials} fill={`url(#${highlightId})`} />
-      <path className={`${styles.ink} fill-ink`} d={LOGO_PATHS.firstName} />
-      <path className={styles.ink} d={LOGO_PATHS.lastName} fill={`url(#${highlightId})`} />
-      <path className={`${styles.ink} fill-ink-muted`} d={LOGO_PATHS.studio} />
+      {variant === "full" && (
+        <>
+          <path className={`${styles.ink} fill-ink`} d={LOGO_PATHS.firstName} />
+          <path className={styles.ink} d={LOGO_PATHS.lastName} fill={`url(#${highlightId})`} />
+          <path className={`${styles.ink} fill-ink-muted`} d={LOGO_PATHS.studio} />
+        </>
+      )}
     </svg>
   );
 }

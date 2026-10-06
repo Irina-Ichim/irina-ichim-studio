@@ -72,10 +72,12 @@ test("shares an absolute social image with alternative text", async ({ page, req
   expect((await request.get(new URL(image ?? "").pathname)).status()).toBe(200);
 });
 
-test("the header logo links home with an accessible name and hides the decorative SVG", async ({ page }) => {
+test("the header logo links home with an accessible name and hides the decorative SVGs", async ({ page }) => {
   await page.goto("/");
   const home = page.getByRole("link", { name: "Irina Ichim Studio, ir al inicio" });
   await expect(home).toBeVisible();
   await expect(home).toHaveAttribute("href", "/");
-  await expect(home.locator("svg")).toHaveAttribute("aria-hidden", "true");
+  for (const svg of await home.locator("svg").all()) {
+    await expect(svg).toHaveAttribute("aria-hidden", "true");
+  }
 });

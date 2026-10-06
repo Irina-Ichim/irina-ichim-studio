@@ -1,0 +1,292 @@
+@reference "../../app/globals.css";
+
+.list {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  border-radius: var(--radius-sm);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.row > .entry {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 2.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font-size: var(--text-eyebrow);
+  font-weight: var(--text-eyebrow--font-weight);
+  line-height: var(--text-eyebrow--line-height);
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.number {
+  flex: none;
+  width: 1.6rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  white-space: nowrap;
+}
+
+.available:hover .number,
+.available:hover .label {
+  color: var(--link);
+}
+
+.entry[aria-current="page"] .number {
+  color: var(--link);
+}
+
+.entry[aria-current="page"] .label {
+  @apply text-highlight;
+}
+
+/* The short gold dash that marks the current page from the edge of the rail. */
+.entry[aria-current="page"]::before {
+  @apply bg-metal-gold;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -1.5rem;
+  width: 0.7rem;
+  height: 2px;
+  translate: 0 -50%;
+  border-radius: var(--radius-pill);
+
+  @media (forced-colors: active) {
+    forced-color-adjust: none;
+    background: Highlight;
+  }
+}
+
+.unavailable {
+  @apply opacity-disabled;
+  color: var(--ink-muted);
+  cursor: default;
+}
+
+.pages {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pageEntry {
+  padding-block: 0.35rem;
+  color: var(--ink-muted);
+  font-size: var(--text-small);
+  font-weight: normal;
+  line-height: var(--text-small--line-height);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.pageEntry .label {
+  white-space: normal;
+}
+
+.pageEntry[aria-current="page"] .label {
+  font-weight: var(--text-label--font-weight);
+}
+
+.pageEntry::before {
+  display: none;
+}
+
+/* Side rail: the pages of a section float in a panel to the right of the gold line. */
+.rail .panel {
+  @apply shadow-raised-sm;
+  position: absolute;
+  z-index: 5;
+  top: -0.6rem;
+  left: calc(100% + 2.4rem);
+  width: max-content;
+  max-width: 22rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-base);
+}
+
+/* Invisible bridge over the gap, so the pointer can reach the panel without closing it. */
+.rail .panel::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  right: 100%;
+  width: 2.6rem;
+}
+
+.rail .item:hover > .panel,
+.rail .item:has(:focus-visible) > .panel,
+.rail .panel.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.rail .item.dismissed > .panel {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-right: -0.5rem;
+}
+
+.panelTitle {
+  margin: 0;
+  color: var(--link);
+  font-size: var(--text-eyebrow);
+  font-weight: var(--text-eyebrow--font-weight);
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+  text-transform: uppercase;
+}
+
+/* Collapsed rail: numbers only; the name shows as a label on hover or keyboard focus. */
+.rail {
+  @variant rail-collapsed {
+    gap: 0.25rem;
+  }
+}
+
+.rail .topEntry,
+.rail .parentEntry {
+  @variant rail-collapsed {
+    justify-content: center;
+  }
+}
+
+.rail .number {
+  @variant rail-collapsed {
+    width: auto;
+    font-size: var(--text-small);
+  }
+}
+
+.rail .topEntry .label {
+  @variant rail-collapsed {
+    @apply shadow-raised-sm;
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: calc(100% + 1rem);
+    translate: 0 -50%;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--accent-line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--ink);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-base);
+  }
+}
+
+.rail .topEntry:hover .label,
+.rail .topEntry:focus-visible .label {
+  @variant rail-collapsed {
+    opacity: 1;
+  }
+}
+
+.rail .topEntry[aria-current="page"] .label {
+  @variant rail-collapsed {
+    background-image: none;
+    color: var(--link);
+  }
+}
+
+.rail .entry[aria-current="page"]::before {
+  @variant rail-collapsed {
+    left: -1rem;
+  }
+}
+
+.rail .toggle {
+  @variant rail-collapsed {
+    display: none;
+  }
+}
+
+/* The panel already shows the section name; the link keeps it for screen readers. */
+.rail .parentEntry .label {
+  @variant rail-collapsed {
+    @apply sr-only;
+  }
+}
+
+.rail .panel {
+  @variant rail-collapsed {
+    left: calc(100% + 1.75rem);
+  }
+}
+
+/* Full-screen menu on small screens: the pages unfold under their section. */
+.sheet .entry {
+  font-size: var(--text-small);
+}
+
+.sheet .entry[aria-current="page"]::before {
+  left: -1rem;
+}
+
+.sheet .pageEntry {
+  letter-spacing: normal;
+}
+
+.sheet .panel {
+  display: none;
+  margin-left: 2.5rem;
+  padding: 0 0 0.4rem 1.1rem;
+  border-left: 1px solid var(--accent-line);
+}
+
+.sheet .panel.open {
+  display: block;
+}
+
+@media (forced-colors: active) {
+  .entry[aria-current="page"] .label {
+    color: Highlight;
+  }
+
+  .available:hover .label {
+    text-decoration: underline;
+  }
+
+  .rail .panel,
+  .rail .topEntry .label {
+    border-color: CanvasText;
+  }
+}

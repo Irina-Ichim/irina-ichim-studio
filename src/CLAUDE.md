@@ -29,9 +29,9 @@ Los estilos globales viven en `src/estilos/`, un archivo por responsabilidad.
 | `temas/dark.css` | Los mismos nombres con los valores del tema oscuro, bajo `[data-theme="dark"]` |
 | `temas/themeScript.ts` | El script en línea que fija `data-theme` antes del primer pintado, y las constantes que comparte con `ThemeToggle` |
 | `tokens.css` | Tokens derivados que no cambian con el tema: degradados, duraciones, opacidad |
-| `tailwindTheme.css` | La escala de Tailwind (`@theme`): radios, tipografía, sombras neumórficas (el brillo `gloss` es igual en los dos temas a propósito) y los colores y fuentes que se exponen, más la variante `theme-dark:`. Elimina los colores, sombras y tamaños por defecto de Tailwind, así que no se pueden usar valores fuera del sistema |
+| `tailwindTheme.css` | La escala de Tailwind (`@theme`): radios, tipografía, sombras neumórficas (el brillo `gloss` es igual en los dos temas a propósito) y los colores y fuentes que se exponen, el ancho del menú lateral (`--spacing-rail`) y las variantes propias: `theme-dark:`, `rail:` (cabe el menú lateral), `rail-tall:`, `rail-collapsed:` (menú plegado) y `narrow:` (móviles muy estrechos). Elimina los colores, sombras y tamaños por defecto de Tailwind, así que no se pueden usar valores fuera del sistema |
 | `temas/browserThemeColor.ts` | El color de la barra del navegador en móvil. Repite `--surface` porque esa etiqueta no lee variables CSS; `pruebas/theme.spec.ts` falla si dejan de coincidir |
-| `utilities.css` | Utilidades propias (`bg-action`, `text-highlight`…) |
+| `utilities.css` | Utilidades propias: `bg-action`, `text-highlight`, `bg-surface-sheen` y las dos recetas de control, `control-raised` y `control-quiet` |
 | `base.css` | Estilos de elementos: `body`, foco, movimiento reducido |
 
 - Cada token de color tiene valor en los dos temas, con el mismo nombre
@@ -87,6 +87,15 @@ Phosphor en peso `duotone`, con el color del token de acento.
 - Se animan `transform` y `opacity`; el resto, solo con un motivo
 
 ## Componentes
+
+- Todo control interactivo usa una de las dos recetas de `utilities.css`, que ya traen sus estados
+  (hover, pulsado y alto contraste): `control-raised` (en relieve, con borde de acento de 3:1) o
+  `control-quiet` (solo icono, dentro de una superficie que ya lo enmarca). `IconButton` las
+  ofrece como variantes `raised` y `quiet`
+- En los `.module.css`, las utilidades del sistema se reutilizan con `@reference` y `@apply`, y
+  los estados del menú plegado con `@variant rail-collapsed`, en vez de copiar valores
+- El menú lateral marca que está plegado con `data-rail` en `<html>`, igual que el tema: lo pone
+  un script en línea (`componentes/estructura/railState.ts`) antes del primer pintado
 
 - Server Components por defecto. `"use client"` solo cuando hace falta interacción o estado,
   y lo más abajo posible en el árbol

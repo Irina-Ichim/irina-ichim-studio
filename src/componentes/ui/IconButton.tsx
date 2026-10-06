@@ -1,22 +1,21 @@
 import type { ComponentProps } from "react";
-import styles from "./IconButton.module.css";
+import { classNames } from "@/utilidades/classNames";
 
 type IconButtonProps = Omit<ComponentProps<"button">, "aria-label" | "disabled"> & {
   label: string;
+  variant?: "raised" | "quiet";
 };
 
-export function IconButton({ label, className, type = "button", ...props }: IconButtonProps) {
+export function IconButton({ label, variant = "raised", className, type = "button", ...props }: IconButtonProps) {
   return (
     <button
       type={type}
       aria-label={label}
-      className={[
-        styles.iconButton,
-        "inline-flex size-11 shrink-0 items-center justify-center rounded-pill border-2 border-accent-line bg-surface text-link shadow-raised-sm hover:border-ink active:border-ink active:text-ink active:shadow-inset-sm",
+      className={classNames(
+        "inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-pill",
+        variant === "raised" ? "control-raised text-link" : "control-quiet",
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      )}
       {...props}
     />
   );

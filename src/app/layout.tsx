@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
 import { Figtree, Great_Vibes, Playfair_Display } from "next/font/google";
-import { Logo } from "@/componentes/estructura/Logo";
-import { ThemeToggle } from "@/componentes/estructura/ThemeToggle";
+import { SiteHeader } from "@/componentes/estructura/SiteHeader";
 import { SITE } from "@/contenido/site";
 import { BROWSER_THEME_COLOR } from "@/estilos/temas/browserThemeColor";
 import { THEME_SCRIPT } from "@/estilos/temas/themeScript";
+import { RAIL_SCRIPT } from "@/componentes/estructura/railState";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -70,15 +69,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${playfair.variable} ${figtree.variable} ${greatVibes.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: `${THEME_SCRIPT};${RAIL_SCRIPT}` }} />
       </head>
-      <body>
-        <header className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-6">
-          <Link href="/" aria-label={SITE.homeLinkLabel} className="inline-block rounded-md">
-            <Logo className="w-56 sm:w-72" />
-          </Link>
-          <ThemeToggle />
-        </header>
+      <body className="rail:pl-rail rail:rail-collapsed:pl-rail-collapsed">
+        <SiteHeader />
         {children}
       </body>
     </html>

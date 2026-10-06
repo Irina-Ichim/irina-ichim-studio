@@ -3,6 +3,14 @@ import { BROWSER_THEME_COLOR } from "../src/estilos/temas/browserThemeColor";
 import { COLOR_SCHEMES } from "./routes";
 
 const html = (page: Page) => page.locator("html");
+// On small screens the theme button lives inside the full-screen menu.
+async function themeToggle(page: Page) {
+  const openMenu = page.getByRole("button", { name: "Abrir menú" });
+  const menuIsOpen = await page.getByRole("dialog", { name: "Menú" }).isVisible();
+  if (!menuIsOpen && (await openMenu.isVisible())) await openMenu.click();
+  return page.getByRole("button", { name: "Tema oscuro" });
+}
+
 const surface = (page: Page) =>
   page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--surface").trim().toLowerCase());
 
@@ -25,7 +33,7 @@ test("keeps following the system while nothing is saved", async ({ page }) => {
 test("the toggle switches the theme and remembers it after reloading", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
-  const toggle = page.getByRole("button", { name: "Tema oscuro" });
+  const toggle = await themeToggle(page);
   await expect(toggle).toHaveAttribute("aria-pressed", "false");
 
   await toggle.click();
@@ -35,11 +43,11 @@ test("the toggle switches the theme and remembers it after reloading", async ({ 
 
   await page.reload();
   await expect(html(page)).toHaveAttribute("data-theme", "dark");
-  await expect(page.getByRole("button", { name: "Tema oscuro" })).toHaveAttribute("aria-pressed", "true");
+  await expect(await themeToggle(page)).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator('meta[name="theme-color"]').first()).toHaveAttribute("content", BROWSER_THEME_COLOR.dark);
 
   await page.emulateMedia({ colorScheme: "dark" });
-  await page.getByRole("button", { name: "Tema oscuro" }).click();
+  await (await themeToggle(page)).click();
   await page.emulateMedia({ colorScheme: "light" });
   await page.reload();
   await expect(html(page)).toHaveAttribute("data-theme", "light");
