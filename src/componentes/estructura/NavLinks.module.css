@@ -174,23 +174,16 @@
 }
 
 /* Collapsed rail: numbers only; the name shows as a label on hover or keyboard focus. */
+/* The numbers stay left-aligned and the list shifts right, so they slide to the middle of the
+   collapsed rail in one movement with its width instead of jumping to the centre. */
 .rail {
   @variant rail-collapsed {
     gap: 0.25rem;
+    padding-left: 1.25rem;
   }
-}
 
-.rail .topEntry,
-.rail .parentEntry {
-  @variant rail-collapsed {
-    justify-content: center;
-  }
-}
-
-.rail .number {
-  @variant rail-collapsed {
-    width: auto;
-    font-size: var(--text-small);
+  @variant rail-animate {
+    transition: padding-left var(--default-transition-duration) var(--default-transition-timing-function);
   }
 }
 
@@ -209,7 +202,7 @@
     color: var(--ink);
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--duration-base);
+    transition: none;
   }
 }
 
@@ -217,6 +210,14 @@
 .rail .topEntry:focus-visible .label {
   @variant rail-collapsed {
     opacity: 1;
+    transition: opacity var(--duration-base);
+  }
+}
+
+/* While the rail widens, the names wait until there is room and then fade in. */
+.rail .label {
+  @variant rail-animate {
+    transition: opacity var(--duration-base) var(--default-transition-timing-function) calc(var(--default-transition-duration) * 0.6);
   }
 }
 
@@ -229,7 +230,7 @@
 
 .rail .entry[aria-current="page"]::before {
   @variant rail-collapsed {
-    left: -1rem;
+    left: -2.25rem;
   }
 }
 
@@ -243,6 +244,8 @@
 .rail .parentEntry .label {
   @variant rail-collapsed {
     @apply sr-only;
+    opacity: 0;
+    transition: none;
   }
 }
 
