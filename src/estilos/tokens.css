@@ -7,4 +7,5 @@
   --duration-fast: 150ms;
   --duration-base: 220ms;
   --opacity-disabled: 0.55;
+  --line-subtle: color-mix(in srgb, var(--ink) 14%, transparent);
 }

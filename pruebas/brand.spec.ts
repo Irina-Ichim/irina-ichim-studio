@@ -74,7 +74,7 @@ test("shares an absolute social image with alternative text", async ({ page, req
 
 test("the header logo links home with an accessible name and hides the decorative SVGs", async ({ page }) => {
   await page.goto("/");
-  const home = page.getByRole("link", { name: "Irina Ichim Studio, ir al inicio" });
+  const home = page.getByRole("banner").getByRole("link", { name: "Irina Ichim Studio, ir al inicio" });
   await expect(home).toBeVisible();
   await expect(home).toHaveAttribute("href", "/");
   for (const svg of await home.locator("svg").all()) {

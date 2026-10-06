@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FocusEvent, type KeyboardEvent, type Ref } from "react";
 import { CaretDownIcon, CaretRightIcon, XIcon } from "@phosphor-icons/react";
@@ -8,6 +7,7 @@ import { IconButton } from "@/componentes/ui/IconButton";
 import { UI_LABELS } from "@/contenido/interfaceLabels";
 import { NAVIGATION, type NavigationItem, type NavigationLink } from "@/contenido/navigation";
 import { classNames } from "@/utilidades/classNames";
+import { PageLink } from "./PageLink";
 import styles from "./NavLinks.module.css";
 
 type Variant = "rail" | "sheet";
@@ -165,37 +165,22 @@ type NavEntryProps = {
 };
 
 function NavEntry({ link, number, isCurrent, onNavigate, className, ref }: NavEntryProps) {
-  const content = (
-    <>
+  return (
+    <PageLink
+      ref={ref}
+      link={link}
+      isCurrent={isCurrent}
+      onNavigate={onNavigate}
+      className={classNames(styles.entry, className)}
+      availableClassName={styles.available}
+      unavailableClassName={styles.unavailable}
+    >
       {number && (
         <span aria-hidden className={styles.number}>
           {number}
         </span>
       )}
-      <span className={styles.label}>
-        {link.label}
-        {!link.available && <span className="sr-only">, {UI_LABELS.comingSoon}</span>}
-      </span>
-    </>
-  );
-
-  if (!link.available) {
-    return (
-      <a ref={ref} role="link" aria-disabled="true" className={classNames(styles.entry, styles.unavailable, className)}>
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <Link
-      ref={ref}
-      href={link.href}
-      aria-current={isCurrent ? "page" : undefined}
-      onClick={onNavigate}
-      className={classNames(styles.entry, styles.available, className)}
-    >
-      {content}
-    </Link>
+      <span className={styles.label}>{link.label}</span>
+    </PageLink>
   );
 }

@@ -7,6 +7,7 @@ const ACCESSIBILITY = /accessibility\.spec\.ts$/;
 const THEME = /theme(Switch)?\.spec\.ts$/;
 const BRAND = /brand\.spec\.ts$/;
 const NAVIGATION = /navigation\.spec\.ts$/;
+const FOOTER = /footer\.spec\.ts$/;
 
 export default defineConfig({
   testDir: "./pruebas",
@@ -27,12 +28,12 @@ export default defineConfig({
   },
   projects: [
     { name: "large-desktop", testMatch: RESPONSIVE, use: { ...devices["Desktop Chrome"], viewport: { width: 2560, height: 1440 } } },
-    { name: "desktop", testMatch: [RESPONSIVE, ACCESSIBILITY, THEME, BRAND, NAVIGATION], use: { ...devices["Desktop Chrome"], viewport: { width: 1366, height: 768 } } },
+    { name: "desktop", testMatch: [RESPONSIVE, ACCESSIBILITY, THEME, BRAND, NAVIGATION, FOOTER], use: { ...devices["Desktop Chrome"], viewport: { width: 1366, height: 768 } } },
     { name: "desktop-safari", testMatch: RESPONSIVE, use: { ...devices["Desktop Safari"], viewport: { width: 1440, height: 900 } } },
     { name: "desktop-zoom-200", testMatch: RESPONSIVE, use: { ...devices["Desktop Chrome"], viewport: { width: 683, height: 384 }, deviceScaleFactor: 2 } },
     { name: "tablet-portrait", testMatch: RESPONSIVE, use: { ...devices["iPad Mini"] } },
     { name: "tablet-landscape", testMatch: RESPONSIVE, use: { ...devices["iPad Pro 11 landscape"] } },
-    { name: "mobile-portrait-ios", testMatch: [RESPONSIVE, ACCESSIBILITY, THEME, NAVIGATION], use: { ...devices["iPhone 15"] } },
+    { name: "mobile-portrait-ios", testMatch: [RESPONSIVE, ACCESSIBILITY, THEME, NAVIGATION, FOOTER], use: { ...devices["iPhone 15"] } },
     { name: "mobile-landscape-ios", testMatch: RESPONSIVE, use: { ...devices["iPhone 15 landscape"] } },
     { name: "mobile-portrait-android", testMatch: RESPONSIVE, use: { ...devices["Pixel 7"] } },
     { name: "mobile-landscape-android", testMatch: RESPONSIVE, use: { ...devices["Pixel 7 landscape"] } },

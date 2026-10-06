@@ -1,7 +1,10 @@
+const TAGLINE = "diseño y desarrollo web a medida";
+
 export const SITE = {
   name: "Irina Ichim Studio",
   shortName: "Irina Ichim",
-  description: "Irina Ichim Studio: diseño y desarrollo web a medida.",
+  tagline: TAGLINE,
+  description: `Irina Ichim Studio: ${TAGLINE}.`,
   url: "https://irina-ichim.com",
   locale: "es_ES",
   homeLinkLabel: "Irina Ichim Studio, ir al inicio",

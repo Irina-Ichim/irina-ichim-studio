@@ -100,6 +100,9 @@ Phosphor en peso `duotone`, con el color del token de acento.
   ofrece como variantes `raised` y `quiet`
 - En los `.module.css`, las utilidades del sistema se reutilizan con `@reference` y `@apply`, y
   los estados del menú plegado con `@variant rail-collapsed`, en vez de copiar valores
+- Todo enlace a una página propia pasa por `PageLink` (`componentes/estructura/`): si la página
+  aún no existe (`available: false` en `contenido/`), se pinta atenuada, sin `href` y anunciada
+  como «próximamente», así ningún enlace lleva a un 404
 - El menú lateral marca que está plegado con `data-rail` en `<html>`, igual que el tema: lo pone
   un script en línea (`componentes/estructura/railState.ts`) antes del primer pintado
 

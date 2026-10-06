@@ -8,7 +8,7 @@ export type NavigationItem = NavigationLink & {
   readonly children?: readonly NavigationLink[];
 };
 
-export const CONTACT_HREF = "/contacto";
+export const CONTACT_LINK: NavigationLink = { href: "/contacto", label: "Contacto", available: false };
 
 export const NAVIGATION: readonly NavigationItem[] = [
   { href: "/", label: "Inicio", available: true },
@@ -32,7 +32,5 @@ export const NAVIGATION: readonly NavigationItem[] = [
   { href: "/comunidad", label: "Comunidad", available: false },
   { href: "/criterio", label: "Criterio", available: false },
   { href: "/recursos", label: "Recursos", available: false },
-  { href: CONTACT_HREF, label: "Contacto", available: false },
+  CONTACT_LINK,
 ];
-
-export const isContactAvailable = NAVIGATION.some((item) => item.href === CONTACT_HREF && item.available);

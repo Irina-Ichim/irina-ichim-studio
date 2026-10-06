@@ -14,19 +14,21 @@ Fase 1, frontend. Nada publicado todavía en producción.
 
 ## En curso
 
-- **Transición del menú lateral** (#30, rama `fix/rail-transition`): hecha y en verde; antes de
-  la PR, Irina decide qué agentes pasan
+- **Pie de página** (#11, rama `feat/footer`): hecho y en verde; antes de la PR, Irina decide
+  qué agentes pasan
 
 ## Esperando una decisión de Irina
 
 - El correo público que se mostrará en la página de Contacto mientras está en preparación
+- Los enlaces reales de LinkedIn, GitHub y FemCoders Club para el pie
+- Los datos del aviso legal: nombre o razón social, NIF y domicilio
 - «Studio» o «Estudio» como nombre de la sección del equipo
 - Los textos reales de la portada (#8) y de al menos uno o dos servicios
 
 ## Lo siguiente
 
-1. Páginas del mapa del sitio en preparación (#25): 9 secciones y las 6 páginas de Servicios,
-   con `noindex` hasta tener contenido
+1. Páginas del mapa del sitio en preparación (#25): 9 secciones, las 6 páginas de Servicios y
+   las 3 legales, con `noindex` hasta tener contenido
 2. Despliegue en Railway de `dev` y producción (#19)
 3. Contenido real de la portada (#8)
 
