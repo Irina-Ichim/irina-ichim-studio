@@ -14,12 +14,15 @@ Fase 1, frontend. Nada publicado todavía en producción.
 
 ## En curso
 
-- **Pie de página** (#11, rama `feat/footer`): hecho y en verde; antes de la PR, Irina decide
-  qué agentes pasan
+- **Próximamente** (#33, rama `feat/coming-soon`): página y interruptor `COMING_SOON`, más
+  `noindex` en `dev`
+- **Despliegue** (#19): Railway listo con `production` y `dev`
+  (`web-dev-61c4.up.railway.app`). Falta pasar el DNS de `irina-ichim.com` a Cloudflare, porque
+  Arsys no permite el `CNAME` en la raíz que pide Railway, y hacer la primera publicación de
+  `dev` a `main` con `COMING_SOON=true`
 
 ## Esperando una decisión de Irina
 
-- El correo público que se mostrará en la página de Contacto mientras está en preparación
 - Los enlaces reales de LinkedIn, GitHub y FemCoders Club para el pie
 - Los datos del aviso legal: nombre o razón social, NIF y domicilio
 - «Studio» o «Estudio» como nombre de la sección del equipo
@@ -29,7 +32,7 @@ Fase 1, frontend. Nada publicado todavía en producción.
 
 1. Páginas del mapa del sitio en preparación (#25): 9 secciones, las 6 páginas de Servicios y
    las 3 legales, con `noindex` hasta tener contenido
-2. Despliegue en Railway de `dev` y producción (#19)
+2. Cloudflare y primera publicación en `irina-ichim.com` (#19)
 3. Contenido real de la portada (#8)
 
 ## Por comprobar a mano

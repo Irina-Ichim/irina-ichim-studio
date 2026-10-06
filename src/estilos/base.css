@@ -9,11 +9,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* The page makes room for the side menu at the same pace the menu changes width. */
-  :where([data-rail-animate]) body {
-    transition: padding-left var(--default-transition-duration) var(--default-transition-timing-function);
-  }
-
   html:has(dialog[open]) {
     overflow: hidden;
   }

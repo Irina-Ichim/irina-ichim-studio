@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, Great_Vibes, Playfair_Display } from "next/font/google";
-import { SiteFooter } from "@/componentes/estructura/SiteFooter";
-import { SiteHeader } from "@/componentes/estructura/SiteHeader";
 import { SITE } from "@/contenido/site";
 import { BROWSER_THEME_COLOR } from "@/estilos/temas/browserThemeColor";
 import { THEME_SCRIPT } from "@/estilos/temas/themeScript";
@@ -72,11 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: `${THEME_SCRIPT};${RAIL_SCRIPT}` }} />
       </head>
-      <body className="rail:pl-rail rail:rail-collapsed:pl-rail-collapsed">
-        <SiteHeader />
-        {children}
-        <SiteFooter />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

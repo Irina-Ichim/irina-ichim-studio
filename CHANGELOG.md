@@ -8,6 +8,10 @@ Lo que ya está en `dev` y todavía no ha pasado a producción (`main`) va en «
 
 ### Añadido
 
+- Página de «próximamente» con el correo `hola@irina-ichim.com`, y el interruptor
+  `COMING_SOON` que la muestra en todo el dominio hasta el lanzamiento (#33)
+- Despliegue en Railway: `production` desde `main` y `dev` desde `dev`, este último con
+  `noindex` para que no aparezca en buscadores (#19)
 - Pie de página: «¿Tienes un proyecto?» con «Hablemos», el nombre del estudio a todo lo ancho,
   enlaces a las secciones y a los servicios, Contacto, enlaces a las páginas legales (aviso
   legal, privacidad y cookies, aún en preparación) y botón para volver arriba (#11)
@@ -30,6 +34,7 @@ Lo que ya está en `dev` y todavía no ha pasado a producción (`main`) va en «
 
 ### Cambiado
 
+- La web ya no envía la cabecera `x-powered-by` (#33)
 - El menú lateral aprovecha mejor el alto: nombres más grandes, separación que crece con la
   pantalla y más aire alrededor del botón de plegar
 - Plegar y desplegar el menú lateral es ahora una transición suave: la barra, su botón y el
