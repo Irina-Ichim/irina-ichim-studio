@@ -8,6 +8,9 @@ Lo que ya está en `dev` y todavía no ha pasado a producción (`main`) va en «
 
 ### Añadido
 
+- Pie de página: «¿Tienes un proyecto?» con «Hablemos», el nombre del estudio a todo lo ancho,
+  enlaces a las secciones y a los servicios, Contacto, enlaces a las páginas legales (aviso
+  legal, privacidad y cookies, aún en preparación) y botón para volver arriba (#11)
 - Navegación: menú lateral con el logo, las 10 secciones del mapa del sitio y las 6 páginas de
   Servicios en un panel lateral, que se pliega a números y recuerda el estado; barra superior
   con «Hablemos» y menú a pantalla completa en pantallas pequeñas, y enlace para saltar al
