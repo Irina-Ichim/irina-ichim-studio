@@ -34,6 +34,6 @@ try {
   block("no se ha podido leer la rama actual con git.");
 }
 
-if (!base) block("indica la rama destino con --base main (las ramas de trabajo se fusionan en dev sin PR).");
+if (!base) block("indica la rama destino con --base dev (o --base main, solo desde dev).");
 if (base !== "main" && base !== "dev") block(`la rama destino tiene que ser main o dev, no ${base}.`);
 if (base === "main" && branch !== "dev") block(`a main solo se llega desde dev, y esta rama es ${branch || "un commit suelto (detached HEAD)"}.`);
