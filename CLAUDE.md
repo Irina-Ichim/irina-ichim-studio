@@ -26,7 +26,10 @@ trabajo de la fase 2.
 - **Next.js 16.3.8** (App Router, `src/`), React 19, TypeScript en modo estricto
 - **Tailwind CSS 4**, con los tokens de diseño en `src/estilos/` (ver `src/CLAUDE.md`)
 - npm como gestor de paquetes. Node 22 (`.nvmrc`)
-- Despliegue previsto en **Railway**: `main` es producción y `dev`, el entorno de verificación
+- Despliegue en **Railway**, proyecto `irina-ichim-studio` (región `europe-west4`): el entorno
+  `production` despliega `main` en `irina-ichim.com` y `dev` despliega `dev` en
+  `web-dev-61c4.up.railway.app`, con `noindex`. Hasta el lanzamiento, `COMING_SOON=true` en
+  `production` muestra `/proximamente` en todo el dominio (ver `.env.example`)
 
 Next 16 trae cambios respecto a versiones anteriores. Antes de escribir código que dependa de
 una API de Next, consultar la guía correspondiente en `node_modules/next/dist/docs/` (ver
@@ -135,7 +138,8 @@ Las carpetas propias van en **español**. Las que fijan las herramientas conserv
 
 ```text
 src/
-├── app/                 Rutas. Cada carpeta de ruta es la URL, así que va en español
+├── app/                 Rutas. Cada carpeta de ruta es la URL, así que va en español.
+│   │                    Las páginas con menú y pie viven en el grupo (sitio)/, que no cambia la URL
 │   ├── layout.tsx
 │   ├── page.tsx
 │   └── servicios/page.tsx       → /servicios

@@ -1,0 +1,8 @@
+@reference "../globals.css";
+
+/* The page makes room for the side menu at the same pace the menu changes width. */
+.shell {
+  @variant rail-animate {
+    transition: padding-left var(--default-transition-duration) var(--default-transition-timing-function);
+  }
+}
