@@ -1,0 +1,41 @@
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --surface: #121214;
+  --ink: #f1ece1;
+  --ink-muted: #c9c3b6;
+  --link: #e3bf7a;
+  --focus: #e3bf7a;
+  --action: #d9ae5f;
+  --on-action: #121214;
+  --accent-line: #d9ae5f;
+  --line-strong: #7a7e84;
+  --danger: #ff8a70;
+  --on-danger: #121214;
+  --success: #7fd4a0;
+
+  --shadow-dark: #050506;
+  --shadow-light: #222226;
+  --surface-sheen: radial-gradient(120% 70% at 15% 0%, rgb(255 255 255 / 0.07), transparent 60%);
+
+  --action-fill-1: #c99a4a;
+  --action-fill-2: #f6e2b0;
+  --action-fill-3: #e3c27a;
+  --action-fill-4: #d9ae5f;
+  --highlight-1: #c99a4a;
+  --highlight-2: #e6c37f;
+  --highlight-3: #f6e2b0;
+  --highlight-4: #e6c37f;
+  --highlight-5: #d9ae5f;
+  --metal-gold-1: #b98a42;
+  --metal-gold-2: #d9ae5f;
+  --metal-gold-3: #f6e2b0;
+  --metal-gold-4: #c99a4a;
+  --metal-gold-5: #b98a42;
+  --icon-gold-1: #c99a4a;
+  --icon-gold-2: #f6e2b0;
+  --icon-gold-3: #d9ae5f;
+  --icon-magenta-1: #e0007b;
+  --icon-magenta-2: #ff8cc6;
+  --icon-magenta-3: #ff4fa3;
+}

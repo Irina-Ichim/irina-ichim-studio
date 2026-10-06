@@ -1,0 +1,4 @@
+fecha: 2026-10-04
+rama: chore/project-standards
+destino: dev
+resumen: typecheck genera los tipos de rutas con next typegen antes de tsc, para que la CI funcione en un checkout limpio.

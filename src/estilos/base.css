@@ -1,0 +1,31 @@
+@layer base {
+  body {
+    min-height: 100dvh;
+    background: var(--surface-sheen), var(--surface);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

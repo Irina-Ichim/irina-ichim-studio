@@ -1,0 +1,140 @@
+@reference "../../app/globals.css";
+
+.rail {
+  @apply bg-surface-sheen;
+  position: fixed;
+  z-index: 10;
+  inset-block: 0;
+  left: 0;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: var(--spacing-rail);
+  padding: 1.75rem 1.5rem 1.25rem;
+
+  @variant rail-collapsed {
+    width: var(--spacing-rail-collapsed);
+    padding-inline: 1rem;
+  }
+
+  /* Width is animated on purpose: the rail is the layout that changes, and it is one element
+     for a third of a second. */
+  @variant rail-animate {
+    transition:
+      width var(--default-transition-duration) var(--default-transition-timing-function),
+      padding var(--default-transition-duration) var(--default-transition-timing-function);
+  }
+}
+
+/* The gold edge of the rail. */
+.rail::after {
+  @apply bg-metal-gold;
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  width: 2px;
+
+  @media (forced-colors: active) {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+}
+
+.railTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding-bottom: 4.5rem;
+
+  @variant rail-collapsed {
+    align-items: center;
+  }
+
+  @variant rail-animate {
+    transition: padding-bottom var(--default-transition-duration) var(--default-transition-timing-function);
+  }
+}
+
+/* Both logos share one grid cell, so the cross-fade never stacks them. */
+.railTop > a {
+  display: grid;
+}
+
+.railTop .fullLogo,
+.railTop .seal {
+  grid-area: 1 / 1;
+}
+
+.railTop .fullLogo {
+  width: 11.5rem;
+
+  @variant rail-collapsed {
+    display: none;
+  }
+}
+
+.railTop .seal {
+  display: none;
+  justify-self: center;
+  width: 3.5rem;
+
+  @variant rail-collapsed {
+    display: block;
+  }
+}
+
+/* Cross-fade between the full logo and the seal: the one leaving fades out first and the one
+   arriving fades in after it, so they never share the space. */
+:global([data-rail-animate]) .railTop .fullLogo,
+:global([data-rail-animate]) .railTop .seal {
+  transition:
+    opacity var(--duration-fast) var(--default-transition-timing-function),
+    display var(--duration-fast) allow-discrete;
+}
+
+:global([data-rail-animate]:not([data-rail="collapsed"])) .railTop .fullLogo,
+:global([data-rail-animate][data-rail="collapsed"]) .railTop .seal {
+  transition-delay: var(--duration-fast);
+}
+
+@starting-style {
+  :global([data-rail-animate]) .railTop .fullLogo,
+  :global([data-rail-animate]) .railTop .seal {
+    opacity: 0;
+  }
+}
+
+.vertical {
+  margin-left: 1.15rem;
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+
+  @variant rail-collapsed {
+    display: none;
+  }
+}
+
+.railBottom {
+  display: flex;
+  margin-top: auto;
+
+  @variant rail-collapsed {
+    justify-content: center;
+  }
+}
+
+/* Sits on the gold line, half over the rail and half over the page: half its 2.75rem. */
+.collapse {
+  position: fixed;
+  z-index: 11;
+  top: 6.875rem;
+  left: calc(var(--spacing-rail) - 1.375rem);
+
+  @variant rail-collapsed {
+    left: calc(var(--spacing-rail-collapsed) - 1.375rem);
+  }
+
+  @variant rail-animate {
+    transition: left var(--default-transition-duration) var(--default-transition-timing-function);
+  }
+}

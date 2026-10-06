@@ -1,0 +1,5 @@
+Fecha: 2026-10-05
+Commit: 4e5557828efbfa44dbce4cfcc833921eefd5b8db
+Rama: feat/design-foundations
+Destino: dev
+Resumen: fundamentos del sistema visual (temas, tokens, escala Tailwind, base) con nombres ya en camelCase; check y pruebas desktop en verde, cuatro informes aprobados sobre df16d16.
