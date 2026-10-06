@@ -84,7 +84,13 @@ Phosphor en peso `duotone`, con el color del token de acento.
 - Toda animación tiene versión reducida o nula con `prefers-reduced-motion: reduce`
 - No se anima `box-shadow` directamente, porque obliga a repintar en cada frame. Para el efecto
   de pulsado, se anima la `opacity` de un pseudo-elemento que lleva la sombra
-- Se animan `transform` y `opacity`; el resto, solo con un motivo
+- Se animan `transform` y `opacity`; el resto, solo con un motivo escrito junto al código (el
+  ancho del menú lateral es una excepción así)
+- Una sola duración y curva para los cambios de estado: `--default-transition-duration` y
+  `--default-transition-timing-function` de `tailwindTheme.css`, las que usan las clases
+  `transition-*`. Para lo breve (aparecer una etiqueta) está `--duration-fast` o `--duration-base`
+- Nada se anima al cargar la página. El menú lateral solo anima a partir de la primera pulsación
+  de su botón, que marca `data-rail-animate` en `<html>` (variante `rail-animate:`)
 
 ## Componentes
 

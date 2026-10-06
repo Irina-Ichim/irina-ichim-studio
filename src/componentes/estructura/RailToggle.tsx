@@ -4,7 +4,7 @@ import { useLayoutEffect, useSyncExternalStore } from "react";
 import { CaretLeftIcon } from "@phosphor-icons/react";
 import { IconButton } from "@/componentes/ui/IconButton";
 import { UI_LABELS } from "@/contenido/interfaceLabels";
-import { RAIL_ATTRIBUTE, RAIL_COLLAPSED, RAIL_STORAGE_KEY } from "./railState";
+import { RAIL_ANIMATE_ATTRIBUTE, RAIL_ATTRIBUTE, RAIL_COLLAPSED, RAIL_STORAGE_KEY } from "./railState";
 
 function readSavedCollapsed() {
   try {
@@ -16,6 +16,7 @@ function readSavedCollapsed() {
 
 function setCollapsed(collapsed: boolean) {
   const root = document.documentElement;
+  root.setAttribute(RAIL_ANIMATE_ATTRIBUTE, "");
   if (collapsed) root.setAttribute(RAIL_ATTRIBUTE, RAIL_COLLAPSED);
   else root.removeAttribute(RAIL_ATTRIBUTE);
   try {
@@ -49,7 +50,7 @@ export function RailToggle() {
       aria-expanded={isCollapsed === undefined ? undefined : !isCollapsed}
       onClick={() => setCollapsed(!isCollapsed)}
     >
-      <CaretLeftIcon weight="duotone" aria-hidden className="size-5 rail-collapsed:rotate-180" />
+      <CaretLeftIcon weight="duotone" aria-hidden className="size-5 rail-collapsed:rotate-180 rail-animate:transition-transform" />
     </IconButton>
   );
 }

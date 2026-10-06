@@ -62,8 +62,10 @@ test("the side rail collapses to numbers and remembers it after reloading", asyn
   await page.goto("/");
   const collapse = page.getByRole("button", { name: "Menú lateral" });
   await expect(collapse).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("html"), "loading the page never animates the rail").not.toHaveAttribute("data-rail-animate");
 
   await collapse.click();
+  await expect(page.locator("html")).toHaveAttribute("data-rail-animate");
   await expect(page.locator("html")).toHaveAttribute("data-rail", "collapsed");
   await expect(collapse).toHaveAttribute("aria-expanded", "false");
   await expect(mainNavigation(page).getByRole("link", { name: "Inicio", exact: true })).toBeVisible();

@@ -14,9 +14,8 @@ Fase 1, frontend. Nada publicado todavía en producción.
 
 ## En curso
 
-- **Navegación** (#10, PR desde `feat/header-navigation`): auditada (responsive, design system y
-  ortografía) y corregida; espera el OK de Irina para fusionarse. Incluye los cambios de #27
-- **Flujo con PR, changelog y este archivo** (#27, PR #28): espera el OK de Irina
+- **Transición del menú lateral** (#30, rama `fix/rail-transition`): hecha y en verde; antes de
+  la PR, Irina decide qué agentes pasan
 
 ## Esperando una decisión de Irina
 
