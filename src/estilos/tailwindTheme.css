@@ -80,8 +80,10 @@
   --font-body: var(--font-figtree), "Segoe UI", system-ui, sans-serif;
   --font-script: var(--font-great-vibes), "Segoe Script", cursive;
 
-  --shadow-raised: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
-  --shadow-raised-sm: 4px 4px 9px var(--shadow-dark), -4px -4px 9px var(--shadow-light);
+  --shadow-raised: calc(6px * var(--relief-depth)) calc(6px * var(--relief-depth)) calc(14px * var(--relief-depth)) var(--shadow-dark),
+    calc(-6px * var(--relief-depth)) calc(-6px * var(--relief-depth)) calc(14px * var(--relief-depth)) var(--shadow-light), var(--relief-rim);
+  --shadow-raised-sm: calc(4px * var(--relief-depth)) calc(4px * var(--relief-depth)) calc(9px * var(--relief-depth)) var(--shadow-dark),
+    calc(-4px * var(--relief-depth)) calc(-4px * var(--relief-depth)) calc(9px * var(--relief-depth)) var(--shadow-light), var(--relief-rim);
   --shadow-inset: inset 4px 4px 9px var(--shadow-dark), inset -4px -4px 9px var(--shadow-light);
   --shadow-inset-sm: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
   --shadow-gloss: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -3px 8px rgb(0 0 0 / 0.22);

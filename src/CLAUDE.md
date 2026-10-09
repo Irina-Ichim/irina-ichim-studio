@@ -25,8 +25,8 @@ Los estilos globales viven en `src/estilos/`, un archivo por responsabilidad.
 
 | Archivo | Qué contiene |
 | --- | --- |
-| `temas/light.css` | Valores de color del tema claro (y `color-scheme`) |
-| `temas/dark.css` | Los mismos nombres con los valores del tema oscuro, bajo `[data-theme="dark"]` |
+| `temas/light.css` | Valores de color del tema claro (y `color-scheme`), y la profundidad del relieve (`--relief-depth`, `--relief-rim`) |
+| `temas/dark.css` | Los mismos nombres con los valores del tema oscuro, bajo `[data-theme="dark"]`. En oscuro el relieve es un 30 % más profundo y lleva un filo de luz de 1 px, porque sobre negro casi no se veía |
 | `temas/themeScript.ts` | El script en línea que fija `data-theme` antes del primer pintado, y las constantes que comparte con `ThemeToggle` |
 | `tokens.css` | Tokens derivados que no cambian con el tema: degradados, duraciones, opacidad |
 | `tailwindTheme.css` | La escala de Tailwind (`@theme`): radios, tipografía, sombras neumórficas (el brillo `gloss` es igual en los dos temas a propósito) y los colores y fuentes que se exponen, el ancho del menú lateral (`--spacing-rail`) y las variantes propias: `theme-dark:`, `rail:` (cabe el menú lateral), `rail-tall:`, `rail-collapsed:` (menú plegado) y `narrow:` (móviles muy estrechos). Elimina los colores, sombras y tamaños por defecto de Tailwind, así que no se pueden usar valores fuera del sistema |
@@ -91,6 +91,19 @@ Phosphor en peso `duotone`, con el color del token de acento.
   `transition-*`. Para lo breve (aparecer una etiqueta) está `--duration-fast` o `--duration-base`
 - Nada se anima al cargar la página. El menú lateral solo anima a partir de la primera pulsación
   de su botón, que marca `data-rail-animate` en `<html>` (variante `rail-animate:`)
+- **Excepción: la apertura de la portada** (`app/(sitio)/ServicesCard`). Se ve una vez al cargar:
+  las malas prácticas flotan, se tachan y se hunden, y después «Lo que hacemos» aparece en
+  relieve, se posa el sello y cruza un destello. Reglas que la hacen admisible:
+  - Solo CSS, sin JavaScript: el render del servidor ya es el estado final y la animación
+    empieza en el primer fotograma, sin parpadeo al hidratar
+  - Dura unos diez segundos, así que lleva un control de pausa visible mientras dura
+    (criterio 2.2.2) que desaparece al terminar
+  - Con `prefers-reduced-motion: reduce` no hay animación, ni frases, ni control
+  - Además de `transform` y `opacity`, anima `filter: blur` en la entrada de las palabras,
+    `color` en el acento final (las etiquetas y una palabra por fila pasan al color de enlace
+    cuando cruza el destello), ambos una vez y sobre pocos elementos, y `visibility` al
+    final, para que las frases hundidas salgan también del árbol de accesibilidad
+  - `pruebas/accessibility.spec.ts` espera a que terminen las animaciones antes de pasar axe
 
 ## Componentes
 

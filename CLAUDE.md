@@ -68,7 +68,10 @@ El trabajo se organiza en issues dentro del Project de GitHub. Cada issue tiene:
 
 1. `git switch dev && git pull`, y la rama nueva desde ahí
 2. Commits con Conventional Commits, en inglés, que citan la issue: `feat: add services section (#12)`
-3. Al subir la rama, la CI ejecuta lint, tipos, build y las pruebas de Playwright
+3. Mientras se trabaja, solo `npm run lint` y `npm run typecheck`, que tardan segundos.
+   Playwright completo (`npm run test:e2e`) se pasa una vez, con la página o la sección
+   terminada y antes de abrir la PR, no con cada ajuste. Al subir la rama, la CI vuelve a
+   ejecutar lint, tipos, build y las pruebas de Playwright
 4. Con la CI en verde, Claude **sugiere** qué agentes encajan con lo que ha cambiado y por qué
    (ver [Agentes](#agentes)). **Irina decide** cuáles se pasan; si dice que no, no se pasa
    ninguno. Nunca se lanzan sin su OK

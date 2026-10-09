@@ -4,13 +4,13 @@ import { useLayoutEffect, useSyncExternalStore } from "react";
 import { CaretLeftIcon } from "@phosphor-icons/react";
 import { IconButton } from "@/componentes/ui/IconButton";
 import { UI_LABELS } from "@/contenido/interfaceLabels";
-import { RAIL_ANIMATE_ATTRIBUTE, RAIL_ATTRIBUTE, RAIL_COLLAPSED, RAIL_STORAGE_KEY } from "./railState";
+import { RAIL_ANIMATE_ATTRIBUTE, RAIL_ATTRIBUTE, RAIL_COLLAPSED, RAIL_OPEN, RAIL_STORAGE_KEY } from "./railState";
 
 function readSavedCollapsed() {
   try {
-    return localStorage.getItem(RAIL_STORAGE_KEY) === RAIL_COLLAPSED;
+    return localStorage.getItem(RAIL_STORAGE_KEY) !== RAIL_OPEN;
   } catch {
-    return false;
+    return true;
   }
 }
 
@@ -20,7 +20,7 @@ function setCollapsed(collapsed: boolean) {
   if (collapsed) root.setAttribute(RAIL_ATTRIBUTE, RAIL_COLLAPSED);
   else root.removeAttribute(RAIL_ATTRIBUTE);
   try {
-    localStorage.setItem(RAIL_STORAGE_KEY, collapsed ? RAIL_COLLAPSED : "open");
+    localStorage.setItem(RAIL_STORAGE_KEY, collapsed ? RAIL_COLLAPSED : RAIL_OPEN);
   } catch {
     // Without storage the menu still collapses on this page; it just is not remembered.
   }

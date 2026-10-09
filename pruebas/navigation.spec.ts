@@ -57,23 +57,24 @@ test("the services panel opens on hover, closes when the pointer leaves and with
   await expect(toggle).toBeFocused();
 });
 
-test("the side rail collapses to numbers and remembers it after reloading", async ({ page }) => {
+test("the side rail starts collapsed to numbers, opens and remembers it after reloading", async ({ page }) => {
   await page.setViewportSize(RAIL_VIEWPORT);
   await page.goto("/");
-  const collapse = page.getByRole("button", { name: "Menú lateral" });
-  await expect(collapse).toHaveAttribute("aria-expanded", "true");
-  await expect(page.locator("html"), "loading the page never animates the rail").not.toHaveAttribute("data-rail-animate");
-
-  await collapse.click();
-  await expect(page.locator("html")).toHaveAttribute("data-rail-animate");
+  const toggle = page.getByRole("button", { name: "Menú lateral" });
   await expect(page.locator("html")).toHaveAttribute("data-rail", "collapsed");
-  await expect(collapse).toHaveAttribute("aria-expanded", "false");
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(page.locator("html"), "loading the page never animates the rail").not.toHaveAttribute("data-rail-animate");
   await expect(mainNavigation(page).getByRole("link", { name: "Inicio", exact: true })).toBeVisible();
 
-  await page.reload();
-  await expect(page.locator("html")).toHaveAttribute("data-rail", "collapsed");
-  await page.getByRole("button", { name: "Menú lateral" }).click();
+  await toggle.click();
+  await expect(page.locator("html")).toHaveAttribute("data-rail-animate");
   await expect(page.locator("html")).not.toHaveAttribute("data-rail");
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+  await page.reload();
+  await expect(page.locator("html")).not.toHaveAttribute("data-rail");
+  await page.getByRole("button", { name: "Menú lateral" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-rail", "collapsed");
 });
 
 for (const viewport of [RAIL_VIEWPORT, { width: 1440, height: 900 }, { width: 1440, height: 960 }, { width: 1920, height: 1200 }, { width: 1024, height: 720 }]) {
@@ -83,7 +84,7 @@ for (const viewport of [RAIL_VIEWPORT, { width: 1440, height: 900 }, { width: 14
     const theme = page.getByRole("button", { name: "Tema oscuro" });
     await expect(theme).toBeInViewport({ ratio: 1 });
     await page.getByRole("button", { name: "Menú lateral" }).click();
-    await expect(page.locator("html")).toHaveAttribute("data-rail", "collapsed");
+    await expect(page.locator("html")).not.toHaveAttribute("data-rail");
     await expect(theme).toBeInViewport({ ratio: 1 });
   });
 }

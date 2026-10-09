@@ -1,0 +1,384 @@
+@reference "../globals.css";
+
+/* The home opening is the one exception to "nothing animates on load" (src/CLAUDE.md).
+   It runs once and only in CSS, so it starts on the first frame without waiting for
+   JavaScript and the server render is already the final state. Every delay comes from
+   the timeline in ServicesCard.tsx. */
+
+.stage {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  padding-top: 2.75rem;
+}
+
+.card {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+  height: 100%;
+  padding: 1.75rem 1.5rem 3rem;
+  border-radius: var(--radius-lg);
+  background-color: var(--surface);
+}
+
+.card::before {
+  @apply shadow-raised;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  animation: reveal 1300ms ease-out var(--card-relief) backwards;
+}
+
+.reveal {
+  margin: 0;
+  animation: reveal 600ms ease-out var(--delay) backwards;
+}
+
+.card h2 {
+  padding-right: 4rem;
+}
+
+.rows {
+  display: grid;
+  align-content: space-evenly;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.75rem 0.6rem;
+  border-radius: var(--radius-md);
+}
+
+/* The labels and one word per row take the accent (gold in dark, magenta in light) as the
+   glint passes, so the colour lands when the card is already still. color is animated on
+   purpose: once, on a few elements. */
+.rowLabel {
+  @apply text-eyebrow uppercase;
+  margin: 0;
+  color: var(--link);
+  animation:
+    reveal 600ms ease-out var(--delay) backwards,
+    label-accent 900ms ease-out calc(var(--glint-at) + 600ms) backwards;
+}
+
+.itemsCell {
+  margin: 0;
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each word surfaces where it belongs, with the same gesture as the discarded phrases.
+   filter is animated on purpose: the words come into focus, once, on a handful of small
+   elements; the relief arrives afterwards through the opacity of its own layer. */
+.chip {
+  position: relative;
+  isolation: isolate;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--surface);
+  font-size: var(--text-small);
+  line-height: 1.4;
+  white-space: nowrap;
+  animation: surface 1000ms ease-out var(--delay) backwards;
+}
+
+.featured {
+  color: var(--link);
+  font-weight: 600;
+  animation:
+    surface 1000ms ease-out var(--delay) backwards,
+    chip-accent 900ms ease-out calc(var(--glint-at) + 600ms) backwards;
+}
+
+.chip::before {
+  @apply shadow-raised-sm;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  animation: reveal 900ms ease-out var(--relief-delay) backwards;
+}
+
+@keyframes label-accent {
+  from {
+    color: var(--ink-muted);
+  }
+}
+
+@keyframes chip-accent {
+  from {
+    color: var(--ink);
+  }
+}
+
+/* Phase one: bad practices float at three depths, get struck one by one and sink. */
+.noise {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  z-index: 3;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: drift var(--drift) ease-in-out 2 alternate;
+}
+
+.near {
+  font-size: var(--text-body);
+}
+
+.mid {
+  font-size: var(--text-small);
+}
+
+.far {
+  font-size: var(--text-eyebrow);
+}
+
+/* Once sunk, the phrase is also hidden, so it leaves the accessibility tree. */
+.noiseText {
+  position: relative;
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  color: var(--ink-muted);
+  animation:
+    noise-in 900ms ease-out var(--in) backwards,
+    noise-out 800ms ease-in var(--out) forwards,
+    retire 1ms linear calc(var(--out) + 800ms) forwards;
+}
+
+.strike {
+  position: absolute;
+  top: 52%;
+  right: 0.6rem;
+  left: 0.6rem;
+  height: 2px;
+  background-color: var(--accent-line);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: strike 480ms ease-in-out var(--strike) forwards;
+}
+
+.glintWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* A thin line of light rather than a wide band. */
+.glint {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: 0;
+  width: 10%;
+  background: linear-gradient(100deg, transparent 20%, var(--glint) 50%, transparent 80%);
+  opacity: 0;
+  transform: translateX(-150%) skewX(-12deg);
+  animation: glint 2200ms ease-in-out var(--glint-at);
+}
+
+.seal {
+  position: absolute;
+  top: -2.25rem;
+  right: -1rem;
+  z-index: 4;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: 6rem;
+  aspect-ratio: 1;
+  border-radius: var(--radius-pill);
+  background-color: var(--surface);
+  transform: rotate(-8deg);
+  animation: seal 1100ms ease-out var(--seal) backwards;
+}
+
+.seal::before {
+  @apply shadow-raised;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  animation: reveal 900ms ease-out var(--seal-relief) backwards;
+}
+
+.sealLogo {
+  width: 78%;
+}
+
+/* The pause control exists while the opening lasts more than five seconds (WCAG 2.2.2)
+   and retires when it ends. A checkbox keeps it working without JavaScript. */
+.pause {
+  @apply control-quiet;
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.5rem;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--surface);
+  cursor: pointer;
+  animation: retire 1ms linear var(--end) forwards;
+}
+
+.pause:has(:focus-visible) {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.pauseInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  appearance: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.iconPlay {
+  display: none;
+}
+
+.pause:has(:checked) .iconPlay {
+  display: block;
+}
+
+.pause:has(:checked) .iconPause {
+  display: none;
+}
+
+.stage:has(.pauseInput:checked) *,
+.stage:has(.pauseInput:checked) *::before {
+  animation-play-state: paused;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes surface {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translateY(10px);
+  }
+}
+
+@keyframes drift {
+  to {
+    transform: translate(var(--dx), var(--dy));
+  }
+}
+
+@keyframes noise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes noise-out {
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.92);
+  }
+}
+
+@keyframes strike {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes glint {
+  30%,
+  70% {
+    opacity: 0.7;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(1100%) skewX(-12deg);
+  }
+}
+
+@keyframes seal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(1.06) rotate(-8deg);
+  }
+}
+
+/* Both ends hidden: a finished animation can stop at progress 0.9999…, where an
+   interpolated visibility would still read visible. */
+@keyframes retire {
+  from,
+  to {
+    visibility: hidden;
+  }
+}
+
+@container (width < 56rem) {
+  .seal {
+    top: -1.75rem;
+    right: -0.25rem;
+    width: 5rem;
+  }
+}
+
+@container (width < 30rem) {
+  .far {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .noise,
+  .glintWrap,
+  .pause {
+    display: none;
+  }
+
+  .stage *,
+  .stage *::before {
+    animation: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .noise,
+  .glintWrap {
+    display: none;
+  }
+
+  .pause {
+    border: 2px solid ButtonText;
+  }
+}

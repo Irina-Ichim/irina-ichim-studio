@@ -16,7 +16,10 @@
 
   --shadow-dark: #c4c3bf;
   --shadow-light: #ffffff;
+  --relief-depth: 1;
+  --relief-rim: inset 0 0 0 transparent;
   --surface-sheen: linear-gradient(transparent, transparent);
+  --glint: rgb(255 255 255 / 0.55);
 
   --action-fill-1: #6e0039;
   --action-fill-2: #a8005d;
