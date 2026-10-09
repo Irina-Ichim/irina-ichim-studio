@@ -6,7 +6,7 @@
   container-type: inline-size;
   max-width: 86rem;
   margin-inline: auto;
-  padding: 0 clamp(1.25rem, 4vw, 4rem);
+  padding: clamp(1.75rem, 4vw, 3.25rem) clamp(1.25rem, 4vw, 4rem) 0;
 }
 
 /* The card stretches to the height of the text column. With room to spare both columns

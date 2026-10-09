@@ -69,6 +69,38 @@ export const HOME = {
     ],
     pauseLabel: "Pausar la animación",
   },
+  /* The offer speaks as the studio (plural); the reasons and the founder speak as Irina. */
+  reasons: {
+    title: "Por qué trabajar conmigo",
+    items: [
+      {
+        icon: "clarity",
+        title: "Sin tecnicismos",
+        text: "No necesitas saber de programación para contarme tu idea. Te explicaré las opciones y cada paso del proyecto de forma clara, para que puedas tomar decisiones con confianza.",
+      },
+      {
+        icon: "durable",
+        title: "Hecho para durar",
+        text: "Me importa tanto cómo se ve un proyecto como lo que hay detrás. Por eso cuido la calidad del código, la seguridad y la accesibilidad desde el principio.",
+      },
+      {
+        icon: "business",
+        title: "Pensado para ti",
+        text: "Cada proyecto es diferente. Antes de empezar, quiero entender qué necesitas, qué quieres conseguir y encontrar una solución que tenga sentido para ti.",
+      },
+    ] satisfies readonly { icon: "clarity" | "durable" | "business"; title: string; text: string }[],
+  },
+  founder: {
+    eyebrow: "Quién está detrás",
+    title: "Soy Irina Ichim",
+    paragraphs: [
+      "Soy desarrolladora de software freelance y trabajo con personas, negocios y empresas que necesitan crear algo nuevo, mejorar lo que ya tienen o encontrar apoyo técnico para sus proyectos.",
+      "Me gusta implicarme desde el principio, entender bien qué necesita cada cliente y encontrar la mejor manera de hacerlo realidad. Me encargo personalmente del desarrollo y, cuando un proyecto necesita más manos o conocimientos especializados, cuento con profesionales de confianza con los que llevo tiempo trabajando.",
+    ],
+    photoAlt: "Irina Ichim, con los brazos cruzados, mira a cámara con media sonrisa y gesto seguro.",
+    moreLabel: "Conóceme mejor",
+    moreHref: "/sobre-mi",
+  },
   stack: {
     label: "Con lo que trabajamos, de la idea a producción",
     pauseLabel: "Pausar el movimiento de las tecnologías",

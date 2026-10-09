@@ -31,7 +31,7 @@ Los estilos globales viven en `src/estilos/`, un archivo por responsabilidad.
 | `tokens.css` | Tokens derivados que no cambian con el tema: degradados, duraciones, opacidad |
 | `tailwindTheme.css` | La escala de Tailwind (`@theme`): radios, tipografía, sombras neumórficas (el brillo `gloss` es igual en los dos temas a propósito) y los colores y fuentes que se exponen, el ancho del menú lateral (`--spacing-rail`) y las variantes propias: `theme-dark:`, `rail:` (cabe el menú lateral), `rail-tall:`, `rail-collapsed:` (menú plegado) y `narrow:` (móviles muy estrechos). Elimina los colores, sombras y tamaños por defecto de Tailwind, así que no se pueden usar valores fuera del sistema |
 | `temas/browserThemeColor.ts` | El color de la barra del navegador en móvil. Repite `--surface` porque esa etiqueta no lee variables CSS; `pruebas/theme.spec.ts` falla si dejan de coincidir |
-| `utilities.css` | Utilidades propias: `bg-action`, `text-highlight`, `bg-surface-sheen` y las dos recetas de control, `control-raised` y `control-quiet` |
+| `utilities.css` | Utilidades propias: `bg-action`, `text-highlight`, `bg-surface-sheen`, `surface-pearl` (una sección sobre la superficie perla, `--surface-pearl`: perla rosada en claro y perla de Tahití en oscuro, con sus reflejos en `--pearl-sheen`; redefine el fondo, sus dos sombras y el color de enlace para que todo lo de dentro conserve relieve y contraste) y las dos recetas de control, `control-raised` y `control-quiet` |
 | `base.css` | Estilos de elementos: `body`, foco, movimiento reducido |
 
 - Cada token de color tiene valor en los dos temas, con el mismo nombre
@@ -51,6 +51,13 @@ La referencia visual del sistema está publicada en
 <https://claude.ai/artifact/7HqGq57WbW6yHsQWU53wp1>. En el código, la fuente de verdad son
 `src/estilos/` y `src/componentes/ui/`.
 
+## Secciones
+
+Cada sección termina en una línea dorada (`bg-metal-gold` o `border-image` con
+`--gradient-metal-gold`) y la siguiente empieza justo debajo, sin franja del fondo anterior en
+medio. La línea con la que empieza el pie cierra la última sección. Para que una sección
+destaque se usa una superficie del sistema (`surface-pearl`), nunca un color suelto.
+
 ## Temas
 
 - Dos temas diseñados: claro (perla y onyx) y oscuro (negro brillante y marfil). Por defecto
@@ -69,7 +76,8 @@ La referencia visual del sistema está publicada en
 
 ## Iconos
 
-Phosphor en peso `duotone`, con el color del token de acento.
+Phosphor en peso `duotone`, con el color del token de acento. Excepción: la X de cerrar va en
+peso `bold`, porque la duotone lleva un cuadrado relleno detrás que se ve como una mancha.
 
 - **En Server Components** se importan desde `@phosphor-icons/react/ssr`. La entrada principal
   usa contexto de React y obliga a `"use client"`
@@ -111,10 +119,12 @@ Phosphor en peso `duotone`, con el color del token de acento.
 
 ## Componentes
 
-- Todo control interactivo usa una de las dos recetas de `utilities.css`, que ya traen sus estados
-  (hover, pulsado y alto contraste): `control-raised` (en relieve, con borde de acento de 3:1) o
-  `control-quiet` (solo icono, dentro de una superficie que ya lo enmarca). `IconButton` las
-  ofrece como variantes `raised` y `quiet`
+- Todo control interactivo usa una de las tres recetas de `utilities.css`, que ya traen sus
+  estados (hover, pulsado y alto contraste): `control-raised` (en relieve, con borde de acento de
+  3:1), `control-outline` (el mismo borde de acento sin relleno ni relieve, para acciones
+  secundarias como cerrar un panel, un diálogo o un formulario) o `control-quiet` (solo icono,
+  dentro de una superficie que ya lo enmarca). `IconButton` las ofrece como variantes `raised`,
+  `outline` y `quiet`
 - En los `.module.css`, las utilidades del sistema se reutilizan con `@reference` y `@apply`, y
   los estados del menú plegado con `@variant rail-collapsed`, en vez de copiar valores
 - Todo enlace a una página propia pasa por `PageLink` (`componentes/estructura/`): si la página

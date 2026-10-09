@@ -27,6 +27,21 @@
   }
 }
 
+/* A section on the pearl surface. It redefines the surface, its two shadows and the link
+   colour, so every card and control inside keeps its relief and its contrast. */
+@utility surface-pearl {
+  --surface: var(--surface-pearl);
+  --shadow-dark: var(--shadow-dark-pearl);
+  --shadow-light: var(--shadow-light-pearl);
+  --link: var(--link-pearl);
+  --focus: var(--link-pearl);
+  background: var(--pearl-sheen), var(--surface);
+
+  @media (forced-colors: active) {
+    background: Canvas;
+  }
+}
+
 @utility bg-surface-sheen {
   background: var(--surface-sheen), var(--surface);
 }
@@ -49,6 +64,33 @@
   }
 
   @media (forced-colors: active) {
+    &:hover,
+    &:active {
+      border-color: Highlight;
+    }
+  }
+}
+
+/* Outlined controls: the accent ring of control-raised without its filled, raised surface.
+   For secondary actions such as closing a panel, a dialog or a form. */
+@utility control-outline {
+  border: 2px solid var(--accent-line);
+  background-color: transparent;
+  color: var(--link);
+
+  &:hover {
+    border-color: var(--ink);
+  }
+
+  &:active {
+    @apply shadow-inset-sm;
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  @media (forced-colors: active) {
+    border-color: ButtonText;
+
     &:hover,
     &:active {
       border-color: Highlight;

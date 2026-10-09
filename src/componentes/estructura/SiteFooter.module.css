@@ -1,7 +1,9 @@
 @reference "../../app/globals.css";
 
+/* Every section ends on its gold line and the next one starts right there: the footer's own
+   line closes the last section, so there is no gap before it. */
 .footer {
-  margin-top: clamp(0.75rem, 1.5vw, 1.25rem);
+  margin-top: 0;
   padding: 0 clamp(1.25rem, 4vw, 4rem) 1.5rem;
 }
 

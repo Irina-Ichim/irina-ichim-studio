@@ -1,0 +1,91 @@
+@reference "../globals.css";
+
+.section {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  max-width: 86rem;
+  margin: clamp(4rem, 8vw, 6.5rem) auto 0;
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+/* The photo sits in a raised frame, like every other surface of the studio. */
+.photo {
+  @apply shadow-raised;
+  justify-self: center;
+  width: min(100%, 26rem);
+  padding: 1rem;
+  border-radius: var(--radius-xl);
+  background-color: var(--surface);
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+
+.text {
+  display: grid;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.text h2,
+.text p {
+  margin: 0;
+}
+
+.rule {
+  @apply bg-metal-gold;
+  width: 4rem;
+  height: 2px;
+  border-radius: 2px;
+}
+
+.lead {
+  max-width: 36em;
+  color: var(--ink-muted);
+  font-size: var(--text-body-l);
+  line-height: var(--text-body-l--line-height);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: 2.75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.available {
+  color: var(--link);
+}
+
+.available:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Shown in the link colour even before «Sobre mí» exists; screen readers still hear it as
+   coming soon (PageLink). */
+.unavailable {
+  color: var(--link);
+  cursor: default;
+}
+
+@media (max-width: 56rem) {
+  .section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (forced-colors: active) {
+  .photo {
+    border: 1px solid CanvasText;
+  }
+}

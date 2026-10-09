@@ -21,6 +21,14 @@
   --surface-sheen: linear-gradient(transparent, transparent);
   --glint: rgb(255 255 255 / 0.55);
 
+  /* Pearl surface for a section that stands apart: a rosy pearl with its own shadows. On it the
+     magenta link goes a step deeper to keep 7:1. */
+  --surface-pearl: #efe6e8;
+  --shadow-dark-pearl: #cfc3c6;
+  --shadow-light-pearl: #ffffff;
+  --link-pearl: #8f0050;
+  --pearl-sheen: linear-gradient(transparent, transparent);
+
   --action-fill-1: #6e0039;
   --action-fill-2: #a8005d;
   --action-fill-3: #8e0050;

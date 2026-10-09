@@ -68,10 +68,11 @@
   margin: 0;
 }
 
+/* More room between lines than between words, so the relief of one line does not touch the next. */
 .items {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.8rem 0.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -381,7 +382,7 @@
   }
 
   .items {
-    gap: 0.4rem;
+    gap: 0.7rem 0.4rem;
   }
 
   .chip {

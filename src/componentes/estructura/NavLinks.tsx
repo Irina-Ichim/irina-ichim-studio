@@ -138,8 +138,9 @@ function SectionWithPages({ item, pages, number, variant, pathname, onNavigate }
             <p aria-hidden className={styles.panelTitle}>
               {item.label}
             </p>
-            <IconButton ref={closeRef} variant="quiet" label={UI_LABELS.closePagesOf(item.label)} onClick={dismiss}>
-              <XIcon weight="duotone" aria-hidden className="size-5" />
+            <IconButton ref={closeRef} variant="outline" label={UI_LABELS.closePagesOf(item.label)} onClick={dismiss}>
+              {/* The duotone X carries a tinted square behind it; the plain stroke reads cleaner. */}
+              <XIcon weight="bold" aria-hidden className="size-5" />
             </IconButton>
           </div>
         )}

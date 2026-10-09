@@ -2,15 +2,23 @@
 
 .strip {
   max-width: 86rem;
-  margin: clamp(3rem, 6vw, 4.75rem) auto 0;
+  margin: clamp(1.75rem, 3.5vw, 3rem) auto 0;
   padding-inline: clamp(1.25rem, 4vw, 4rem);
 }
 
-/* No line of its own: the gold line that opens the footer, just below, already closes it. */
+/* The gold line that closes the first section. */
 .inner {
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid transparent;
+  border-image: var(--gradient-metal-gold) 1;
+
+  @media (forced-colors: active) {
+    border-image: none;
+    border-bottom-color: CanvasText;
+  }
 }
 
 /* The words fade at both edges, so the band seems to come from and go on beyond the page. */
