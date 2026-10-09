@@ -1,0 +1,19 @@
+.page {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 86rem;
+  margin-inline: auto;
+  padding: clamp(1.75rem, 4vw, 3.25rem) clamp(1.25rem, 4vw, 4rem) clamp(3rem, 6vw, 5rem);
+}
+
+.page h1 {
+  margin: 0;
+}
+
+.lead {
+  max-width: 36em;
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: var(--text-body-l);
+  line-height: var(--text-body-l--line-height);
+}

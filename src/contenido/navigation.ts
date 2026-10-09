@@ -27,7 +27,7 @@ export const NAVIGATION: readonly NavigationItem[] = [
     ],
   },
   { href: "/casos", label: "Casos", available: false },
-  { href: "/sobre-mi", label: "Sobre mí", available: false },
+  { href: "/sobre-mi", label: "Sobre mí", available: true },
   { href: "/studio", label: "Studio", available: false },
   { href: "/comunidad", label: "Comunidad", available: false },
   { href: "/criterio", label: "Criterio", available: false },

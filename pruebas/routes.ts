@@ -1,4 +1,4 @@
-export const ROUTES: readonly string[] = ["/", "/proximamente"];
+export const ROUTES: readonly string[] = ["/", "/sobre-mi", "/proximamente"];
 
 export const COLOR_SCHEMES = ["light", "dark"] as const;
 
