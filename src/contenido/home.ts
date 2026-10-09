@@ -1,5 +1,10 @@
 export type ServiceRowKey = "crear" | "mejorar" | "colaborar";
 
+/** `logo` names a mark in app/(sitio)/techLogos.ts, or "openai"; without it only the name shows. */
+type Tech = { readonly name: string; readonly logo?: string };
+
+type TechGroup = { readonly area: string; readonly items: readonly Tech[] };
+
 type ServiceRow = {
   readonly key: ServiceRowKey;
   readonly label: string;
@@ -57,5 +62,77 @@ export const HOME = {
       "copiar otra web",
     ],
     pauseLabel: "Pausar la animación",
+  },
+  stack: {
+    label: "Con lo que trabajamos, de la idea a producción",
+    pauseLabel: "Pausar el movimiento de las tecnologías",
+    groups: [
+      {
+        area: "Backend",
+        items: [
+          { name: "Java", logo: "java" },
+          { name: "Spring Boot", logo: "springboot" },
+          { name: "Node.js", logo: "nodejs" },
+          { name: "NestJS", logo: "nestjs" },
+          { name: "Python", logo: "python" },
+        ],
+      },
+      {
+        area: "Frontend",
+        items: [
+          { name: "Next.js", logo: "nextjs" },
+          { name: "React", logo: "react" },
+          { name: "TypeScript", logo: "typescript" },
+          { name: "JavaScript", logo: "javascript" },
+          { name: "Svelte", logo: "svelte" },
+          { name: "Tailwind CSS", logo: "tailwindcss" },
+        ],
+      },
+      {
+        area: "Datos",
+        items: [
+          { name: "PostgreSQL", logo: "postgresql" },
+          { name: "MySQL", logo: "mysql" },
+          { name: "MongoDB", logo: "mongodb" },
+          { name: "SQL Server" },
+          { name: "Prisma", logo: "prisma" },
+          { name: "Redis", logo: "redis" },
+        ],
+      },
+      {
+        area: "DevOps y nube",
+        items: [
+          { name: "Docker", logo: "docker" },
+          { name: "Kubernetes", logo: "kubernetes" },
+          { name: "Terraform", logo: "terraform" },
+          { name: "Azure" },
+          { name: "Google Cloud", logo: "googlecloud" },
+          { name: "Cloudflare", logo: "cloudflare" },
+          { name: "Vercel", logo: "vercel" },
+          { name: "Railway", logo: "railway" },
+          { name: "DigitalOcean", logo: "digitalocean" },
+        ],
+      },
+      {
+        area: "Calidad",
+        items: [
+          { name: "Vitest", logo: "vitest" },
+          { name: "Jest", logo: "jest" },
+          { name: "JUnit", logo: "junit" },
+          { name: "Playwright" },
+        ],
+      },
+      {
+        area: "IA y automatización",
+        items: [
+          { name: "Claude Code", logo: "claude" },
+          { name: "Codex", logo: "openai" },
+          { name: "Gemini", logo: "gemini" },
+          { name: "n8n", logo: "n8n" },
+          { name: "Make", logo: "make" },
+          { name: "TensorFlow", logo: "tensorflow" },
+        ],
+      },
+    ] satisfies readonly TechGroup[],
   },
 } as const;

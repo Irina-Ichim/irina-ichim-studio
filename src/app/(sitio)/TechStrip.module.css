@@ -1,0 +1,185 @@
+@reference "../globals.css";
+
+.strip {
+  max-width: 86rem;
+  margin: 3rem auto 0;
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+/* The same gold line that edges the side menu and opens the footer. */
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid transparent;
+  border-image: var(--gradient-metal-gold) 1;
+
+  @media (forced-colors: active) {
+    border-image: none;
+    border-top-color: CanvasText;
+  }
+}
+
+/* The words fade at both edges, so the band seems to come from and go on beyond the page. */
+.viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding-block: 0.75rem;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* The one other exception to "nothing animates on load" (src/CLAUDE.md): an endless, slow
+   band. It stops on hover and on keyboard focus, has its own pause control (WCAG 2.2.2)
+   and becomes a still list under reduced motion. */
+.track {
+  display: flex;
+  width: max-content;
+  animation: band 140s linear infinite;
+}
+
+.strip:hover .track,
+.strip:focus-within .track,
+.strip:has(.pauseInput:checked) .track {
+  animation-play-state: paused;
+}
+
+.groups {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-inline: 1.25rem 1.75rem;
+}
+
+/* A gold dot opens each area. */
+.area {
+  @apply text-eyebrow uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--link);
+  white-space: nowrap;
+}
+
+.area::before {
+  @apply bg-metal-gold;
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: var(--radius-pill);
+}
+
+.items {
+  display: flex;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  @apply shadow-raised-sm;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--surface);
+  color: var(--ink);
+  font-size: var(--text-small);
+  white-space: nowrap;
+}
+
+.logo {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--link);
+}
+
+.pause {
+  @apply control-quiet;
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.pause:has(:focus-visible) {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* WebKit keeps native checkboxes at their intrinsic size unless width and height are explicit. */
+.pauseInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  appearance: none;
+  cursor: pointer;
+}
+
+.iconPlay {
+  display: none;
+}
+
+.pause:has(:checked) .iconPlay {
+  display: block;
+}
+
+.pause:has(:checked) .iconPause {
+  display: none;
+}
+
+@keyframes band {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pause,
+  .groups[aria-hidden] {
+    display: none;
+  }
+
+  .viewport {
+    mask-image: none;
+  }
+
+  .track {
+    width: auto;
+    animation: none;
+  }
+
+  .groups,
+  .group,
+  .items {
+    flex-wrap: wrap;
+  }
+}
+
+@media (forced-colors: active) {
+  .item {
+    border: 1px solid CanvasText;
+  }
+
+  .pause {
+    border: 2px solid ButtonText;
+  }
+}

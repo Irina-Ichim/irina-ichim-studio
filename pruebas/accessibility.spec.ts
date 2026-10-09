@@ -10,10 +10,17 @@ for (const route of ROUTES) {
       await page.emulateMedia({ colorScheme });
       await page.goto(route);
       // The home opening runs for about ten seconds; contrast is measured on the settled
-      // page, not on a half-faded frame.
-      await page.waitForFunction(() => document.getAnimations().every((animation) => animation.playState === "finished"), undefined, {
-        timeout: 15_000,
-      });
+      // page, not on a half-faded frame. Endless animations (the technology band) never
+      // finish, so they are left out of the wait.
+      await page.waitForFunction(
+        () =>
+          document
+            .getAnimations()
+            .filter((animation) => animation.effect?.getTiming().iterations !== Infinity)
+            .every((animation) => animation.playState === "finished"),
+        undefined,
+        { timeout: 15_000 },
+      );
       const { violations } = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
       const summary = violations.map((violation) => `${violation.id} (${violation.impact ?? "n/a"}): ${violation.nodes.length} × ${violation.help}`);
       expect(summary).toEqual([]);

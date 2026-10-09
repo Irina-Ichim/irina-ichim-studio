@@ -104,6 +104,10 @@ Phosphor en peso `duotone`, con el color del token de acento.
     cuando cruza el destello), ambos una vez y sobre pocos elementos, y `visibility` al
     final, para que las frases hundidas salgan también del árbol de accesibilidad
   - `pruebas/accessibility.spec.ts` espera a que terminen las animaciones antes de pasar axe
+- **Excepción: la franja de tecnologías de la portada** (`app/(sitio)/TechStrip`). Se desliza
+  sin fin y muy despacio. Se para al pasar el ratón o con el foco, tiene su propio control de
+  pausa (criterio 2.2.2) y con movimiento reducido es una lista quieta. Lleva la lista dos
+  veces para que el bucle no tenga corte; la copia está oculta a los lectores de pantalla
 
 ## Componentes
 
