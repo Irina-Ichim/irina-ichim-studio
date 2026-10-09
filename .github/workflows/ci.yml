@@ -1,8 +1,10 @@
 name: CI
 
+# Every push gets the quick checks; the Playwright suite runs only on pull requests to dev or
+# main, which is when the work is finished (see "Flujo de trabajo" in CLAUDE.md).
 on:
   pull_request:
-    branches: [main]
+    branches: [dev, main]
   push:
     branches: ["**"]
 
@@ -31,6 +33,7 @@ jobs:
   e2e:
     name: Responsive and accessibility
     needs: check
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
