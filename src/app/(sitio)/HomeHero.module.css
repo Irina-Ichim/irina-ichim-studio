@@ -6,7 +6,7 @@
   container-type: inline-size;
   max-width: 86rem;
   margin-inline: auto;
-  padding: clamp(1rem, 3vw, 2rem) clamp(1.25rem, 4vw, 4rem) 0;
+  padding: 0 clamp(1.25rem, 4vw, 4rem);
 }
 
 /* The card stretches to the height of the text column. With room to spare both columns
@@ -24,15 +24,20 @@
   }
 }
 
+/* Starts a little lower, so the headline lines up with the title of the card. */
 .text {
   display: grid;
   align-content: center;
   gap: 1.25rem;
   min-width: 0;
+  padding-top: clamp(0.5rem, 1.5vw, 1.25rem);
 }
 
+/* Sized by the hero's own width (cqi), not the window's: with the side menu open the hero is
+   narrower and the headline shrinks a little instead of breaking into a third line. */
 .title {
   margin: 0;
+  font-size: clamp(2.25rem, 3.9cqi, 3.5rem);
   text-wrap: balance;
 }
 
@@ -123,11 +128,30 @@
   @apply shadow-inset-sm;
 }
 
+/* …and offers the way to its service page. */
+.hero:has(.needInput[value="crear"]:checked) [data-row="crear"] [data-service-link],
+.hero:has(.needInput[value="mejorar"]:checked) [data-row="mejorar"] [data-service-link],
+.hero:has(.needInput[value="colaborar"]:checked) [data-row="colaborar"] [data-service-link] {
+  display: flex;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.ctaNote {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: var(--text-small);
+}
+
 .cta {
   @apply bg-action shadow-raised-sm;
   display: inline-flex;
   align-items: center;
-  justify-self: start;
   min-height: 3rem;
   padding: 0.7rem 1.5rem;
   border-radius: var(--radius-pill);

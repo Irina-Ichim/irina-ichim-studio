@@ -1,7 +1,7 @@
 @reference "../../app/globals.css";
 
 .footer {
-  margin-top: clamp(2.5rem, 5vw, 4rem);
+  margin-top: clamp(0.75rem, 1.5vw, 1.25rem);
   padding: 0 clamp(1.25rem, 4vw, 4rem) 1.5rem;
 }
 

@@ -57,16 +57,11 @@
   border-radius: var(--radius-md);
 }
 
-/* The labels and one word per row take the accent (gold in dark, magenta in light) as the
-   glint passes, so the colour lands when the card is already still. color is animated on
-   purpose: once, on a few elements. */
 .rowLabel {
   @apply text-eyebrow uppercase;
   margin: 0;
-  color: var(--link);
-  animation:
-    reveal 600ms ease-out var(--delay) backwards,
-    label-accent 900ms ease-out calc(var(--glint-at) + 600ms) backwards;
+  color: var(--ink-muted);
+  animation: reveal 600ms ease-out var(--delay) backwards;
 }
 
 .itemsCell {
@@ -80,6 +75,37 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Hidden until its need is chosen in the hero (HomeHero.module.css shows it). */
+.serviceSlot {
+  display: none;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.serviceLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-size: var(--text-small);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.serviceAvailable {
+  color: var(--link);
+}
+
+.serviceAvailable:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.serviceUnavailable {
+  @apply opacity-disabled;
+  color: var(--ink-muted);
+  cursor: default;
 }
 
 /* Each word surfaces where it belongs, with the same gesture as the discarded phrases.
@@ -97,6 +123,9 @@
   animation: surface 1000ms ease-out var(--delay) backwards;
 }
 
+/* One word per row takes the accent (gold in dark, magenta in light) as the glint passes,
+   so the colour lands when the card is already still. color is animated on purpose: once,
+   on three elements. */
 .featured {
   color: var(--link);
   font-weight: 600;
@@ -113,12 +142,6 @@
   z-index: -1;
   border-radius: inherit;
   animation: reveal 900ms ease-out var(--relief-delay) backwards;
-}
-
-@keyframes label-accent {
-  from {
-    color: var(--ink-muted);
-  }
 }
 
 @keyframes chip-accent {
@@ -342,6 +365,28 @@
   from,
   to {
     visibility: hidden;
+  }
+}
+
+/* With the side menu open the hero loses about 16 rem: the card tightens its padding and its
+   words so each row keeps two lines and the opening still fits on one screen. */
+@container (56rem <= width < 84rem) {
+  .card {
+    padding: 1.5rem 1.25rem 2.5rem;
+  }
+
+  .row {
+    gap: 0.45rem;
+    padding: 0.5rem 0.4rem;
+  }
+
+  .items {
+    gap: 0.4rem;
+  }
+
+  .chip {
+    padding: 0.25rem 0.65rem;
+    font-size: 0.875rem;
   }
 }
 

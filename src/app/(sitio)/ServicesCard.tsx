@@ -1,6 +1,8 @@
 import { PauseIcon, PlayIcon } from "@phosphor-icons/react/ssr";
 import { Logo } from "@/componentes/estructura/Logo";
+import { PageLink } from "@/componentes/estructura/PageLink";
 import { HOME } from "@/contenido/home";
+import { NAVIGATION, type NavigationLink } from "@/contenido/navigation";
 import { classNames } from "@/utilidades/classNames";
 import { cssVars } from "@/utilidades/cssVars";
 import styles from "./ServicesCard.module.css";
@@ -33,6 +35,12 @@ const SURFACE = 1000;
 const GLINT = 2200;
 
 const { services } = HOME;
+
+const PAGES: readonly NavigationLink[] = NAVIGATION.flatMap((item) => [item, ...(item.children ?? [])]);
+
+/* A page the menu does not list yet is treated as not available, like any other PageLink. */
+const pageFor = (href: string): NavigationLink =>
+  PAGES.find((page) => page.href === href) ?? { href, label: services.serviceLinkLabel, available: false };
 const lastSink = STRIKE_START + (NOISE_LAYOUT.length - 1) * STRIKE_GAP + SINK_AFTER_STRIKE + NOISE_SINK;
 const surfaceStart = lastSink - 1100;
 const itemStart = (row: number, item: number) => surfaceStart + row * ROW_GAP + item * ITEM_GAP;
@@ -52,7 +60,7 @@ export function ServicesCard() {
   return (
     <div className={styles.stage} style={TIMELINE}>
       <div className={styles.card}>
-        <h2 className={classNames("font-display text-heading", styles.reveal)} style={cssVars({ "--delay": ms(surfaceStart - 200) })}>
+        <h2 className={classNames("font-display text-heading text-highlight", styles.reveal)} style={cssVars({ "--delay": ms(surfaceStart - 200) })}>
           {services.title}
         </h2>
         <dl className={styles.rows}>
@@ -72,6 +80,16 @@ export function ServicesCard() {
                     );
                   })}
                 </ul>
+                <span className={styles.serviceSlot} data-service-link>
+                  <PageLink
+                    link={pageFor(row.serviceHref)}
+                    className={styles.serviceLink}
+                    availableClassName={styles.serviceAvailable}
+                    unavailableClassName={styles.serviceUnavailable}
+                  >
+                    {services.serviceLinkLabel} →
+                  </PageLink>
+                </span>
               </dd>
             </div>
           ))}

@@ -48,9 +48,12 @@ export function HomeHero() {
             </div>
           </fieldset>
 
-          <a href={mailTo(HOME.cta.mailSubject)} className={styles.cta}>
-            {HOME.cta.label}
-          </a>
+          <div className={styles.ctaRow}>
+            <a href={mailTo(HOME.cta.mailSubject)} className={styles.cta}>
+              {HOME.cta.label}
+            </a>
+            <p className={styles.ctaNote}>{HOME.cta.note}</p>
+          </div>
           <p className={styles.join}>
             <a href={mailTo(HOME.join.mailSubject)}>{HOME.join.label} →</a>
           </p>

@@ -100,8 +100,8 @@ Phosphor en peso `duotone`, con el color del token de acento.
     (criterio 2.2.2) que desaparece al terminar
   - Con `prefers-reduced-motion: reduce` no hay animación, ni frases, ni control
   - Además de `transform` y `opacity`, anima `filter: blur` en la entrada de las palabras,
-    `color` en el acento final (las etiquetas y una palabra por fila pasan al color de enlace
-    cuando cruza el destello), ambos una vez y sobre pocos elementos, y `visibility` al
+    `color` en el acento final (una palabra por fila pasa al color de enlace cuando cruza el
+    destello), ambos una vez y sobre pocos elementos, y `visibility` al
     final, para que las frases hundidas salgan también del árbol de accesibilidad
   - `pruebas/accessibility.spec.ts` espera a que terminen las animaciones antes de pasar axe
 - **Excepción: la franja de tecnologías de la portada** (`app/(sitio)/TechStrip`). Se desliza

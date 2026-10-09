@@ -2,7 +2,7 @@
 
 .strip {
   max-width: 86rem;
-  margin: 3rem auto 0;
+  margin: clamp(3rem, 6vw, 4.75rem) auto 0;
   padding-inline: clamp(1.25rem, 4vw, 4rem);
 }
 
