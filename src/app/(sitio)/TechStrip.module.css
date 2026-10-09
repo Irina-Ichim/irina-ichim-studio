@@ -6,19 +6,11 @@
   padding-inline: clamp(1.25rem, 4vw, 4rem);
 }
 
-/* The same gold line that edges the side menu and opens the footer. */
+/* No line of its own: the gold line that opens the footer, just below, already closes it. */
 .inner {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding-top: 0.75rem;
-  border-top: 2px solid transparent;
-  border-image: var(--gradient-metal-gold) 1;
-
-  @media (forced-colors: active) {
-    border-image: none;
-    border-top-color: CanvasText;
-  }
 }
 
 /* The words fade at both edges, so the band seems to come from and go on beyond the page. */
