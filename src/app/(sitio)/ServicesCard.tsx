@@ -1,8 +1,7 @@
 import { PauseIcon, PlayIcon } from "@phosphor-icons/react/ssr";
 import { Logo } from "@/componentes/estructura/Logo";
-import { PageLink } from "@/componentes/estructura/PageLink";
+import { MoreLink } from "@/componentes/ui/MoreLink";
 import { HOME } from "@/contenido/home";
-import { NAVIGATION, type NavigationLink } from "@/contenido/navigation";
 import { classNames } from "@/utilidades/classNames";
 import { cssVars } from "@/utilidades/cssVars";
 import styles from "./ServicesCard.module.css";
@@ -36,11 +35,6 @@ const GLINT = 2200;
 
 const { services } = HOME;
 
-const PAGES: readonly NavigationLink[] = NAVIGATION.flatMap((item) => [item, ...(item.children ?? [])]);
-
-/* A page the menu does not list yet is treated as not available, like any other PageLink. */
-const pageFor = (href: string): NavigationLink =>
-  PAGES.find((page) => page.href === href) ?? { href, label: services.serviceLinkLabel, available: false };
 const lastSink = STRIKE_START + (NOISE_LAYOUT.length - 1) * STRIKE_GAP + SINK_AFTER_STRIKE + NOISE_SINK;
 const surfaceStart = lastSink - 1100;
 const itemStart = (row: number, item: number) => surfaceStart + row * ROW_GAP + item * ITEM_GAP;
@@ -81,19 +75,15 @@ export function ServicesCard() {
                   })}
                 </ul>
                 <span className={styles.serviceSlot} data-service-link>
-                  <PageLink
-                    link={pageFor(row.serviceHref)}
-                    className={styles.serviceLink}
-                    availableClassName={styles.serviceAvailable}
-                    unavailableClassName={styles.serviceUnavailable}
-                  >
-                    {services.serviceLinkLabel} →
-                  </PageLink>
+                  <MoreLink href={row.serviceHref} label={services.serviceLinkLabel} />
                 </span>
               </dd>
             </div>
           ))}
         </dl>
+        <p className={classNames(styles.reveal, styles.allServices)} style={cssVars({ "--delay": ms(lastSurfaced) })}>
+          <MoreLink href={services.allHref} label={services.allLabel} />
+        </p>
         <span className={styles.glintWrap} aria-hidden>
           <span className={styles.glint} />
         </span>

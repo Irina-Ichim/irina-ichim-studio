@@ -124,11 +124,12 @@ y nunca a la vez: comparten la carpeta `.next` y una compilación pisaría a la 
 En la raíz, además de la configuración:
 
 ```text
-auditorias/   Informes de los agentes especialistas
-pruebas/      Pruebas de Playwright (responsive y accesibilidad) y la lista de rutas
-src/          La aplicación
-CHANGELOG.md  Qué ha cambiado, por issue
-NOW.md        Dónde está el proyecto ahora
+auditorias/        Informes de los agentes especialistas
+especificaciones/  Una spec por página: para qué sirve, contenido, criterios. Se valida antes del código
+pruebas/           Pruebas de Playwright (responsive y accesibilidad) y la lista de rutas
+src/               La aplicación
+CHANGELOG.md       Qué ha cambiado, por issue
+NOW.md             Dónde está el proyecto ahora
 ```
 
 Un `CLAUDE.md` por carpeta solo cuando esa carpeta tiene reglas propias que no caben en el de

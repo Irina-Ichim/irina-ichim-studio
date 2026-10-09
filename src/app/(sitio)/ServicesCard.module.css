@@ -16,7 +16,7 @@
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   gap: 1rem;
   height: 100%;
   padding: 1.75rem 1.5rem 3rem;
@@ -85,28 +85,12 @@
   margin-top: 0.5rem;
 }
 
-.serviceLink {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.75rem;
+.serviceSlot a {
   font-size: var(--text-small);
-  font-weight: 600;
-  text-decoration: none;
 }
 
-.serviceAvailable {
-  color: var(--link);
-}
-
-.serviceAvailable:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.serviceUnavailable {
-  @apply opacity-disabled;
-  color: var(--ink-muted);
-  cursor: default;
+.allServices {
+  padding-inline: 0.6rem;
 }
 
 /* Each word surfaces where it belongs, with the same gesture as the discarded phrases.

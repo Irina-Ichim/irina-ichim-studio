@@ -10,6 +10,11 @@ export type NavigationItem = NavigationLink & {
 
 export const CONTACT_LINK: NavigationLink = { href: "/contacto", label: "Contacto", available: false };
 
+/** The menu entry for a page, or a not-yet-available link when the menu does not list it. */
+export function pageByHref(href: string, label: string): NavigationLink {
+  return NAVIGATION.flatMap((item) => [item, ...(item.children ?? [])]).find((page) => page.href === href) ?? { href, label, available: false };
+}
+
 export const NAVIGATION: readonly NavigationItem[] = [
   { href: "/", label: "Inicio", available: true },
   { href: "/empieza-aqui", label: "Empieza aquí", available: false },

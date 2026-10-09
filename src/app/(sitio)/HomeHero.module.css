@@ -109,6 +109,11 @@
 }
 
 /* WebKit keeps native radios at their intrinsic size unless width and height are explicit. */
+.startHere {
+  margin-top: -0.75rem;
+  font-size: var(--text-small);
+}
+
 .needInput {
   position: absolute;
   inset: 0;
@@ -167,25 +172,6 @@
 
 .cta:active {
   @apply shadow-inset-sm;
-}
-
-.join {
-  margin: 0;
-  font-size: var(--text-small);
-}
-
-.join a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.75rem;
-  color: var(--link);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.join a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 @keyframes emboss {

@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { MoreLink } from "@/componentes/ui/MoreLink";
 import { HOME } from "@/contenido/home";
 import { SITE } from "@/contenido/site";
 import { classNames } from "@/utilidades/classNames";
@@ -8,7 +9,7 @@ import styles from "./HomeHero.module.css";
 
 const TITLE_ID = "inicio-titular";
 
-/* Until /contacto exists, both invitations open an email to the studio. */
+/* Until /contacto exists, the call to action opens an email to the studio. */
 const mailTo = (subject: string) => `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}`;
 
 const TITLE_WORDS = [
@@ -47,6 +48,7 @@ export function HomeHero() {
               ))}
             </div>
           </fieldset>
+          <MoreLink href={HOME.startHere.href} label={HOME.startHere.label} className={styles.startHere} />
 
           <div className={styles.ctaRow}>
             <a href={mailTo(HOME.cta.mailSubject)} className={styles.cta}>
@@ -54,9 +56,6 @@ export function HomeHero() {
             </a>
             <p className={styles.ctaNote}>{HOME.cta.note}</p>
           </div>
-          <p className={styles.join}>
-            <a href={mailTo(HOME.join.mailSubject)}>{HOME.join.label} →</a>
-          </p>
         </div>
 
         <ServicesCard />

@@ -1,0 +1,19 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  justify-self: start;
+  min-height: 2.75rem;
+  color: var(--link);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.available:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.unavailable {
+  cursor: default;
+}

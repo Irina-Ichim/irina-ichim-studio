@@ -1,17 +1,10 @@
 import Image from "next/image";
-import { PageLink } from "@/componentes/estructura/PageLink";
+import { MoreLink } from "@/componentes/ui/MoreLink";
 import { HOME } from "@/contenido/home";
-import { NAVIGATION, type NavigationLink } from "@/contenido/navigation";
 import styles from "./HomeFounder.module.css";
 
 const TITLE_ID = "inicio-quien";
 const { founder } = HOME;
-
-const MORE_LINK: NavigationLink = NAVIGATION.find((item) => item.href === founder.moreHref) ?? {
-  href: founder.moreHref,
-  label: founder.moreLabel,
-  available: false,
-};
 
 export function HomeFounder() {
   return (
@@ -36,9 +29,7 @@ export function HomeFounder() {
             {paragraph}
           </p>
         ))}
-        <PageLink link={MORE_LINK} className={styles.more} availableClassName={styles.available} unavailableClassName={styles.unavailable}>
-          {founder.moreLabel} →
-        </PageLink>
+        <MoreLink href={founder.moreHref} label={founder.moreLabel} />
       </div>
     </section>
   );

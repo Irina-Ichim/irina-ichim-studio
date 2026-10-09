@@ -53,31 +53,6 @@
   line-height: var(--text-body-l--line-height);
 }
 
-.more {
-  display: inline-flex;
-  align-items: center;
-  justify-self: start;
-  min-height: 2.75rem;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.available {
-  color: var(--link);
-}
-
-.available:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-/* Shown in the link colour even before «Sobre mí» exists; screen readers still hear it as
-   coming soon (PageLink). */
-.unavailable {
-  color: var(--link);
-  cursor: default;
-}
-
 @media (max-width: 56rem) {
   .section {
     grid-template-columns: minmax(0, 1fr);

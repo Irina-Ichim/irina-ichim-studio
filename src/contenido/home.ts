@@ -24,16 +24,18 @@ export const HOME = {
   title: { before: "Buenas ideas merecen", highlight: "un buen desarrollo." },
   lead: "Creamos webs, aplicaciones y soluciones digitales a medida. Damos forma a nuevas ideas, mejoramos proyectos que ya están en marcha y colaboramos con empresas, agencias y freelancers que necesitan apoyo técnico.",
   needsQuestion: "¿En qué podemos ayudarte?",
+  startHere: { label: "¿No sabes por dónde empezar? Empieza aquí", href: "/empieza-aqui" },
   needs: [
     { row: "crear", label: "Crear una web o aplicación" },
     { row: "mejorar", label: "Mejorar un proyecto existente" },
     { row: "colaborar", label: "Colaboración técnica" },
   ] satisfies readonly { row: ServiceRowKey; label: string }[],
   cta: { label: "Hablemos de tu proyecto", mailSubject: "Mi proyecto", note: "La primera consulta es gratuita." },
-  join: { label: "¿Programas y quieres sumarte al estudio? Escríbenos", mailSubject: "Quiero sumarme al estudio" },
   services: {
     title: "Lo que hacemos",
     serviceLinkLabel: "Ver el servicio",
+    allLabel: "Ver todos los servicios",
+    allHref: "/servicios",
     rows: [
       {
         key: "crear",
